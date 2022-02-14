@@ -1,9 +1,13 @@
-#include"Command.h"
+#include"Commands.h"
+#include"Node.h"
 #include<stdio.h>
 #include<string.h>
 
 int main()
 {
+	//initialization
+	Node_init();
+
 	while(1)
 	{
 		getCommand();	

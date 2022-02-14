@@ -4,6 +4,9 @@
 #include<stdio.h>
 #include<string.h>
 
+#define SUCCESS 1
+#define FAIL	-1
+
 const char const * root = "/root/";
 char pwd[100] = "/root/";
 char command[1024];
@@ -107,7 +110,7 @@ int findCmd()
 		}
 	}
 
-	return -1;
+	return FAIL;
 }
 
 #endif
