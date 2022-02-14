@@ -1,6 +1,14 @@
 #ifndef NODE_H
 #define NODE_H
 
+//description
+/***********************************************
+ * @author	Liuyuan
+ * @date	Feb 14th, 2022
+ * @description	NODE struct, the data structure 
+ *				part of the project
+ ***********************************************/
+
 #include <stddef.h>
 
 struct Node
