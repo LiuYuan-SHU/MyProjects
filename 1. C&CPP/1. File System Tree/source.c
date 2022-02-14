@@ -11,7 +11,7 @@ int main()
 	while(1)
 	{
 		getCommand();	
-		//printf("command: %s\n", command);
+		printf("command: %s\n", command);
 		//printf("cmd: %s\n", cmd);
 		//printf("pathname: %s\n", pathname);
 		if(findCmd() != -1)

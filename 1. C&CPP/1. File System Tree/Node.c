@@ -6,8 +6,8 @@ struct Node *root,*pwd;
 
 void Node_init()
 {
-    Node_init_root;
-    Node_init_pwd;
+    Node_init_root();
+    Node_init_pwd();
 }
 
 void Node_init_root()
