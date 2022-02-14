@@ -1,5 +1,6 @@
+#define _CRT_SECURE_NO_WARNINGS
+
 #include"Commands.h"
-#include"Node.h"
 #include<stdio.h>
 #include<string.h>
 
@@ -7,12 +8,13 @@ int main()
 {
 	//initialization
 	Node_init();
+	global_init();
 
 	while(1)
 	{
-		getCommand();	
+		getLine();	
 		printf("command: %s\n", command);
-		//printf("cmd: %s\n", cmd);
+		//printf("command: %s\n", command);
 		//printf("pathname: %s\n", pathname);
 		if(findCmd() != -1)
 		{

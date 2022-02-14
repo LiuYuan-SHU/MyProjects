@@ -1,20 +1,21 @@
 #ifndef COMMANDS_H
 #define COMMANDS_H
 
+#include"Node.h"
+#include"Global.h"
 #include<stdio.h>
 #include<string.h>
 
 #define SUCCESS 1
 #define FAIL	-1
 
-const char const * root = "/root/";
-char pwd[100] = "/root/";
-char command[1024];
-char cmd[20];
-char pathname[1000];
+//const char const * root = "/root/";
+//char pwd[100] = "/root/";
+//char command[1024];
+//char cmd[20];
+//char pathname[1000];
 
-const char* cmds[] = { "cd" , "rm" , "mkdir" , "rmdir" , "mv" ,
- "cp" , "ls" };
+const char* cmds[] = { "cd" , "rm" , "mkdir" , "rmdir" , "mv" , "cp" , "ls" };
 const unsigned int cmds_length = sizeof(cmds) / sizeof(*cmds);
 
 void invalidCmd() { printf("invalid command, input again\n"); }
@@ -32,26 +33,26 @@ cp , ls };
 /***********************************************
  * @author	Liuyuan
  * @date	Jan 15th, 2022
- * @description	get command from terminal,
- 				split it into cmd and pathname
+ * @description	get command line from terminal,
+ 				split it into command and pathname
  ***********************************************/
-void getCommand()
+void getLine()
 {
 	//initialization
-	strcpy(command,"");
-	strcpy(cmd, "");
+	strcpy(line,"");
+	strcpy(command, "");
 	strcpy(pathname, "");
 
 	//show current work path
-	printf("%s:", pwd);
+	printf("%s:", pwd->_name);
 
-	unsigned int ite = 0;			//traverse the command string
+	unsigned int ite = 0;			//traverse the command line string
 	unsigned int ite_temp = 0;		//temporary traverse argument
 	
 	char input;						//get char from the terminal
 	char space = 0;					//jump unneccesary spaces
 
-	//get command
+	//get command line
 	while( input = getchar(), input != '\n')
 	{
 		//if read space before any legal character
@@ -63,48 +64,48 @@ void getCommand()
 		//else store the character and set spcae as true
 		else
 		{
-			command[ite_temp++] = input;
+			line[ite_temp++] = input;
 			space = 1;
 		}
 	}	
-	command[ite_temp] = '\0';
-	const unsigned int command_length = ite_temp == 0 ? 0 : ite_temp;
+	line[ite_temp] = '\0';
+	const unsigned int line_length = ite_temp == 0 ? 0 : ite_temp;
 	ite_temp = 0;
 
-	//split the command into cmd and pathname
-	//get cmd
-	while( ite < command_length && command[ite] != ' ' )
+	//split the line into command and pathname
+	//get command
+	while( ite < line_length && line[ite] != ' ' )
 	{
-		cmd[ite_temp++] = command[ite++];
+		command[ite_temp++] = line[ite++];
 	} 
-	cmd[ite_temp] = '\0';
+	command[ite_temp] = '\0';
 	ite_temp = 0;
 
 	//jump spaces
-	while( ite < command_length && command[ite] == ' ')
+	while( ite < line_length && line[ite] == ' ')
 	{
 		ite++;
 	}
 
 	//copy
-	while( ite < command_length )
+	while( ite < line_length )
 	{
 		//ignore needless spaces
-		if( command[ite] == ' ' && (ite + 1) < command_length && command[ite + 1] == ' ')
+		if( line[ite] == ' ' && (ite + 1) < line_length && line[ite + 1] == ' ')
 		{
 			ite++;
 			continue;
 		}
-		pathname[ite_temp++] = command[ite++];
+		pathname[ite_temp++] = line[ite++];
 	}
 	pathname[ite_temp] = '\0';
 } 
 
 int findCmd()
 {
-	for(int i = 0; i < cmds_length; i++)
+	for(unsigned i = 0; i < cmds_length; i++)
 	{
-		if(!strcmp(cmd,cmds[i]))
+		if(!strcmp(command,cmds[i]))
 		{
 			return i;
 		}
