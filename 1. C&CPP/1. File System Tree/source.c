@@ -7,7 +7,6 @@
 int main()
 {
 	//initialization
-	Node_init();
 	global_init();
 
 	while(1)
