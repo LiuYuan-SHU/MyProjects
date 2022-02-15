@@ -26,6 +26,23 @@ void printInfo()
 	printf("===========================================\n");
 }
 
+ /***********************************************
+  * @author	Liuyuan
+  * @date	Feb 15th, 2022
+  * @return	offset to jump spaces
+  * @description	jump excess spaces
+  ***********************************************/
+unsigned short getNext_notSpace(char* str, unsigned short max_length)
+{
+	unsigned short offset = 0;
+	while(offset < max_length && str[offset] == ' ')
+	{
+		offset++;
+	}
+	//return offset == 0 ? offset : (offset - 1);
+	return offset;
+}
+
 /***********************************************
  * @author	Liuyuan
  * @date	Jan 15th, 2022
@@ -92,10 +109,13 @@ void splitLine(unsigned int line_length)
 	ite_temp = 0;
 
 	//jump spaces
+	/*
 	while (ite < line_length && line[ite] == ' ')
 	{
 		ite++;
 	}
+	*/
+	ite += getNext_notSpace(&line[ite], line_length);
 
 	//copy path name from line
 	while (ite < line_length)
@@ -131,14 +151,6 @@ int findCmd()
 	return FAIL;
 }
 
-unsigned short getNext_notSpace(char* str)
-{
-	unsigned short offset = 0;
-	while(*str != ' ')
-	{
-		offset++;
-	}
-	return offset;
-}
+
 
 #endif // !TOOLS_H
