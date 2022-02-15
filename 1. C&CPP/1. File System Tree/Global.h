@@ -18,8 +18,11 @@
 char line[128];		//the whole command
 char command[16];	//the command
 char pathname[MAX_LENGTH];	//the pathname
-char dirName[MAX_LENGTH];	//
-char baseName[MAX_LENGTH];	//
+//GNU explanation:
+//Output each NAME with its last non-slash component and trailing slashes removed; 
+//if NAME contains no /'s, output '.' (meaning the current directory).
+char dirName[MAX_LENGTH];
+char baseName[MAX_LENGTH];	//the currnet node name
 
 /***********************************************
  * @author	Liuyuan
