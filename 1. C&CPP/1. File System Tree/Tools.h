@@ -67,7 +67,7 @@ const unsigned int getLine()
 	char space = 0;					//jump unneccesary spaces
 
 	//get command line
-	while (input = getchar(), input != '\n')
+	while (input = getchar(), ite_temp < MAX_LENGTH - 1 && input != '\n')
 	{
 		//if read space before any legal character
 		//read the next character
@@ -83,6 +83,9 @@ const unsigned int getLine()
 		}
 	}
 	line[ite_temp] = '\0';
+
+	setbuf(stdin, NULL);		//flush the buffer
+
 	const unsigned int line_length = ite_temp == 0 ? 0 : ite_temp;
 	return line_length;
 }
@@ -151,6 +154,9 @@ int findCmd()
 	return FAIL;
 }
 
+unsigned char splitPath(char path[MAX_LENGTH])
+{
 
+} 
 
 #endif // !TOOLS_H

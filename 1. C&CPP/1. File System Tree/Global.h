@@ -13,12 +13,13 @@
 #define TRUE	1
 #define FAIL	-1
 #define FALSE	-1
+#define MAX_LENGTH 64
 
 char line[128];		//the whole command
 char command[16];	//the command
-char pathname[64];	//the pathname
-char dirName[64];	//
-char baseName[64];	//
+char pathname[MAX_LENGTH];	//the pathname
+char dirName[MAX_LENGTH];	//
+char baseName[MAX_LENGTH];	//
 
 /***********************************************
  * @author	Liuyuan
