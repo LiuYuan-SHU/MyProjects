@@ -18,8 +18,14 @@ struct Node
 	struct Node* _parent;					//the parent node of the current node
 	struct Node* _sibling;					//the sibling node of the current node
 	struct Node* _child;					//the child node of the current node
-} root = { 'D',"/root",NULL,NULL,NULL };	//define root node
+};
 
+struct Node root = {'D',"/root",NULL,NULL,NULL};
 const struct Node* pwd = &root;
+
+void Node_init()
+{
+    root._parent = &root;
+}
 
 #endif // !NODE_H

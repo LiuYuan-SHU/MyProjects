@@ -9,6 +9,7 @@ int main()
 {
 	//initialization
 	global_init();
+	Node_init();
 
 	//definitions
 	unsigned line_length = 0;
