@@ -131,4 +131,14 @@ int findCmd()
 	return FAIL;
 }
 
+unsigned short getNext_notSpace(char* str)
+{
+	unsigned short offset = 0;
+	while(*str != ' ')
+	{
+		offset++;
+	}
+	return offset;
+}
+
 #endif // !TOOLS_H
