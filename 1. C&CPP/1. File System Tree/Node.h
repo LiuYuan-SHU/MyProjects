@@ -20,12 +20,12 @@ struct Node
 	struct Node* _child;					//the child node of the current node
 };
 
-struct Node root = {'D',"/root",NULL,NULL,NULL};
-const struct Node* pwd = &root;
+extern struct Node root = {'D',"/root",NULL,NULL,NULL};
+extern const struct Node* pwd = &root;
 
 void Node_init()
 {
-    root._parent = &root;
+	root._parent = &root;
 }
 
 #endif // !NODE_H
