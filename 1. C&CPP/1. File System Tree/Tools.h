@@ -154,9 +154,4 @@ int findCmd()
 	return FAIL;
 }
 
-unsigned char splitPath(char path[MAX_LENGTH])
-{
-
-} 
-
 #endif // !TOOLS_H
