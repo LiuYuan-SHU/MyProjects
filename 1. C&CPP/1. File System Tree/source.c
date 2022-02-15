@@ -23,7 +23,9 @@ int main()
 
 		if (findCmd() != -1)
 		{
-			printf("func found, pathname: %s\n", pathname);
+			printf("\n=====FUNC FOUND=====\n");
+			printf("=====FUNC EXECUTE=====\n");
+			//printf("func found, pathname: %s\n", pathname);
 			funcs[findCmd()]();
 		}
 		else

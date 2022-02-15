@@ -19,9 +19,11 @@
   ***********************************************/
 void printInfo()
 {
-	printf("line: %s\n", line);
-	printf("command: %s\n", command);
-	printf("pathname: %s\n", pathname);
+	printf("============Print Information==============\n");
+	printf("line: \t\t%s\n", line);
+	printf("command: \t%s\n", command);
+	printf("pathname: \t%s\n", pathname);
+	printf("===========================================\n");
 }
 
 /***********************************************

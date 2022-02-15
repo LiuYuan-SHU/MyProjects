@@ -20,6 +20,6 @@ struct Node
 	struct Node* _child;					//the child node of the current node
 } root = { 'D',"/root",NULL,NULL,NULL };	//define root node
 
-struct Node* pwd = &root;
+const struct Node* pwd = &root;
 
 #endif // !NODE_H
