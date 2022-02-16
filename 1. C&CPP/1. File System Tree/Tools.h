@@ -11,6 +11,7 @@
 #include"Global.h"
 #include"Node.h"
 #include<stdio.h>
+#include<stdlib.h>
 #include<string.h>
 
  /***********************************************
@@ -136,7 +137,7 @@ void splitLine(unsigned int line_length)
 	pathname[ite_temp] = '\0';
 }
 
-char splitPath(char originPath[MAX_LENGTH], char subPath[MAX_LENGTH], char nodeName[MAX_LENGTH]);
+char splitPath(char originPath[MAX_LENGTH], char** subPath, char** nodeName);
 char findNode(char nodeName[MAX_LENGTH]);
 
 /***********************************************
@@ -148,18 +149,20 @@ char findNode(char nodeName[MAX_LENGTH]);
  ***********************************************/
 char setPwdTo(char path[MAX_LENGTH])
 {
-	char nodeName[MAX_LENGTH];			//current level node
-	char subPath[MAX_LENGTH];			//path except current level node
+	char *nodeName = (char*)malloc(MAX_LENGTH * sizeof(char));			//current level node
+	char *subPath = (char*)malloc(MAX_LENGTH * sizeof(char));			//path except current level node
 	//init
-	memset(nodeName,0,sizeof(nodeName));
+	memset(nodeName,MAX_LENGTH,sizeof(nodeName));
 	strcpy(subPath, path);				//regard path as the longest path
 
 	//split the subpath into a subpath and a nodename
 	//loop until the subpath is empty
 	while(strlen(subPath) != 0)
 	{
+		printf("subpath: %s\n",subPath);
 		printf("subpath address: %p\n", subPath);
-		if( splitPath(subPath, subPath, nodeName) == FAIL )
+		printf("subpath length: %ld\n", strlen(subPath));
+		if( splitPath(subPath, &subPath, &nodeName) == FAIL )
 		{
 			return FAIL;
 		}
@@ -180,7 +183,7 @@ char setPwdTo(char path[MAX_LENGTH])
  * @description	split a path into subpath and
  * 				node name
  ***********************************************/
-char splitPath(char originPath[MAX_LENGTH], char subPath[MAX_LENGTH], char nodeName[MAX_LENGTH])
+char splitPath(char originPath[MAX_LENGTH], char** subPath, char** nodeName)
 {
 	unsigned short offset = 0;		//record the index of the first splash('/')
 	while( offset < MAX_LENGTH && originPath[offset] != '/' && originPath[offset] != '\0')
@@ -188,29 +191,36 @@ char splitPath(char originPath[MAX_LENGTH], char subPath[MAX_LENGTH], char nodeN
 		offset++;
 	}
 	
-	strncpy(nodeName, originPath, offset);					//copy chars before the first '/' into nodeName
-	nodeName[offset] = '\0';								//protection
+	strncpy(*nodeName, originPath, offset);					//copy chars before the first '/' into nodeName
+	*nodeName[offset] = '\0';								//protection
 
 	char swap = 0;											//since may copy subpath to subpath, use swap to protect
 	unsigned short originPath_length = strlen(originPath);	//record the length of original pathName
 	//record the index of the first char after slash, offset + 1 to jump slash, which points the source of copy
-	unsigned short traverse = offset + 1;					
+	unsigned short traverse = offset + ( offset < strlen(originPath) ? 1 : 0 );					
 	offset = 0;												//point the destination of copy
 
+	if(traverse > originPath_length)
+	{
+		strcpy(*subPath, "");
+	}
+	else
+	{
 	while(traverse < MAX_LENGTH && traverse <= originPath_length)
 	{
 		swap = originPath[traverse++];
-		subPath[offset++] = swap;
+		*subPath[offset++] = swap;
 	}
-	subPath[ offset >= originPath ? 63 : offset ] = '\0';	//protection
+	}
+	(*subPath)[ offset >= originPath_length ? 63 : offset ] = '\0';	//protection
 
 	//testcode
 	{
 		printf("\n===========TEST============\n");
-		printf("subpath:\t %s\n",subPath);
-		printf("subpath length:\t %d\n",strlen(subPath));
-		printf("subpath address:\t %p\n",subPath);
-		printf("nodeName:\t %s\n",nodeName);
+		printf("subpath:\t %s\n",*subPath);
+		printf("subpath length:\t %ld\n",strlen(*subPath));
+		printf("subpath address:\t %p\n",*subPath);
+		printf("nodeName:\t %s\n",*nodeName);
 		printf("\n===========TEST============\n");
 	}
 
