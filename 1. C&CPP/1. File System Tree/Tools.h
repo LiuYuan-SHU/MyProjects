@@ -9,7 +9,9 @@
  ***********************************************/
 
 #include"Global.h"
+#include"Node.h"
 #include<stdio.h>
+#include<string.h>
 
  /***********************************************
   * @author	Liuyuan
@@ -134,24 +136,109 @@ void splitLine(unsigned int line_length)
 	pathname[ite_temp] = '\0';
 }
 
+char splitPath(char originPath[MAX_LENGTH], char subPath[MAX_LENGTH], char nodeName[MAX_LENGTH]);
+char findNode(char nodeName[MAX_LENGTH]);
+
 /***********************************************
  * @author	Liuyuan
- * @date	Jan 15th, 2022
- * @return	int, the right index for found and
- *			FAIL(-1) for unfound
- * @description	Find command
+ * @date	Jan 16th, 2022
+ * @return	char, SUCCESS(1) for success and
+ *			FAIL(-1) for fail
+ * @description	set pwd to a pathname
  ***********************************************/
-int findCmd()
+char setPwdTo(char path[MAX_LENGTH])
 {
-	for (unsigned i = 0; i < cmds_length; i++)
+	char nodeName[MAX_LENGTH];			//current level node
+	char subPath[MAX_LENGTH];			//path except current level node
+	//init
+	memset(nodeName,0,sizeof(nodeName));
+	strcpy(subPath, path);				//regard path as the longest path
+
+	//split the subpath into a subpath and a nodename
+	//loop until the subpath is empty
+	while(strlen(subPath) != 0)
 	{
-		if (!strcmp(command, cmds[i]))
+		printf("subpath address: %p\n", subPath);
+		if( splitPath(subPath, subPath, nodeName) == FAIL )
 		{
-			return i;
+			return FAIL;
+		}
+		if(setPwdTo(nodeName) == FAIL)
+		{
+			return FAIL;
 		}
 	}
 
-	return FAIL;
+	return SUCCESS;	
+}
+
+/***********************************************
+ * @author	Liuyuan
+ * @date	Jan 16th, 2022
+ * @return	char, SUCCESS for success and FAIL
+ * 			for FAIL
+ * @description	split a path into subpath and
+ * 				node name
+ ***********************************************/
+char splitPath(char originPath[MAX_LENGTH], char subPath[MAX_LENGTH], char nodeName[MAX_LENGTH])
+{
+	unsigned short offset = 0;		//record the index of the first splash('/')
+	while( offset < MAX_LENGTH && originPath[offset] != '/' && originPath[offset] != '\0')
+	{
+		offset++;
+	}
+	
+	strncpy(nodeName, originPath, offset);					//copy chars before the first '/' into nodeName
+	nodeName[offset] = '\0';								//protection
+
+	char swap = 0;											//since may copy subpath to subpath, use swap to protect
+	unsigned short originPath_length = strlen(originPath);	//record the length of original pathName
+	//record the index of the first char after slash, offset + 1 to jump slash, which points the source of copy
+	unsigned short traverse = offset + 1;					
+	offset = 0;												//point the destination of copy
+
+	while(traverse < MAX_LENGTH && traverse <= originPath_length)
+	{
+		swap = originPath[traverse++];
+		subPath[offset++] = swap;
+	}
+	subPath[ offset >= originPath ? 63 : offset ] = '\0';	//protection
+
+	//testcode
+	{
+		printf("\n===========TEST============\n");
+		printf("subpath:\t %s\n",subPath);
+		printf("subpath length:\t %d\n",strlen(subPath));
+		printf("subpath address:\t %p\n",subPath);
+		printf("nodeName:\t %s\n",nodeName);
+		printf("\n===========TEST============\n");
+	}
+
+	return SUCCESS;
+}
+
+char findNode(char nodeName[MAX_LENGTH])
+{
+	if(strlen(nodeName) == 0)
+	{
+		pwd = ROOT;
+		return SUCCESS;
+	}
+
+	struct Node* traverse = pwd->_child;
+	while(traverse != NULL && strcmp(traverse->_name, nodeName) != 0)
+	{
+		traverse = traverse->_sibling;
+	}
+	
+	if(traverse)
+	{
+		return SUCCESS;
+	}
+	else
+	{
+		return SUCCESS;
+	}
 }
 
 #endif // !TOOLS_H

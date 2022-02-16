@@ -1,6 +1,8 @@
 #ifndef NODE_H
 #define NODE_H
 
+#define ROOT &root
+
 //description
 /***********************************************
  * @author	Liuyuan
@@ -20,8 +22,8 @@ struct Node
 	struct Node* _child;					//the child node of the current node
 };
 
-extern struct Node root = {'D',"/root",NULL,NULL,NULL};
-extern const struct Node* pwd = &root;
+struct Node root = {'D',"/root",NULL,NULL,NULL};
+const struct Node* pwd = &root;
 
 void Node_init()
 {

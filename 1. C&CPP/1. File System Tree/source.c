@@ -18,6 +18,7 @@ int main()
 	{
 		line_length = getLine();
 		splitLine(line_length);
+		//setPwdTo(pathname);			//TEST
 
 		//print infomation
 		printInfo();
