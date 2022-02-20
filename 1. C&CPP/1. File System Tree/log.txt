@@ -1,0 +1,24 @@
+============Print Information==============
+line:           cd liuyuan
+command:        cd
+pathname:       liuyuan
+===========================================
+
+=====FUNC FOUND=====
+=====FUNC EXECUTE=====
+=====cd=====
+subpath: liuyuan
+subpath address: 01469398
+subpath length: 7
+origin path: liuyuansubPath: 01469398
+nodeName: 01465690
+offset add: 0133F714
+offset: 7
+debug
+===========TEST============
+subpath:
+subpath length:  0
+subpath address:         01469398
+nodeName:        liuyuan怐F
+
+===========TEST============

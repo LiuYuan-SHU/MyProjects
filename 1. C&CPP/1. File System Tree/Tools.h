@@ -166,10 +166,10 @@ char setPwdTo(char path[MAX_LENGTH])
 		{
 			return FAIL;
 		}
-		if(setPwdTo(nodeName) == FAIL)
+		/*if(setPwdTo(nodeName) == FAIL)
 		{
 			return FAIL;
-		}
+		}*/
 	}
 
 	return SUCCESS;	
@@ -186,13 +186,26 @@ char setPwdTo(char path[MAX_LENGTH])
 char splitPath(char originPath[MAX_LENGTH], char** subPath, char** nodeName)
 {
 	unsigned short offset = 0;		//record the index of the first splash('/')
-	while( offset < MAX_LENGTH && originPath[offset] != '/' && originPath[offset] != '\0')
+	//debug
+	printf("origin path: %s", originPath);
+	printf("subPath: %p\n", *subPath);
+	printf("nodeName: %p\n", *nodeName);
+	printf("offset add: %p\n", &offset);
+	
+	//copy chars before the first '/' into nodeName
+	while( offset < MAX_LENGTH && originPath[offset] != '/' && originPath[offset] != '\0' && offset < strlen(originPath))
 	{
+		(*nodeName)[offset] = originPath[offset];
 		offset++;
 	}
+	//debug
+	printf("offset: %u\n", offset);
 	
-	strncpy(*nodeName, originPath, offset);					//copy chars before the first '/' into nodeName
+	strncpy(*nodeName, originPath, offset);					
 	*nodeName[offset] = '\0';								//protection
+
+	//debug
+	printf("debug");
 
 	char swap = 0;											//since may copy subpath to subpath, use swap to protect
 	unsigned short originPath_length = strlen(originPath);	//record the length of original pathName
