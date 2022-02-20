@@ -1,3 +1,4 @@
+#include<cstdlib>
 #include<iostream>
 #include<string>
 #include<stack>
@@ -68,7 +69,14 @@ nodePtr buildTree(string& expression)
 		else if (isalpha(expression[i]) || isdigit(expression[i]) || 
 		(expression[i] == '-' && (isdigit(nextLegalChar(&expression[i])) || isalpha(nextLegalChar(&expression[i])))))
 		{
+			bool negative = false;
 			string operand = "";
+			if(expression[i] == '-')
+			{
+				negative = true;
+				operand = "(";
+			}
+			
 			do
 			{
 				operand = operand + expression[i++];
@@ -77,6 +85,10 @@ nodePtr buildTree(string& expression)
 			//when the outer loop goes next round, i++, the char will be skipped, so i need to be decreased  
 			i--;
 			
+			if(negative)
+			{
+				operand += ")";
+			}
 			nodePtr_parent = newNode<string>(operand);
 			stack_node.push(nodePtr_parent);
 		}
@@ -87,10 +99,10 @@ nodePtr buildTree(string& expression)
 			//If an operator with lower or same associativity 
 			//as the operator at the top of the stack appears
 			
-			//judgement condition: 1 must be 
+			//judgement condition: 1 must be satisfied and satisfy one of 2.* is enough
 			//1.	the operator stack is not empty AND the top operator is not '('
-			//2.1	the current operand is not '^' 	AND the priority of the top operator is highed or the same as the current operand
-			//2.2	the current operand is 	   '^'	AND the priority of the top operator is higher 			 than the current operand
+			//2.1	the current operator is not '^' 	AND the priority of the top operator is highed or the same as the current operator
+			//2.2	the current operator is 	   '^'	AND the priority of the top operator is higher 			 than the current operator
 			while (
 				!stack_operator.empty() && stack_operator.top() != '(' &&
 				(
@@ -146,7 +158,7 @@ nodePtr buildTree(string& expression)
 				//Push the node to the node stack
 				stack_node.push(nodePtr_parent);
 			}
-			//delete the '(' operand
+			//delete '('
 			stack_operator.pop();
 		}
 	}
@@ -174,9 +186,11 @@ void test()
 	nodePtr root = buildTree(input);
 	
 	postOrder(root);
+	cout << endl;
 }
 
 int main()
 {
 	test();
+	system("pause");
 }
