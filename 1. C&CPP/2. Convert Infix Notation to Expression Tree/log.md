@@ -69,7 +69,7 @@ find problem: when judge a negative char, only consider number and forget letter
                     |
                                             2
             | ( |                         /
-            | * |             | + |	    +
+            | * |             | + |     +
         stack_operator     stack_node     \
                                             1
         */
