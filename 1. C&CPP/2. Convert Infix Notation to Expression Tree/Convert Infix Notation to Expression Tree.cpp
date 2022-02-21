@@ -66,17 +66,14 @@ nodePtr buildTree(string& expression)
 		}
 		
 		//Push the operands in node stack
-		else if (isalpha(expression[i]) || isdigit(expression[i]) || 
-		(expression[i] == '-' && (isdigit(nextLegalChar(&expression[i])) || isalpha(nextLegalChar(&expression[i])))))
+		else if (
+			isalpha(expression[i]) || isdigit(expression[i]) || 
+			(expression[i] == '-' && stack_operator.top() == '('/* && (stack_node.empty() || priority[(stack_node.top()->data)[0]] > 0)*/)
+		)
 		{
-			bool negative = false;
-			string operand = "";
-			if(expression[i] == '-')
-			{
-				negative = true;
-				operand = "(";
-			}
-			
+			bool negative = expression[i] == '-' ? true : false;
+			string operand = negative ? "(" : "";
+
 			do
 			{
 				operand = operand + expression[i++];
@@ -84,11 +81,12 @@ nodePtr buildTree(string& expression)
 			//after do-while loop, expression[i] references the next char which is not operand
 			//when the outer loop goes next round, i++, the char will be skipped, so i need to be decreased  
 			i--;
-			
+
 			if(negative)
 			{
-				operand += ")";
+				operand += ')';
 			}
+			
 			nodePtr_parent = newNode<string>(operand);
 			stack_node.push(nodePtr_parent);
 		}
