@@ -1,2 +1,0 @@
-input the infix notation:( a - ( b - c)/(e * ( f + g )))
-(-)cefg+*/-
