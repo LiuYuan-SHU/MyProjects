@@ -75,11 +75,11 @@ find problem: when judge a negative char, only consider number and forget letter
         */
         ```
 
-    ***So the judgement condition can be:***`stack_operator.top() == '(' && (stack_node.empty() || priority[stack_node.top()] > 0)`
+    ***So the judgment condition can be:***`stack_operator.top() == '(' && (stack_node.empty() || priority[stack_node.top()] > 0)`
 
 **if a '-' means a minus char**, there will be conditions as follows:
 
-1. There must be an operand before the operator, which means the top node in `stack_node` is not an operator. ***==This is an easier way to distinguish==***
+1. There must be an operand before the operator, which means the top node in `stack_node` is not an operator. <span style="background:yellow;"><b><i>This is an easier way to distinguish</i></b></span>
 
     ```cpp
     /*
