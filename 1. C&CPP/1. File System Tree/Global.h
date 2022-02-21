@@ -9,11 +9,13 @@
 
 #include<string.h>
 
-#define SUCCESS		1
-#define TRUE		1
-#define FAIL		-1
-#define FALSE		-1
-#define MAX_LENGTH	64
+#define SUCCESS				1
+#define TRUE				1
+#define FAIL				-1
+#define FALSE				-1
+#define MAX_LINE_LENGTH		128
+#define MAX_COMMAND_LENGTH	16
+#define MAX_LENGTH			MAX_LINE_LENGTH-MAX_COMMAND_LENGTH
 
 char line[128];		//the whole command
 char command[16];	//the command

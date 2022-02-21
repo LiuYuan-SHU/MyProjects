@@ -187,52 +187,36 @@ char splitPath(char originPath[MAX_LENGTH], char** subPath, char** nodeName)
 {
 	unsigned short offset = 0;		//record the index of the first splash('/')
 	//debug
-	printf("origin path: %s", originPath);
+	printf("origin path: %s\n", originPath);
 	printf("subPath: %p\n", *subPath);
 	printf("nodeName: %p\n", *nodeName);
 	printf("offset add: %p\n", &offset);
 	
 	//copy chars before the first '/' into nodeName
-	while( offset < MAX_LENGTH && originPath[offset] != '/' && originPath[offset] != '\0' && offset < strlen(originPath))
+	//if slash is at the first char, copy it into the nodeName too
+	do
 	{
 		(*nodeName)[offset] = originPath[offset];
 		offset++;
-	}
+	}	while( offset < MAX_LENGTH && originPath[offset] != '/' && originPath[offset] != '\0' && offset < strlen(originPath));
+	(*nodeName)[offset] = '\0';								//protection
 	//debug
-	printf("offset: %u\n", offset);
+	printf("offset: %u\n", offset);				
+
+	//copy the rest of the string to subPath
+	unsigned short subPath_length = 0;						//to record the length of the subPath
+	while(offset < strlen(originPath))
+	{
+		(*subPath)[subPath_length++] = originPath[offset++];
+	}
+	(*subPath)[subPath_length] = '\0';
 	
-	strncpy(*nodeName, originPath, offset);					
-	*nodeName[offset] = '\0';								//protection
-
-	//debug
-	printf("debug");
-
-	char swap = 0;											//since may copy subpath to subpath, use swap to protect
-	unsigned short originPath_length = strlen(originPath);	//record the length of original pathName
-	//record the index of the first char after slash, offset + 1 to jump slash, which points the source of copy
-	unsigned short traverse = offset + ( offset < strlen(originPath) ? 1 : 0 );					
-	offset = 0;												//point the destination of copy
-
-	if(traverse > originPath_length)
-	{
-		strcpy(*subPath, "");
-	}
-	else
-	{
-	while(traverse < MAX_LENGTH && traverse <= originPath_length)
-	{
-		swap = originPath[traverse++];
-		*subPath[offset++] = swap;
-	}
-	}
-	(*subPath)[ offset >= originPath_length ? 63 : offset ] = '\0';	//protection
-
 	//testcode
 	{
 		printf("\n===========TEST============\n");
-		printf("subpath:\t %s\n",*subPath);
+		printf("subpath:\t %s\n",strlen(*subPath) == 0 ? "(empty)" : *subPath);
 		printf("subpath length:\t %ld\n",strlen(*subPath));
-		printf("subpath address:\t %p\n",*subPath);
+		printf("subpath address: %p\n",*subPath);
 		printf("nodeName:\t %s\n",*nodeName);
 		printf("\n===========TEST============\n");
 	}
