@@ -16,6 +16,20 @@ using std::endl;
 using std::string;
 using std::stack;
 
+//Prioritising the operators
+//I thought it supposed to be something like key-value structure
+//But I can't manage it with smaller memory
+unsigned priority[128] = { 0 };
+
+//Function to initialize priority
+void initPriority()
+{
+	priority['+'] = priority['-'] = 1;
+	priority['/'] = priority['*'] = 2;
+	priority['^'] = 3;
+	priority[')'] = 0;
+}
+
 //Binary Tree Node
 typedef struct Node
 {
@@ -33,11 +47,22 @@ nodePtr newNode(T newData)
 	return newNode;
 }
 
-//Function to find the next char which is not space
-char nextLegalChar(char* start)
+//Function to judge if '-' is a negative char
+//current stores the addresss of '-'
+//start stores the start of expression
+bool isNegative(const char* current, const char* start)
 {
-	while (isspace(*(++start))) ;
-	return *start;
+	do
+	{
+		--current;
+		//if found a operator
+		if (priority[*current] > 0) { return true; }
+		//if found a operand
+		else if(isdigit(*current) || isalpha(*current)) { return false; }
+	}while(current >= start);
+	
+	//if reach the start of the expression
+	return true;
 }
 
 //Function to build Expression Tree
@@ -48,13 +73,6 @@ nodePtr buildTree(string& expression)
 	//Stack to hold strings
 	stack<char> stack_operator;
 	nodePtr nodePtr_parent,nodePtr_left,nodePtr_right;
-	
-	//Prioritising the operators
-	unsigned priority[128] = { 0 };
-	priority['+'] = priority['-'] = 1;
-	priority['/'] = priority['*'] = 2;
-	priority['^'] = 3;
-	priority[')'] = 0;
 	
 	//Analyze the expression
 	for (int i = 0; i < expression.size(); i++)
@@ -68,7 +86,9 @@ nodePtr buildTree(string& expression)
 		//Push the operands in node stack
 		else if (
 			isalpha(expression[i]) || isdigit(expression[i]) || 
-			(expression[i] == '-' && stack_operator.top() == '('/* && (stack_node.empty() || priority[(stack_node.top()->data)[0]] > 0)*/)
+			(
+				expression[i] == '-' && isNegative(&expression[i], expression.c_str()) 
+			)
 		)
 		{
 			bool negative = expression[i] == '-' ? true : false;
@@ -189,6 +209,13 @@ void test()
 
 int main()
 {
-	test();
+	initPriority();
+	while(true)
+	{
+		test();
+	}
+	
 	system("pause");
+	
+	return 0;
 }

@@ -16,11 +16,15 @@ And I copied the source code in [geeksforgeeks.cpp](./geeksforgeeks.cpp)
 
 Some of the names in the original code is hard to read, I renamed them in [my own file](./Convert Infix Notation to Expression Tree.cpp)
 
+### Make code more modular
+
+I split `priority` from `buildTree()`, which make code more modular and make other functions able to use it.
+
 ### The type of the expression elements
 
 In the original program, the elements can only be letters like `((a+b)*c-e*f)`, in my own edition, they can be numbers or letters
 
-Thus, I add function `nextLegalChar()` to help distinguish minus and negative. You can find the call of this function at `line:69`
+Thus, I add function `isNegative()` to help distinguish minus and negative. You can find the call of this function at `line:90`
 
 ### Add negative edition
 

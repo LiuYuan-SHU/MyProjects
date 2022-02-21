@@ -1,6 +1,6 @@
 # Logs
 
-## Error1
+## Error1 - [solved]
 
 > 21st, Feb, 2022
 
@@ -25,7 +25,7 @@ find problem: when judge a negative char, only consider number and forget letter
 
 2. Don't know why 'a' is not included in the tree yet, and the expression is also processed in a wrong order
 
-### Anallysis
+### Analysis
 
 **If a '-' means a negative char**, there will be conditions as follows:
 
@@ -42,6 +42,18 @@ find problem: when judge a negative char, only consider number and forget letter
      | * |            | 6 |      6
     stack_operator stack_node      \
                                      nullptr
+    */
+    
+    /*
+    (2 - (-2))
+          ^
+          |
+          
+          | ( |                           nullptr
+          | - |                         /
+          | ( |            | 2 |      2
+     stack_operator     stack_node      \ 
+                                          nullptr
     */
     ```
 
@@ -92,6 +104,10 @@ find problem: when judge a negative char, only consider number and forget letter
     */
     ```
 
+### ~~Resolution~~
+
+~~***If read a '-', then take a look at the top of `stack_node`, if the top element is a number, then it is a minus operator, otherwise it is a negative char***~~
+
 ### Resolution
 
-***If read a '-', then take a look at the top of `stack_node`, if the top element is a number, then it is a minus operator, otherwise it is a negative char***
+***Add function `bool isNegative(const char* current, const char* start)` to find the previous operator. If find an operator of reach the start of the expression, it is a negative char, otherwise it is a minus operator***
