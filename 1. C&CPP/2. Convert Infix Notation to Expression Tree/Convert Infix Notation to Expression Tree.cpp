@@ -184,7 +184,7 @@ nodePtr buildTree(string& expression)
 	return nodePtr_parent;
 }
 
-//Function to print ht epost order traversal of the tree
+//Function to print the tree in post order
 void postOrder(nodePtr root)
 {
 	if (root)

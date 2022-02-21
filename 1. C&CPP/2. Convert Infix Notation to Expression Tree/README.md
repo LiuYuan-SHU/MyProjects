@@ -28,9 +28,7 @@ Thus, I add function `isNegative()` to help distinguish minus and negative. You 
 
 ### Add negative edition
 
-I transformed the origin file into [Convert Infix Notation to Expression Tree_no_negative.cpp](Convert Infix Notation to Expression Tree_no_negative.cpp), and I also added negative edition which is named [Convert Infix Notation to Expression Tree.cpp](Convert Infix Notation to Expression Tree.cpp).
-
-The only difference between two files is at `if-else` in `buildTree()` function, the `//Push the operands in node stack` part.
+I transformed the origin file into [Convert Infix Notation to Expression Tree_no_negative.cpp](Convert Infix Notation to Expression Tree_no_negative.cpp), which can deal with negative arguments.
 
 ******
 
