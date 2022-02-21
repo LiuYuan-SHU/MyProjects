@@ -159,13 +159,18 @@ char setPwdTo(char path[MAX_LENGTH])
 	//loop until the subpath is empty
 	while(strlen(subPath) != 0)
 	{
-		printf("subpath: %s\n",subPath);
+		//debug
+		/*printf("subpath: %s\n",subPath);
 		printf("subpath address: %p\n", subPath);
-		printf("subpath length: %ld\n", strlen(subPath));
+		printf("subpath length: %ld\n", strlen(subPath));*/
 		if( splitPath(subPath, &subPath, &nodeName) == FAIL )
 		{
 			return FAIL;
 		}
+		printf("Node Name: %s\n", nodeName);
+		printf("subpath: %s\n", subPath);
+		printf("=========LOOP END======\n");
+
 		/*if(setPwdTo(nodeName) == FAIL)
 		{
 			return FAIL;
@@ -187,10 +192,10 @@ char splitPath(char originPath[MAX_LENGTH], char** subPath, char** nodeName)
 {
 	unsigned short offset = 0;		//record the index of the first splash('/')
 	//debug
-	printf("origin path: %s\n", originPath);
+	/*printf("origin path: %s\n", originPath);
 	printf("subPath: %p\n", *subPath);
 	printf("nodeName: %p\n", *nodeName);
-	printf("offset add: %p\n", &offset);
+	printf("offset add: %p\n", &offset);*/
 	
 	//copy chars before the first '/' into nodeName
 	//if slash is at the first char, copy it into the nodeName too
@@ -201,7 +206,7 @@ char splitPath(char originPath[MAX_LENGTH], char** subPath, char** nodeName)
 	}	while( offset < MAX_LENGTH && originPath[offset] != '/' && originPath[offset] != '\0' && offset < strlen(originPath));
 	(*nodeName)[offset] = '\0';								//protection
 	//debug
-	printf("offset: %u\n", offset);				
+	//printf("offset: %u\n", offset);				
 
 	//copy the rest of the string to subPath
 	unsigned short subPath_length = 0;						//to record the length of the subPath
@@ -212,14 +217,14 @@ char splitPath(char originPath[MAX_LENGTH], char** subPath, char** nodeName)
 	(*subPath)[subPath_length] = '\0';
 	
 	//testcode
-	{
+	/*{
 		printf("\n===========TEST============\n");
 		printf("subpath:\t %s\n",strlen(*subPath) == 0 ? "(empty)" : *subPath);
 		printf("subpath length:\t %ld\n",strlen(*subPath));
 		printf("subpath address: %p\n",*subPath);
 		printf("nodeName:\t %s\n",*nodeName);
 		printf("\n===========TEST============\n");
-	}
+	}*/
 
 	return SUCCESS;
 }
