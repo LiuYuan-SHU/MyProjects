@@ -14,7 +14,6 @@ using namespace Liuyuan;
 unsigned int Layfork::numOfRegister = 0;
 unsigned int Number::numOfRegister = 0;
 unsigned int Honoured_guest::numOfRegister = 0;
-vector<Buyer*> guestList;
 
 template<class T>
 T Liuyuan::getData()
@@ -159,6 +158,10 @@ int Liuyuan::login(string id, string password)
 				cout << "Logined" << endl;
 
 				logined = true;
+				logined_accountPtr = i;
+				if (dynamic_cast<Layfork*>(i)) { logined_level = "Layfork"; }
+				else if (dynamic_cast<Number*>(i)) { logined_level = "Number"; }
+				else { logined_level = "Honoured"; }
 				return SUCCESS;
 			}
 			else

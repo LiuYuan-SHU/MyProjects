@@ -5,12 +5,14 @@
 #include<iostream>
 #include<string>
 #include<cstdlib>
+#include<vector>
 
 using std::string;
 using std::cin;
 using std::cout;
 using std::endl;
 using std::exit;
+using std::vector;
 
 /***********************************
  *
@@ -20,12 +22,17 @@ using std::exit;
 
 namespace Liuyuan
 {
-	//stores the rate for different star users
-	static constexpr double rate[] = { 1, 0.95, 0.9, 0.85, 0.8, 0.75 };
-	
+	class Buyer;
+
 	static bool super_usr = false;
 	static bool logined;
-	static unsigned int logined_id;
+	static Buyer* logined_accountPtr;
+	static string logined_level;
+	
+	//stores the rate for different star users
+	static constexpr double rate[] = { 1, 0.95, 0.9, 0.85, 0.8, 0.75 };
+	//stores all the registed guests
+	static vector<Buyer*> guestList;
 
 	//abstract class buyer
 	class Buyer
@@ -51,6 +58,8 @@ namespace Liuyuan
 
 		//calculate the payment for different buyers
 		virtual inline double calculatePay(unsigned unitPrice, unsigned amount) const = 0;
+		//return the rate
+		virtual inline double getRate() const = 0;
 		//print the information of the buyer
 		void printInfo(string userLevel, double userRate);
 		//judge if the password is correct
@@ -68,6 +77,9 @@ namespace Liuyuan
 	public:
 		//constructor
 		Layfork(string name, string password, string address, double balance = 0, double mypay = 0);
+
+		//get rate
+		double getRate() const { return Layfork::rate; }
 
 		//calculate the payment
 		double calculatePay(unsigned unitPrice, unsigned amount) const
@@ -91,6 +103,7 @@ namespace Liuyuan
 			return static_cast<double>(unitPrice) * static_cast<double>(amount) * rate[this->_star];
 		}
 
+		double getRate() const { return rate[this->_star]; }
 		unsigned short getStar() { return this->_star; }
 	};
 
@@ -109,7 +122,7 @@ namespace Liuyuan
 			return static_cast<double>(unitPrice) * static_cast<double>(amount) * this->_rate;
 		}
 
-		double getRate() { return this->_rate; }
+		double getRate() const { return this->_rate; }
 	};
 
 	template<class T>

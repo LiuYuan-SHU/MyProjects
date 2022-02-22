@@ -5,8 +5,11 @@
 #include<iostream>
 #include<string>
 
-#define __ID      100
-#define NAME    101
+#define ALL			100
+#define __ID    	101
+#define NAME    	102
+#define AUTHOR 		103
+#define CATEGORY	104
 
 using std::string;
 using std::cin;
@@ -42,6 +45,115 @@ namespace Liuyuan
 	};
 	//store the amount of books
 	unsigned books_length = sizeof(books) / sizeof(*books);
+
+	//print the information of books, use `style` and `key` to search
+	void printBookInfo(int style = ALL, string key = "")
+	{
+		bool printed = false;
+		unsigned amount = 0;
+
+		cout << "========== print books info ==========" << endl;
+		if(style == ALL)
+		{
+			for(unsigned i = 0; i < books_length; i++)
+			{
+				amount++;
+				cout << "/ Book ID:\t\t" << books[i].id << endl;
+				cout << "/ Book name:\t\t" << books[i].name << endl;
+				cout << "/ Book author:\t\t" << books[i].author << endl;
+				cout << "/ Book category:\t" << books[i].category << endl;
+				cout << "/ Book unit price:\t" << books[i].unit_price << endl;
+				cout << "/ Book amout:\t\t" << books[i].amout << endl;
+				cout << "+====================================+" << endl;
+			}
+			cout << "/ found " << amount << " record intotal" << endl;
+		}
+		else if(style == __ID)
+		{
+			for(unsigned i = 0; i < books_length; i++)
+			{
+				if(books[i].id == key)
+				{
+					printed = true;
+					amount++;
+					cout << "/ Book ID:\t\t" << books[i].id << endl;
+					cout << "/ Book name:\t\t" << books[i].name << endl;
+					cout << "/ Book author:\t\t" << books[i].author << endl;
+					cout << "/ Book category:\t" << books[i].category << endl;
+					cout << "/ Book unit price:\t" << books[i].unit_price << endl;
+					cout << "/ Book amout:\t\t" << books[i].amout << endl;
+					cout << "+====================================+" << endl;
+				}
+			}
+			if(printed) { cout << "/ found " << amount << " record intotal" << endl; }
+			else { cout << "/ didn't found any record, please check your key" << endl; }
+		}
+		else if(style == NAME)
+		{
+			for(unsigned i = 0; i < books_length; i++)
+			{
+				if(books[i].name == key)
+				{
+					printed = true;
+					amount++;
+					cout << "/ Book ID:\t\t" << books[i].id << endl;
+					cout << "/ Book name:\t\t" << books[i].name << endl;
+					cout << "/ Book author:\t\t" << books[i].author << endl;
+					cout << "/ Book category:\t" << books[i].category << endl;
+					cout << "/ Book unit price:\t" << books[i].unit_price << endl;
+					cout << "/ Book amout:\t\t" << books[i].amout << endl;
+					cout << "+====================================+" << endl;
+				}
+			}
+			if(printed) { cout << "/ found " << amount << " record intotal" << endl; }
+			else { cout << "/ didn't found any record, please check your key" << endl; }
+		}
+		else if(style == AUTHOR)
+		{
+			for(unsigned i = 0; i < books_length; i++)
+			{
+				if(books[i].author == key)
+				{
+					printed = true;
+					amount++;
+					cout << "/ Book ID:\t\t" << books[i].id << endl;
+					cout << "/ Book name:\t\t" << books[i].name << endl;
+					cout << "/ Book author:\t\t" << books[i].author << endl;
+					cout << "/ Book category:\t" << books[i].category << endl;
+					cout << "/ Book unit price:\t" << books[i].unit_price << endl;
+					cout << "/ Book amout:\t\t" << books[i].amout << endl;
+					cout << "+====================================+" << endl;
+				}
+			}
+			if(printed) { cout << "/ found " << amount << " record intotal" << endl; }
+			else { cout << "/ didn't found any record, please check your key" << endl; }
+		}
+		else if(style == CATEGORY)
+		{
+			for(unsigned i = 0; i < books_length; i++)
+			{
+				if(books[i].category == key)
+				{
+					printed = true;
+					amount++;
+					cout << "/ Book ID:\t\t" << books[i].id << endl;
+					cout << "/ Book name:\t\t" << books[i].name << endl;
+					cout << "/ Book author:\t\t" << books[i].author << endl;
+					cout << "/ Book category:\t" << books[i].category << endl;
+					cout << "/ Book unit price:\t" << books[i].unit_price << endl;
+					cout << "/ Book amout:\t\t" << books[i].amout << endl;
+					cout << "+====================================+" << endl;
+				}
+			}
+			if(printed) { cout << "/ found " << amount << " record intotal" << endl; }
+			else { cout << "/ didn't found any record, please check your key" << endl; }
+		}
+		else
+		{
+			cout << "/ Style is not defined" << endl;
+		}
+		cout << "======================================" << endl;
+	}
 
 	//get the index of books, defaultly search with ID
 	//if success, return the index of the book

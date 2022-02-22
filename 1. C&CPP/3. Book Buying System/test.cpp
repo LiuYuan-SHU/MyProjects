@@ -1,5 +1,6 @@
 #include"Global.h"
 #include"Buyers.h"
+#include"Books.h"
 #include<iostream>
 #include<string>
 
@@ -32,6 +33,7 @@ void UI2();
 
 void UI1()
 {
+	system("clear");
 	cout << "========== Book Purchase System ==========" << endl;
 	cout << "/ 1. Log in                              /" << endl;
 	cout << "/ 2. Print all guests                    /" << endl;
@@ -98,22 +100,58 @@ void UI2()
 
 void UI_logined()
 {
-	
+	system("clear");
+	cout << "===== Book Purchase System - Logined =====" << endl;
+	cout << "/ 1. Log out                             /" << endl;
+	cout << "/ 2. Print my info                       /" << endl;
+	cout << "/ 3. Purchase books                      /" << endl;
+	cout << "/ 4. Exit                                /" << endl;
+	cout << "==========================================" << endl;
+
+	int choice = 0;
+	while(choice = getChoice(), choice < 1 || choice > 4)
+	{
+		cout << "illegal input, input again: ";
+	}
+
+	switch(choice)
+	{
+	case 1:
+		logined = false;
+		logined_accountPtr = nullptr;
+		break;
+	case 2:
+		cout << "========== print guests info ==========" << endl;
+		logined_accountPtr->printInfo(logined_level, logined_accountPtr->getRate());
+		cout << "=======================================" << endl;
+		break;
+	case 3:
+		break;
+	case 4:
+		cout << "System shutting down, thank you for use!" << endl;
+		system("pause");
+		exit(0);
+	}
 }
 
 int main()
 {
+	/*
 	init();
 	while (true)
 	{
 		if(logined)
 		{
-
+			
 		}
-		UI1();
+		else
+		{
+			UI1();
+		}
 		system("clear");
 	}
+	*/
 
 	//debug
-	//printGuest();
+	printBookInfo();
 }
