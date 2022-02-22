@@ -1,4 +1,5 @@
 #include"Buyers.h"
+#include"Global.h"
 #include<iostream>
 #include<algorithm>
 #include<vector>
@@ -87,3 +88,9 @@ void initSystem()
 	Honoured_guest::setNum();
 }
 
+bool Liuyuan::login()
+{
+	
+
+	return FAIL;
+}

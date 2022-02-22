@@ -102,6 +102,7 @@ namespace Liuyuan
 
 	void init();
 	void printGuest();
+	bool login();
 }
 
 

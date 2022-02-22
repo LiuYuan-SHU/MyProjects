@@ -1,3 +1,4 @@
+#include"Global.h"
 #include"Buyers.h"
 #include"Tools.h"
 #include<iostream>

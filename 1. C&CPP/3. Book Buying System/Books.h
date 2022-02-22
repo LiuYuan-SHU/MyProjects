@@ -1,11 +1,10 @@
 #ifndef BOOKS
 #define BOOKS
 
+#include"Global.h"
 #include<iostream>
 #include<string>
 
-#define SUCCESS 1
-#define FAIL    -1
 #define __ID      100
 #define NAME    101
 
