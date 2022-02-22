@@ -98,6 +98,8 @@ void UI2()
 	system("pause");
 }
 
+void UI_buyBook();
+
 void UI_logined()
 {
 	system("clear");
@@ -117,15 +119,19 @@ void UI_logined()
 	switch(choice)
 	{
 	case 1:
-		logined = false;
-		logined_accountPtr = nullptr;
+		logout();
+		setLogin_accountPtr();
+		setLogin_level();
 		break;
 	case 2:
 		cout << "========== print guests info ==========" << endl;
-		logined_accountPtr->printInfo(logined_level, logined_accountPtr->getRate());
+		getLogin_accountPtr()->printInfo(logined_level, getLogin_accountPtr()->getRate());
 		cout << "=======================================" << endl;
+		system("pause");
 		break;
 	case 3:
+		UI_buyBook();
+		system("pause");
 		break;
 	case 4:
 		cout << "System shutting down, thank you for use!" << endl;
@@ -134,15 +140,116 @@ void UI_logined()
 	}
 }
 
+void UI_printBook();
+
+void UI_buyBook()
+{
+	system("clear");
+	cout << "===== Book Purchase System - Purchase =====" << endl;
+	cout << "/ 1. Print book info                      /" << endl;
+	cout << "/ 2. Purchase book                        /" << endl;
+	cout << "/ 3. Cancel                               /" << endl;
+	cout << "/ 4. Log out                              /" << endl;
+	cout << "/ 5. Exit                                 /" << endl;
+	cout << "===========================================" << endl;
+
+	int choice = 0;
+	while(choice = getChoice(), choice < 1 || choice > 5)
+	{
+		cout << "illegal input, input again: ";
+	}
+
+	switch (choice)
+	{
+	case 1:
+		UI_printBook();
+		break;
+	case 2:
+		cout << "buy book" << endl;
+		//buyBook();
+		break;
+	case 3:
+		return;
+	case 4:
+		cout << "Log out" << endl;
+		logout();
+		setLogin_accountPtr();
+		setLogin_level();
+		break;
+	case 5:
+		cout << "System shutting down, thank you for use!" << endl;
+		system("pause");
+		exit(0);
+	default:
+		break;
+	}
+}
+
+void UI_printBook()
+{
+	system("clear");
+	cout << "===== Book Purchase System - Pirnt Book =====" << endl;
+	cout << "/ 1. Print All                              /" << endl;
+	cout << "/ 2. Search with ID                         /" << endl;
+	cout << "/ 3. Search with name                       /" << endl;
+	cout << "/ 4. Search with author                     /" << endl;
+	cout << "/ 5. Search with category                   /" << endl;
+	cout << "/ 6. Cancel                                 /" << endl;
+	cout << "=============================================" << endl;
+
+	int choice = 0;
+	while(choice = getChoice(), choice < 1 || choice > 6)
+	{
+		cout << "illegal input, input again: ";
+	}
+
+	string key;
+	switch (choice)
+	{
+	case 1:
+		printBookInfo();
+		break;
+	case 2:
+		cout << "input book's ID: ";
+		cin >> key;
+		Fflush();
+		printBookInfo(__ID, key);
+		break;
+	case 3:
+		cout << "input book's name: ";
+		getline(cin,key);
+		Fflush();
+		printBookInfo(NAME, key);
+		break;
+	case 4:
+		cout << "input book's author: ";
+		getline(cin,key);
+		Fflush();
+		printBookInfo(AUTHOR, key);
+		break;
+	case 5:
+		cout << "input book's category: ";
+		getline(cin,key);
+		Fflush();
+		printBookInfo(CATEGORY, key);
+		break;
+	case 6:
+		cout << "Canceled" << endl;
+		system("pause");
+		return;
+	default:
+		cout << "illegal choice code" << endl;
+	}
+}
+
 int main()
 {
-	/*
 	init();
 	while (true)
 	{
-		if(logined)
+		if(isLogined())
 		{
-			
+			UI_logined();
 		}
 		else
 		{
@@ -150,8 +257,4 @@ int main()
 		}
 		system("clear");
 	}
-	*/
-
-	//debug
-	printBookInfo();
 }

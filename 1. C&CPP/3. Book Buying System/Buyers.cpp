@@ -30,6 +30,36 @@ T Liuyuan::getData()
 	return data;
 }
 
+bool Liuyuan::isLogined()
+{
+	return logined;
+}
+
+void Liuyuan::logout()
+{
+	logined = false;
+}
+
+Buyer* Liuyuan::getLogin_accountPtr()
+{
+	return logined_accountPtr;
+}
+
+void Liuyuan::setLogin_accountPtr(Buyer* newPtr)
+{
+	logined_accountPtr = newPtr;
+}
+
+string Liuyuan::getLogin_level()
+{
+	return logined_level;
+}
+
+void Liuyuan::setLogin_level(string newLevel)
+{
+	logined_level = newLevel;
+}
+
 bool Liuyuan::judgeNoSpace(string judge)
 {
 	for(auto i : judge)

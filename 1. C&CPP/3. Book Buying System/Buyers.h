@@ -127,6 +127,12 @@ namespace Liuyuan
 
 	template<class T>
 	T getData();
+	bool isLogined();
+	void logout();
+	Buyer* getLogin_accountPtr();
+	void setLogin_accountPtr(Buyer* newPtr = nullptr);
+	string getLogin_level();
+	void setLogin_level(string newLevel = "");
 	bool judgeNoSpace(string judge);
 	bool judgeNoSlash(string judge);
 	void init();
