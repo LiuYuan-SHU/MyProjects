@@ -1,11 +1,21 @@
 #include"Books.h"
+#include"Global.h"
+#include<iostream>
+#include<string>
+
+using std::string;
+using std::cin;
+using std::cout;
+using std::endl;
 
 void Liuyuan::printBookInfo(int style, string key)
 {
-	bool printed = false;
-	unsigned amount = 0;
+	bool printed = false;	//store if printed information
+	unsigned amount = 0;	//store the amout of printed books
 
 	cout << "========== print books info ==========" << endl;
+	//print books with specific style
+	//print as ALL
 	if (style == ALL)
 	{
 		for (unsigned i = 0; i < books_length; i++)
@@ -21,6 +31,7 @@ void Liuyuan::printBookInfo(int style, string key)
 		}
 		cout << "/ found " << amount << " record intotal" << endl;
 	}
+	//print with specific ID
 	else if (style == __ID)
 	{
 		for (unsigned i = 0; i < books_length; i++)
@@ -41,6 +52,7 @@ void Liuyuan::printBookInfo(int style, string key)
 		if (printed) { cout << "/ found " << amount << " record in total" << endl; }
 		else { cout << "/ didn't found any record, please check your key" << endl; }
 	}
+	//print with specific name
 	else if (style == NAME)
 	{
 		for (unsigned i = 0; i < books_length; i++)
@@ -61,6 +73,7 @@ void Liuyuan::printBookInfo(int style, string key)
 		if (printed) { cout << "/ found " << amount << " record intotal" << endl; }
 		else { cout << "/ didn't found any record, please check your key" << endl; }
 	}
+	//print with specific author
 	else if (style == AUTHOR)
 	{
 		for (unsigned i = 0; i < books_length; i++)
@@ -81,6 +94,7 @@ void Liuyuan::printBookInfo(int style, string key)
 		if (printed) { cout << "/ found " << amount << " record intotal" << endl; }
 		else { cout << "/ didn't found any record, please check your key" << endl; }
 	}
+	//print with specific category
 	else if (style == CATEGORY)
 	{
 		for (unsigned i = 0; i < books_length; i++)
@@ -101,6 +115,7 @@ void Liuyuan::printBookInfo(int style, string key)
 		if (printed) { cout << "/ found " << amount << " record intotal" << endl; }
 		else { cout << "/ didn't found any record, please check your key" << endl; }
 	}
+	//if the print style is undefined
 	else
 	{
 		cout << "/ Style is not defined" << endl;
