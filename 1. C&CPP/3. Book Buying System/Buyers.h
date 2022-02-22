@@ -22,6 +22,10 @@ namespace Liuyuan
 {
 	//stores the rate for different star users
 	static constexpr double rate[] = { 1, 0.95, 0.9, 0.85, 0.8, 0.75 };
+	
+	static bool super_usr = false;
+	static bool logined;
+	static unsigned int logined_id;
 
 	//abstract class buyer
 	class Buyer

@@ -63,7 +63,7 @@ void UI2()
 {
 	string name;
 	string password;
-	//system("clear");
+	system("clear");
 	cout << "==============================================================================================" << endl;
 	cout << "/NOTE: if you don't have an account yet or you forget your id, please input your name        /" << endl;
 	cout << "/We will deal it for you.                                                                    /" << endl;
@@ -96,11 +96,20 @@ void UI2()
 	system("pause");
 }
 
+void UI_logined()
+{
+	
+}
+
 int main()
 {
 	init();
 	while (true)
 	{
+		if(logined)
+		{
+
+		}
 		UI1();
 		system("clear");
 	}

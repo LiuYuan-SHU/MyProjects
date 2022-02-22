@@ -16,11 +16,6 @@ unsigned int Number::numOfRegister = 0;
 unsigned int Honoured_guest::numOfRegister = 0;
 vector<Buyer*> guestList;
 
-bool super_usr = false;
-	
-//isLogined
-bool logined = false;
-
 template<class T>
 T Liuyuan::getData()
 {

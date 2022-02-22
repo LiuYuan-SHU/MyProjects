@@ -12,6 +12,4 @@ using std::endl;
 #define FAIL        -1
 #define NOT_FOUND   -2
 
-
-
 #endif // !GLOBAL
