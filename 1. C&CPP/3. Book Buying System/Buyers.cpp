@@ -13,12 +13,17 @@ using namespace Liuyuan;
 unsigned int Buyer::numOfRegister = 0;
 vector<Buyer*> guestList;
 
+bool greaterID(Buyer* left, Buyer* right)
+{
+	return (left->getID() > right->getID());
+}
+
 void Liuyuan::init()
 {
 	guestList.push_back(new Layfork("ZhangXiaobin", "99th, Shangda Road", 200));
 	guestList.push_back(new Number("LiShichun", "80th, Nanchen Road", 2, 400));
 	guestList.push_back(new Honoured_guest("WangSicheng", "70th, Jinqiu Road", 0.7, 600));
-	sort(guestList.rbegin(), guestList.rend());
+	sort(guestList.rbegin(), guestList.rend(),greaterID);
 }
 
 void Buyer::printInfo(string userLevel, double userRate)

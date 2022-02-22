@@ -40,9 +40,10 @@ namespace Liuyuan
 		//Use default destruction
 
 //Tool function
-//getter and setter for numOfRegister
+//getter and setter
 		static void setNum(unsigned int newNum = 0) { numOfRegister = newNum; }
 		static unsigned int getNum() { return numOfRegister; }
+		int getID() { return this->_id; }
 
 		//calculate the payment for different buyers
 		virtual inline double calculatePay(unsigned unitPrice, unsigned amount) const = 0;
