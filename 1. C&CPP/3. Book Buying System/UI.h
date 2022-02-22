@@ -3,7 +3,6 @@
 
 namespace Liuyuan
 {
-
 	void UI_basic();
 
 	void UI_login();

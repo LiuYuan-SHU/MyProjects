@@ -1,5 +1,6 @@
 #include"UI.h"
 #include"Global.h"
+#include"Global.cpp"
 #include"Buyers.h"
 #include"Books.h"
 #include<iostream>

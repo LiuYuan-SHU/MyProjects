@@ -5,20 +5,38 @@ using std::cin;
 using std::cout;
 using std::endl;
 
-void Liuyuan::Fflush()
+namespace Liuyuan
 {
-	cin.clear();
-	cin.ignore(1024, '\n');
-}
-
-int Liuyuan::getChoice()
-{
-	int choice = 0;
-	cout << "input your choice: ";
-	while (cin >> choice, cin.fail())
+	inline void Fflush()
 	{
-		cout << "illegal input, input again: ";
-		Fflush();
+		cin.clear();
+		cin.ignore(1024, '\n');
 	}
-	return choice;
+
+	inline int getChoice()
+	{
+		int choice = 0;
+		cout << "input your choice: ";
+		while (cin >> choice, cin.fail())
+		{
+			cout << "illegal input, input again: ";
+			Fflush();
+		}
+		return choice;
+	}
+
+	template<class T>
+	inline T getData()
+	{
+		T data;
+		while (cin >> data, cin.fail())
+		{
+			cout << "illegal input, input again: ";
+			//Can't use Fflush either
+			cin.clear();
+			cin.ignore(1024, '\n');
+		}
+
+		return data;
+	}
 }

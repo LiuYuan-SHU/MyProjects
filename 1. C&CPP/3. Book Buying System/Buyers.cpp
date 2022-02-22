@@ -1,4 +1,5 @@
 #include"Global.h"
+#include"Global.cpp"
 #include"Buyers.h"
 #include<iostream>
 #include<algorithm>
@@ -14,21 +15,6 @@ using namespace Liuyuan;
 unsigned int Layfork::numOfRegister = 0;
 unsigned int Number::numOfRegister = 0;
 unsigned int Honoured_guest::numOfRegister = 0;
-
-template<class T>
-T Liuyuan::getData()
-{
-	T data;
-	while (cin >> data, cin.fail())
-	{
-		cout << "illegal input, input again: ";
-		//Can't use Fflush either
-		cin.clear();
-		cin.ignore(1024, '\n');
-	}
-	
-	return data;
-}
 
 bool Liuyuan::isLogined()
 {

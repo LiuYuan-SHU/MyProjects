@@ -22,11 +22,6 @@ using std::vector;
 namespace Liuyuan
 {
 	class Buyer;
-
-	static bool super_usr = false;
-	static bool logined;
-	static Buyer* logined_accountPtr;
-	static string logined_level;
 	
 	//stores the rate for different star users
 	static constexpr double rate[] = { 1, 0.95, 0.9, 0.85, 0.8, 0.75 };
@@ -124,14 +119,18 @@ namespace Liuyuan
 		double getRate() const { return this->_rate; }
 	};
 
-	template<class T>
-	T getData();
+	static bool super_usr = false;
+	static bool logined;
+	static Buyer* logined_accountPtr;
+	static string logined_level;
+
 	bool isLogined();
 	void logout();
 	Buyer* getLogin_accountPtr();
 	void setLogin_accountPtr(Buyer* newPtr = nullptr);
 	string getLogin_level();
 	void setLogin_level(string newLevel = "");
+
 	bool judgeNoSpace(string judge);
 	bool judgeNoSlash(string judge);
 	void init();
