@@ -9,7 +9,7 @@ fi;
 
 #compile new files
 echo 'compiling new file...'
-g++ -o BuyBook *.cpp
+g++ -g -o BuyBook *.cpp
 echo
 
 #if success
@@ -18,6 +18,7 @@ then
 	echo '------ compiling finished ------'
 	echo 'compiling succeeded, run file...'
 	echo '--------------------------------'
+	clear
 	./BuyBook
 else
 	echo '------ compiling FAILED --------'

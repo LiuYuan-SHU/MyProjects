@@ -34,7 +34,8 @@ void UI1()
 {
 	cout << "========== Book Purchase System ==========" << endl;
 	cout << "/ 1. Log in                              /" << endl;
-	cout << "/ 2. Exit                                /" << endl;
+	cout << "/ 2. Print all guests                    /" << endl;
+	cout << "/ 3. Exit                                /" << endl;
 	cout << "==========================================" << endl;
 	switch (getChoice())
 	{
@@ -42,6 +43,11 @@ void UI1()
 		UI2();
 		break;
 	case 2:
+		system("clear");
+		printGuest();
+		system("pause");
+		break;
+	case 3:
 		cout << "Exit System, thank you for using" << endl;
 		system("pause");
 		exit(0);
@@ -57,6 +63,7 @@ void UI2()
 {
 	string name;
 	string password;
+	//system("clear");
 	cout << "==============================================================================================" << endl;
 	cout << "/NOTE: if you don't have an account yet or you forget your id, please input your name        /" << endl;
 	cout << "/We will deal it for you.                                                                    /" << endl;
@@ -70,26 +77,34 @@ void UI2()
 	Fflush();
 	if (isdigit(name[0]))
 	{
-		cout << "input your passport: ";
+		cout << "input your passport(input a '/' to cancel): \n";
 		cin >> password;
 		Fflush();
-		login(name, password);
+		int result = login(name, password);
+		while(result == FAIL)
+		{
+			cout << "your passport is wrong, please retry(input a '/' to cancel): ";
+			cin >> password;
+			Fflush();
+			result = login(name, password);
+		}
 	}
 	else if (isalpha(name[0]))
 	{
-		cout << "You input a name, searching..." << endl;
-		//searchName(name);
+		searchName(name);
 	}
+	system("pause");
 }
 
 int main()
 {
 	init();
-	/*while (true)
+	while (true)
 	{
 		UI1();
-	}*/
+		system("clear");
+	}
 
 	//debug
-	printGuest();
+	//printGuest();
 }

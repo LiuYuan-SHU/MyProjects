@@ -1,6 +1,5 @@
-#include"Buyers.h"
 #include"Global.h"
-#include"Tools.h"
+#include"Buyers.h"
 #include<iostream>
 #include<algorithm>
 #include<vector>
@@ -12,10 +11,54 @@ using std::sort;
 using std::vector;
 using namespace Liuyuan;
 
-unsigned int Buyer::numOfRegister = 0;
+unsigned int Layfork::numOfRegister = 0;
+unsigned int Number::numOfRegister = 0;
+unsigned int Honoured_guest::numOfRegister = 0;
 vector<Buyer*> guestList;
 
 bool super_usr = false;
+	
+//isLogined
+bool logined = false;
+
+template<class T>
+T Liuyuan::getData()
+{
+	T data;
+	while (cin >> data, cin.fail())
+	{
+		cout << "illegal input, input again: ";
+		//Can't use Fflush either
+		cin.clear();
+		cin.ignore(1024, '\n');
+	}
+	
+	return data;
+}
+
+bool Liuyuan::judgeNoSpace(string judge)
+{
+	for(auto i : judge)
+	{
+		if(isspace(i))
+		{
+			return false;
+		}
+	}
+	return true;
+}
+
+bool Liuyuan::judgeNoSlash(string judge)
+{
+	for(auto i : judge)
+	{
+		if(i == '/')
+		{
+			return false;
+		}
+	}
+	return true;
+}
 
 bool greaterID(Buyer* left, Buyer* right)
 {
@@ -67,7 +110,7 @@ Layfork::Layfork(string name, string password, string address, double balance, d
 Number::Number(string name, string password, string address, unsigned short star, double balance, double mypay) :
 	Buyer(name, password, address, balance, mypay)
 {
-	if (star >= 5)
+	if (star > 5)
 	{
 		cout << "illegal star number! Construction FAIL" << endl;
 		exit(-1);
@@ -88,21 +131,39 @@ Honoured_guest::Honoured_guest(string name, string password, string address, dou
 	this->_id = 300000 + (++numOfRegister);
 }
 
-void initSystem()
+int Liuyuan::login(string id, string password)
 {
-	Layfork::setNum();
-	Number::setNum();
-	Honoured_guest::setNum();
-}
+	for(auto i : password)
+	{
+		if(i == '/')
+		{
+			cout << "Canceled" << endl;
+			return CANCEL;
+		}
+	}
 
-bool Liuyuan::login(string id, string password)
-{
+	int id_int = 0;
+	for(auto i : id)
+	{
+		if(!isdigit(i))
+		{
+			cout << "your ID is incorrect" << endl;
+			system("pause");
+			return FAIL;
+		}
+		id_int = id_int * 10 + i - '0';
+	}
+
 	for (auto i : guestList)
 	{
-		if (i->getName() == id)
+		if (i->getID() == id_int)
 		{
 			if (i->isPassword(password))
 			{
+				//debug
+				cout << "Logined" << endl;
+
+				logined = true;
 				return SUCCESS;
 			}
 			else
@@ -110,26 +171,27 @@ bool Liuyuan::login(string id, string password)
 				return FAIL;
 			}
 		}
-		
 	}
 	return FAIL;
 }
 
 void Liuyuan::searchName(string name)
 {
+	cout << "You input a name, searching..." << endl;
+
 	bool found = false;
 	for (auto i : guestList)
 	{
 		//if found the first same name, print info
 		if (i->getName() == name)
 		{
-			found ? (cout << "") : (cout << "===== found same name as follows: =====");
+			found ? (cout << "") : (cout << "===== found same name as follows: =====\n");
+			cout << "ID:\t" << i->getID() << "\t" << "Name:\t" << i->getName() << endl;
 		}
-		cout << "ID:\t" << i->getID() << "\t" << "Name:\t" << i->getName() << endl;
 	}
 	if (!found)
 	{
-		cout << "you haven't  registed yet, do you want to regist? (Y/N)" << endl;
+		cout << "you haven't registed yet, do you want to regist? (Y/N)" << endl;
 		char key;
 		while (cin >> key, cin.fail() || (key != 'Y' && key != 'y' && key != 'n' && key != 'N'))
 		{
@@ -137,13 +199,92 @@ void Liuyuan::searchName(string name)
 			cin.clear();
 			cin.ignore(1024, '\n');
 		}
-		if (key == 'Y')
+		if (key == 'Y' || key == 'y')
 		{
-			//regist(name);
+			regist(name);
 		}
 		else
 		{
 			return;
 		}
 	}
+}
+
+void Liuyuan::regist(string name)
+{
+	system("clear");
+	cout << "=============== REGIST ===============" << endl;
+	cout << "/ 1. regist layfork" << endl;
+	cout << "/ 2. regist number" << endl;
+	cout << "/ 3. regist honoured" << endl;
+	cout << "/ 4. exit" << endl;
+	cout << "======================================" << endl;
+	
+	//from getChoice, but can't move this function to Global.h on Linux
+	//so strange
+	int choice = 0;
+	cout << "input your choice: ";
+	while (cin >> choice, cin.fail() || choice > 4 || choice < 1)
+	{
+		cout << "illegal input, input again: ";
+		//Can't use Fflush either
+		cin.clear();
+		cin.ignore(1024, '\n');
+	}
+
+	if(choice == 4)
+	{
+		cout << "Cancel Regist" << endl;
+		system("pause");
+		return;
+	}
+
+	string password;
+	string address;
+	double balance = 0;
+	double mypay = 0;
+	short star = 0;
+	double rate = 0;
+
+	cout << "input password:";
+	while(password = getData<string>(), !judgeNoSpace(password) && judgeNoSlash(password))
+	{
+		cout << "illegal input, input again: ";
+	}
+	cin.clear();
+	cin.ignore(1024, '\n');
+	cout << "input address: ";
+	getline(cin,address);
+	cin.clear();
+	cout << "input balance: ";
+	balance = getData<double>();
+	cin.clear();
+	cin.ignore(1024, '\n');
+
+	switch(choice)
+	{
+	case 1:
+		cout << "=============== REGIST Layfork ===============" << endl;
+		guestList.push_back(new Layfork(name, password, address, balance));
+		break;
+	case 2:
+		cout << "=============== REGIST Number ===============" << endl;
+		cout << "input star of the guest: ";
+		while(star = getData<short>(), star < 1 || star > 5)
+		{
+			cout << "out of range, please input an integer in [1,5]: ";
+		}
+		guestList.push_back(new Number(name, password, address, star, balance));
+		break;
+	case 3:
+		cout << "=============== REGIST Honoured ===============" << endl;
+		cout << "input rate of the guest: ";
+		while(rate = getData<double>(), rate <= 0 || rate > 1)
+		{
+			cout << "rate out of range, please input in a legal range: ";
+		}
+		guestList.push_back(new Honoured_guest(name,password,address,rate,balance));
+		break;
+	}
+	sort(guestList.rbegin(),guestList.rend(),greaterID);
 }
