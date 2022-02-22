@@ -1,7 +1,6 @@
 #ifndef BUYERS
 #define BUYERS
 
-
 #include<iostream>
 #include<string>
 #include<cstdlib>

@@ -33,7 +33,7 @@ void UI2();
 
 void UI1()
 {
-	system("clear");
+	CLEAR;
 	cout << "========== Book Purchase System ==========" << endl;
 	cout << "/ 1. Log in                              /" << endl;
 	cout << "/ 2. Print all guests                    /" << endl;
@@ -45,7 +45,7 @@ void UI1()
 		UI2();
 		break;
 	case 2:
-		system("clear");
+		CLEAR;
 		printGuest();
 		system("pause");
 		break;
@@ -56,7 +56,7 @@ void UI1()
 	default:
 		cout << "illegal choice, input again: ";
 		system("pause");
-		system("clear");
+		CLEAR;
 		break;
 	}
 }
@@ -65,7 +65,7 @@ void UI2()
 {
 	string name;
 	string password;
-	system("clear");
+	CLEAR;
 	cout << "==============================================================================================" << endl;
 	cout << "/NOTE: if you don't have an account yet or you forget your id, please input your name        /" << endl;
 	cout << "/We will deal it for you.                                                                    /" << endl;
@@ -102,7 +102,7 @@ void UI_buyBook();
 
 void UI_logined()
 {
-	system("clear");
+	CLEAR;
 	cout << "===== Book Purchase System - Logined =====" << endl;
 	cout << "/ 1. Log out                             /" << endl;
 	cout << "/ 2. Print my info                       /" << endl;
@@ -144,7 +144,7 @@ void UI_printBook();
 
 void UI_buyBook()
 {
-	system("clear");
+	CLEAR;
 	cout << "===== Book Purchase System - Purchase =====" << endl;
 	cout << "/ 1. Print book info                      /" << endl;
 	cout << "/ 2. Purchase book                        /" << endl;
@@ -187,7 +187,7 @@ void UI_buyBook()
 
 void UI_printBook()
 {
-	system("clear");
+	CLEAR;
 	cout << "===== Book Purchase System - Pirnt Book =====" << endl;
 	cout << "/ 1. Print All                              /" << endl;
 	cout << "/ 2. Search with ID                         /" << endl;
@@ -255,6 +255,6 @@ int main()
 		{
 			UI1();
 		}
-		system("clear");
+		CLEAR;
 	}
 }

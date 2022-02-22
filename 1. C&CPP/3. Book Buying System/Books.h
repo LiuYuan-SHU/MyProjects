@@ -164,7 +164,7 @@ namespace Liuyuan
 		//find book index with id
 		if (style == __ID)
 		{
-			for (int i = 0; i < books_length; i++, index++)
+			for (unsigned i = 0; i < books_length; i++, index++)
 			{
 				if (books[i].id == value)
 				{
@@ -175,7 +175,7 @@ namespace Liuyuan
 		//find book index with name
 		else if (style == NAME)
 		{
-			for (int i = 0; i < books_length; i++, index++)
+			for (unsigned i = 0; i < books_length; i++, index++)
 			{
 				if (books[i].name == value)
 				{

@@ -240,7 +240,7 @@ void Liuyuan::searchName(string name)
 
 void Liuyuan::regist(string name)
 {
-	system("clear");
+	CLEAR;
 	cout << "=============== REGIST ===============" << endl;
 	cout << "/ 1. regist layfork" << endl;
 	cout << "/ 2. regist number" << endl;
