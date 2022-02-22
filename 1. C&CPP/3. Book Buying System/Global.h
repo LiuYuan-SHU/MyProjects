@@ -1,6 +1,10 @@
 #ifndef GLOBAL
 #define GLOBAL
 
+#include<string>
+
+using std::string;
+
 #define SUCCESS     1
 #define CANCEL      0
 #define FAIL        -1
@@ -15,12 +19,19 @@
 
 namespace Liuyuan
 {
-	inline int getChoice(int lowerLimit, int upperLimit);
-
+	//clear cin stream
 	inline void Fflush();
 
+	//get an integer in range [lowLimit, upperLimit]
+	inline int getChoice(int lowerLimit, int upperLimit);
+
+	//get data with specific type
 	template<class T>
 	inline T getData();
+
+	//judge the string with the condition 
+	inline bool judgeNoSpace(string judge);
+	inline bool judgeNoSlash(string judge);
 }
 
 #endif // !GLOBAL

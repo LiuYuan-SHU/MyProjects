@@ -14,7 +14,8 @@ using namespace Liuyuan;
 
 int main()
 {
-	init();
+	//init the system
+	initBuyers();
 	while (true)
 	{
 		if(isLogined())

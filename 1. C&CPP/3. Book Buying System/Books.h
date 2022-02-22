@@ -20,12 +20,12 @@ namespace Liuyuan
 {
 	typedef struct
 	{
-		string id;
-		string name;
-		string author;
-		string category;
-		int unit_price;
-		int amout;
+		string id;			//store the id			of book
+		string name;		//store the name		of book
+		string author;		//store the author		of book
+		string category;	//store the category	of book
+		int unit_price;		//store the unit price	of book
+		int amout;			//store the amount		of book
 	} book;
 
 	// struct to store book information

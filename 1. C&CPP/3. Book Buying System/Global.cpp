@@ -1,9 +1,11 @@
 #include"Global.h"
 #include<iostream>
+#include<string>
 
 using std::cin;
 using std::cout;
 using std::endl;
+using std::string;
 
 namespace Liuyuan
 {
@@ -36,5 +38,29 @@ namespace Liuyuan
 		}
 
 		return data;
+	}
+
+	bool Liuyuan::judgeNoSpace(string judge)
+	{
+		for (auto i : judge)
+		{
+			if (isspace(i))
+			{
+				return false;
+			}
+		}
+		return true;
+	}
+
+	bool Liuyuan::judgeNoSlash(string judge)
+	{
+		for (auto i : judge)
+		{
+			if (i == '/')
+			{
+				return false;
+			}
+		}
+		return true;
 	}
 }

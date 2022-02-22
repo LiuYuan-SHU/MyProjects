@@ -46,36 +46,13 @@ void Liuyuan::setLogin_level(string newLevel)
 	logined_level = newLevel;
 }
 
-bool Liuyuan::judgeNoSpace(string judge)
-{
-	for(auto i : judge)
-	{
-		if(isspace(i))
-		{
-			return false;
-		}
-	}
-	return true;
-}
-
-bool Liuyuan::judgeNoSlash(string judge)
-{
-	for(auto i : judge)
-	{
-		if(i == '/')
-		{
-			return false;
-		}
-	}
-	return true;
-}
-
+//functor for sort()
 bool greaterID(Buyer* left, Buyer* right)
 {
 	return (left->getID() > right->getID());
 }
 
-void Liuyuan::init()
+void Liuyuan::initBuyers()
 {
 	guestList.push_back(new Layfork("ZhangXiaobin", "123", "99th, Shangda Road", 200));
 	guestList.push_back(new Number("LiShichun", "123", "80th, Nanchen Road", 2, 400));
@@ -101,6 +78,10 @@ void Buyer::printInfo(string userLevel, double userRate)
 void Liuyuan::printGuest()
 {
 	cout << "========== print guests info ==========" << endl;
+	//'i' is a pointer of kind Buyers*
+	//use dynamic_cast to check which derived class it points
+	//if it is a pointer points the derived class object in "()", it returns a pointer
+	//otherwise returns nullptr
 	for (auto i : guestList)
 	{
 		if (dynamic_cast<Layfork*>(i)) { i->printInfo("Layfork", 1); }
@@ -111,12 +92,14 @@ void Liuyuan::printGuest()
 	cout << "=======================================" << endl;
 }
 
+//constructor of layfork
 Layfork::Layfork(string name, string password, string address, double balance, double mypay) :
 	Buyer(name, password, address, balance, mypay)
 {
 	this->_id = 100000 + (++numOfRegister);
 }
 
+//constructor of number
 Number::Number(string name, string password, string address, unsigned short star, double balance, double mypay) :
 	Buyer(name, password, address, balance, mypay)
 {
@@ -129,6 +112,7 @@ Number::Number(string name, string password, string address, unsigned short star
 	this->_id = 200000 + (++numOfRegister);
 }
 
+//constructor of honoured
 Honoured_guest::Honoured_guest(string name, string password, string address, double rate, double balance, double mypay) :
 	Buyer(name, password, address, balance, mypay)
 {
@@ -141,8 +125,10 @@ Honoured_guest::Honoured_guest(string name, string password, string address, dou
 	this->_id = 300000 + (++numOfRegister);
 }
 
+//login the system
 int Liuyuan::login(string id, string password)
 {
+	//if password contains '/', cancel login with this account
 	for(auto i : password)
 	{
 		if(i == '/')
@@ -152,7 +138,8 @@ int Liuyuan::login(string id, string password)
 		}
 	}
 
-	int id_int = 0;
+	//transform the string into int
+	int id_int = 0;		//store the result
 	for(auto i : id)
 	{
 		if(!isdigit(i))
@@ -164,36 +151,44 @@ int Liuyuan::login(string id, string password)
 		id_int = id_int * 10 + i - '0';
 	}
 
+	//find the user account with same ID
 	for (auto i : guestList)
 	{
+		//if find ID
 		if (i->getID() == id_int)
 		{
+			//if the password is correct
 			if (i->isPassword(password))
 			{
-				//debug
+				//print info
 				cout << "Logined" << endl;
 
+				//set login status
 				logined = true;
 				logined_accountPtr = i;
 				if (dynamic_cast<Layfork*>(i)) { logined_level = "Layfork"; }
 				else if (dynamic_cast<Number*>(i)) { logined_level = "Number"; }
 				else { logined_level = "Honoured"; }
+
 				return SUCCESS;
 			}
+			//if the password is not correct
 			else
 			{
 				return FAIL;
 			}
 		}
 	}
+	//if not find
 	return FAIL;
 }
 
+//search the account with same name in the vector
 void Liuyuan::searchName(string name)
 {
 	cout << "You input a name, searching..." << endl;
 
-	bool found = false;
+	bool found = false;			//restore if find account(s) that have(has) the same name
 	for (auto i : guestList)
 	{
 		//if found the first same name, print info
@@ -203,21 +198,19 @@ void Liuyuan::searchName(string name)
 			cout << "ID:\t" << i->getID() << "\t" << "Name:\t" << i->getName() << endl;
 		}
 	}
+	//if there is no one with same name
 	if (!found)
 	{
 		cout << "you haven't registed yet, do you want to regist? (Y/N)" << endl;
-		char key;
-		while (cin >> key, cin.fail() || (key != 'Y' && key != 'y' && key != 'n' && key != 'N'))
-		{
-			cout << "illegal input, input again: ";
-			Fflush();
-		}
+		char key = getData<char>();;	//whether to regist or not
+
 		if (key == 'Y' || key == 'y')
 		{
 			regist(name);
 		}
 		else
 		{
+			cout << "Give up registing, return" << endl;
 			return;
 		}
 	}
@@ -233,8 +226,6 @@ void Liuyuan::regist(string name)
 	cout << "/ 4. exit" << endl;
 	cout << "======================================" << endl;
 	
-	//from getChoice, but can't move this function to Global.h on Linux
-	//so strange
 	int choice = getChoice(1, 4);
 
 	if(choice == 4)
@@ -244,6 +235,7 @@ void Liuyuan::regist(string name)
 		return;
 	}
 
+	//arguments to store datas which are to contruct new user account
 	string password;
 	string address;
 	double balance = 0;
@@ -251,25 +243,33 @@ void Liuyuan::regist(string name)
 	short star = 0;
 	double rate = 0;
 
+	//get password
 	cout << "input password:";
 	while(password = getData<string>(), !judgeNoSpace(password) && judgeNoSlash(password))
 	{
 		cout << "illegal input, input again: ";
 	}
 	Fflush();
+	
+	//get address
 	cout << "input address: ";
 	getline(cin,address);
-	Fflush();
+	cin.clear();
+
+	//get balance
 	cout << "input balance: ";
 	balance = getData<double>();
 	Fflush();
 
+	//construct account depending on choice
 	switch(choice)
 	{
+		//construct layfork
 	case 1:
 		cout << "=============== REGIST Layfork ===============" << endl;
 		guestList.push_back(new Layfork(name, password, address, balance));
 		break;
+		//construct number
 	case 2:
 		cout << "=============== REGIST Number ===============" << endl;
 		cout << "input star of the guest: ";
@@ -279,6 +279,7 @@ void Liuyuan::regist(string name)
 		}
 		guestList.push_back(new Number(name, password, address, star, balance));
 		break;
+		//construct honoured
 	case 3:
 		cout << "=============== REGIST Honoured ===============" << endl;
 		cout << "input rate of the guest: ";
@@ -289,5 +290,6 @@ void Liuyuan::regist(string name)
 		guestList.push_back(new Honoured_guest(name,password,address,rate,balance));
 		break;
 	}
+	//sort the guest list by ID
 	sort(guestList.rbegin(),guestList.rend(),greaterID);
 }
