@@ -1,6 +1,5 @@
 #include"Global.h"
 #include"Buyers.h"
-#include"Tools.h"
 #include<iostream>
 #include<string>
 
@@ -10,6 +9,12 @@ using std::endl;
 using std::string;
 
 using namespace Liuyuan;
+
+void Fflush()
+	{
+		cin.clear();
+		cin.ignore(1024, '\n');
+	}
 
 int getChoice()
 {

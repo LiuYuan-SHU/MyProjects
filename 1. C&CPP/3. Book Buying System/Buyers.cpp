@@ -51,7 +51,7 @@ void Liuyuan::printGuest()
 	for (auto i : guestList)
 	{
 		if (dynamic_cast<Layfork*>(i)) { i->printInfo("Layfork", 1); }
-		else if (dynamic_cast<Number*>(i)) { i->printInfo("Number", Number::rate[dynamic_cast<Number*>(i)->getStar()]); }
+		else if (dynamic_cast<Number*>(i)) { i->printInfo("Number", rate[dynamic_cast<Number*>(i)->getStar()]); }
 		else { i->printInfo("Honoured", dynamic_cast<Honoured_guest*>(i)->getRate()); }
 		cout << "+=====================================+" << endl;
 	}
@@ -134,7 +134,8 @@ void Liuyuan::searchName(string name)
 		while (cin >> key, cin.fail() || (key != 'Y' && key != 'y' && key != 'n' && key != 'N'))
 		{
 			cout << "illegal input, input again: ";
-			Fflush();
+			cin.clear();
+			cin.ignore(1024, '\n');
 		}
 		if (key == 'Y')
 		{

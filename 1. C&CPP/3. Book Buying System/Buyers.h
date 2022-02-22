@@ -20,6 +20,9 @@ using std::exit;
 
 namespace Liuyuan
 {
+//stores the rate for different star users
+		static constexpr double rate[] = { 1, 0.95, 0.9, 0.85, 0.8, 0.75 };
+
 	//abstract class buyer
 	class Buyer
 	{
@@ -76,14 +79,11 @@ namespace Liuyuan
 	private:
 		unsigned short _star;   //use star to get the rate
 	public:
-		//stores the rate for different star users
-		static constexpr double rate[] = { 1, 0.95, 0.9, 0.85, 0.8, 0.75 };
-
 		Number(string name, string password, string address, unsigned short star = 0, double balance = 0, double mypay = 0);
 
 		double calculatePay(unsigned unitPrice, unsigned amount) const
 		{
-			return static_cast<double>(unitPrice) * static_cast<double>(amount) * Number::rate[this->_star];
+			return static_cast<double>(unitPrice) * static_cast<double>(amount) * rate[this->_star];
 		}
 
 		unsigned short getStar() { return this->_star; }
