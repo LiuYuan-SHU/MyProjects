@@ -1,0 +1,11 @@
+/usr/bin/ld: /tmp/ccrSc4pG.o: in function `Liuyuan::Layfork::Layfork(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, double, double)':
+Buyers.cpp:(.text+0x33c): undefined reference to `Liuyuan::Buyer::numOfRegister'
+/usr/bin/ld: Buyers.cpp:(.text+0x345): undefined reference to `Liuyuan::Buyer::numOfRegister'
+/usr/bin/ld: Buyers.cpp:(.text+0x34b): undefined reference to `Liuyuan::Buyer::numOfRegister'
+/usr/bin/ld: /tmp/ccrSc4pG.o: in function `Liuyuan::Number::Number(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, unsigned short, double, double)':
+Buyers.cpp:(.text+0x4b3): undefined reference to `Liuyuan::Buyer::numOfRegister'
+/usr/bin/ld: Buyers.cpp:(.text+0x4bc): undefined reference to `Liuyuan::Buyer::numOfRegister'
+/usr/bin/ld: /tmp/ccrSc4pG.o:Buyers.cpp:(.text+0x4c2): more undefined references to `Liuyuan::Buyer::numOfRegister' follow
+/usr/bin/ld: /tmp/ccrSc4pG.o: in function `Liuyuan::Number::calculatePay(unsigned int, unsigned int) const':
+Buyers.cpp:(.text._ZNK7Liuyuan6Number12calculatePayEjj[_ZNK7Liuyuan6Number12calculatePayEjj]+0x54): undefined reference to `Liuyuan::Number::rate'
+collect2: error: ld returned 1 exit status
