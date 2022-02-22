@@ -210,8 +210,7 @@ void Liuyuan::searchName(string name)
 		while (cin >> key, cin.fail() || (key != 'Y' && key != 'y' && key != 'n' && key != 'N'))
 		{
 			cout << "illegal input, input again: ";
-			cin.clear();
-			cin.ignore(1024, '\n');
+			Fflush();
 		}
 		if (key == 'Y' || key == 'y')
 		{
@@ -236,15 +235,7 @@ void Liuyuan::regist(string name)
 	
 	//from getChoice, but can't move this function to Global.h on Linux
 	//so strange
-	int choice = 0;
-	cout << "input your choice: ";
-	while (cin >> choice, cin.fail() || choice > 4 || choice < 1)
-	{
-		cout << "illegal input, input again: ";
-		//Can't use Fflush either
-		cin.clear();
-		cin.ignore(1024, '\n');
-	}
+	int choice = getChoice(1, 4);
 
 	if(choice == 4)
 	{
@@ -265,15 +256,13 @@ void Liuyuan::regist(string name)
 	{
 		cout << "illegal input, input again: ";
 	}
-	cin.clear();
-	cin.ignore(1024, '\n');
+	Fflush();
 	cout << "input address: ";
 	getline(cin,address);
-	cin.clear();
+	Fflush();
 	cout << "input balance: ";
 	balance = getData<double>();
-	cin.clear();
-	cin.ignore(1024, '\n');
+	Fflush();
 
 	switch(choice)
 	{

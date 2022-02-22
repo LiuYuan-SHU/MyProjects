@@ -14,5 +14,4 @@ namespace Liuyuan
 	void UI_printBook();
 }
 
-
 #endif

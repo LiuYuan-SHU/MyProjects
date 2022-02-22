@@ -19,7 +19,7 @@ void Liuyuan::UI_basic()
 	cout << "/ 2. Print all guests                    /" << endl;
 	cout << "/ 3. Exit                                /" << endl;
 	cout << "==========================================" << endl;
-	switch (getChoice())
+	switch (getChoice(1,3))
 	{
 	case 1:
 		UI_login();
@@ -88,13 +88,7 @@ void Liuyuan::UI_logined()
 	cout << "/ 4. Exit                                /" << endl;
 	cout << "==========================================" << endl;
 
-	int choice = 0;
-	while (choice = getChoice(), choice < 1 || choice > 4)
-	{
-		cout << "illegal input, input again: ";
-	}
-
-	switch (choice)
+	switch (getChoice(1, 4))
 	{
 	case 1:
 		logout();
@@ -129,13 +123,7 @@ void Liuyuan::UI_buyBook()
 	cout << "/ 5. Exit                                 /" << endl;
 	cout << "===========================================" << endl;
 
-	int choice = 0;
-	while (choice = getChoice(), choice < 1 || choice > 5)
-	{
-		cout << "illegal input, input again: ";
-	}
-
-	switch (choice)
+	switch (getChoice(1, 5))
 	{
 	case 1:
 		UI_printBook();
@@ -173,14 +161,8 @@ void Liuyuan::UI_printBook()
 	cout << "/ 6. Cancel                                 /" << endl;
 	cout << "=============================================" << endl;
 
-	int choice = 0;
-	while (choice = getChoice(), choice < 1 || choice > 6)
-	{
-		cout << "illegal input, input again: ";
-	}
-
 	string key;
-	switch (choice)
+	switch (getChoice(1, 6))
 	{
 	case 1:
 		printBookInfo();

@@ -15,7 +15,7 @@
 
 namespace Liuyuan
 {
-	inline int getChoice();
+	inline int getChoice(int lowerLimit, int upperLimit);
 
 	inline void Fflush();
 

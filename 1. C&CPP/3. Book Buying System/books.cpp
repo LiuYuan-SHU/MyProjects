@@ -38,7 +38,7 @@ void Liuyuan::printBookInfo(int style, string key)
 				cout << "+====================================+" << endl;
 			}
 		}
-		if (printed) { cout << "/ found " << amount << " record intotal" << endl; }
+		if (printed) { cout << "/ found " << amount << " record in total" << endl; }
 		else { cout << "/ didn't found any record, please check your key" << endl; }
 	}
 	else if (style == NAME)
