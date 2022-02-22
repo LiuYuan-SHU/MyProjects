@@ -1,5 +1,6 @@
 #include"Buyers.h"
 #include"Global.h"
+#include"Tools.h"
 #include<iostream>
 #include<algorithm>
 #include<vector>
@@ -14,6 +15,8 @@ using namespace Liuyuan;
 unsigned int Buyer::numOfRegister = 0;
 vector<Buyer*> guestList;
 
+bool super_usr = false;
+
 bool greaterID(Buyer* left, Buyer* right)
 {
 	return (left->getID() > right->getID());
@@ -21,21 +24,25 @@ bool greaterID(Buyer* left, Buyer* right)
 
 void Liuyuan::init()
 {
-	guestList.push_back(new Layfork("ZhangXiaobin", "99th, Shangda Road", 200));
-	guestList.push_back(new Number("LiShichun", "80th, Nanchen Road", 2, 400));
-	guestList.push_back(new Honoured_guest("WangSicheng", "70th, Jinqiu Road", 0.7, 600));
+	guestList.push_back(new Layfork("ZhangXiaobin", "123", "99th, Shangda Road", 200));
+	guestList.push_back(new Number("LiShichun", "123", "80th, Nanchen Road", 2, 400));
+	guestList.push_back(new Honoured_guest("WangSicheng", "123", "70th, Jinqiu Road", 0.7, 600));
 	sort(guestList.rbegin(), guestList.rend(),greaterID);
 }
 
 void Buyer::printInfo(string userLevel, double userRate)
 {
-	cout << "/ User Level:\t" << userLevel << endl;
-	cout << "/ User ID:\t" << this->_id << endl;
-	cout << "/ User name:\t" << this->_name << endl;
-	cout << "/ User address:\t" << this->_address << endl;
-	cout << "/ User balance:\t" << this->_balance << endl;
-	cout << "/ User mypay:\t" << this->_mypay << endl;
-	cout << "/ User rate:\t" << userRate << endl;
+	cout << "/ User Level:\t\t" << userLevel << endl;
+	cout << "/ User ID:\t\t" << this->_id << endl;
+	cout << "/ User name:\t\t" << this->_name << endl;
+	if (super_usr)
+	{
+		cout << "/ **USER password:\t" << this->_password << endl;
+	}
+	cout << "/ User address:\t\t" << this->_address << endl;
+	cout << "/ User balance:\t\t" << this->_balance << endl;
+	cout << "/ User mypay:\t\t" << this->_mypay << endl;
+	cout << "/ User rate:\t\t" << userRate << endl;
 }
 
 void Liuyuan::printGuest()
@@ -51,14 +58,14 @@ void Liuyuan::printGuest()
 	cout << "=======================================" << endl;
 }
 
-Layfork::Layfork(string name, string address, double balance, double mypay) :
-	Buyer(name, address, balance, mypay)
+Layfork::Layfork(string name, string password, string address, double balance, double mypay) :
+	Buyer(name, password, address, balance, mypay)
 {
 	this->_id = 100000 + (++numOfRegister);
 }
 
-Number::Number(string name, string address, unsigned short star, double balance, double mypay) :
-	Buyer(name, address, balance, mypay)
+Number::Number(string name, string password, string address, unsigned short star, double balance, double mypay) :
+	Buyer(name, password, address, balance, mypay)
 {
 	if (star >= 5)
 	{
@@ -69,8 +76,8 @@ Number::Number(string name, string address, unsigned short star, double balance,
 	this->_id = 200000 + (++numOfRegister);
 }
 
-Honoured_guest::Honoured_guest(string name, string address, double rate, double balance, double mypay) :
-	Buyer(name, address, balance, mypay)
+Honoured_guest::Honoured_guest(string name, string password, string address, double rate, double balance, double mypay) :
+	Buyer(name, password, address, balance, mypay)
 {
 	if (rate <= 0 || rate > 1)
 	{
@@ -88,9 +95,54 @@ void initSystem()
 	Honoured_guest::setNum();
 }
 
-bool Liuyuan::login()
+bool Liuyuan::login(string id, string password)
 {
-	
-
+	for (auto i : guestList)
+	{
+		if (i->getName() == id)
+		{
+			if (i->isPassword(password))
+			{
+				return SUCCESS;
+			}
+			else
+			{
+				return FAIL;
+			}
+		}
+		
+	}
 	return FAIL;
+}
+
+void Liuyuan::searchName(string name)
+{
+	bool found = false;
+	for (auto i : guestList)
+	{
+		//if found the first same name, print info
+		if (i->getName() == name)
+		{
+			found ? (cout << "") : (cout << "===== found same name as follows: =====");
+		}
+		cout << "ID:\t" << i->getID() << "\t" << "Name:\t" << i->getName() << endl;
+	}
+	if (!found)
+	{
+		cout << "you haven't  registed yet, do you want to regist? (Y/N)" << endl;
+		char key;
+		while (cin >> key, cin.fail() || (key != 'Y' && key != 'y' && key != 'n' && key != 'N'))
+		{
+			cout << "illegal input, input again: ";
+			Fflush();
+		}
+		if (key == 'Y')
+		{
+			//regist(name);
+		}
+		else
+		{
+			return;
+		}
+	}
 }

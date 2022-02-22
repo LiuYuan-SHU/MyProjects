@@ -1,8 +1,6 @@
 #ifndef TOOLS
 #define TOOLS
 
-#include"Books.h"
-#include"Buyers.h"
 #include<iostream>
 #include<string>
 

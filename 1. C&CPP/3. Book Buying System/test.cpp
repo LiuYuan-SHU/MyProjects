@@ -68,12 +68,12 @@ void UI2()
 		cout << "input your passport: ";
 		cin >> password;
 		Fflush();
-		//logIn();
+		login(name, password);
 	}
 	else if (isalpha(name[0]))
 	{
 		cout << "You input a name, searching..." << endl;
-		//searchName();
+		//searchName(name);
 	}
 }
 
