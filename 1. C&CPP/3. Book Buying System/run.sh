@@ -9,7 +9,7 @@ fi;
 
 #compile new files
 echo 'compiling new file...'
-g++ -g -o BuyBook *.cpp
+g++ -o BuyBook *.cpp
 echo
 
 #if success
