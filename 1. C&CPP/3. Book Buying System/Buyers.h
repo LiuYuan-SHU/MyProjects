@@ -146,33 +146,23 @@ namespace Liuyuan
 		inline double getRate() const { return this->_rate; }
 	};
 
-	//user login arguments
-	//if super_usr is true, print password when call printInfo()
-	static bool super_usr = false;		
-	//main calls UI_basic() or UI_logined() depending on logined
-	static bool logined;				
-	//points the account in the vector
-	static Buyer* logined_accountPtr;	
-	//store the level of the account
-	static string logined_level;		
-
 	//login/logout functions
 	//return if superUsr
-	inline bool isSuperUsr() { return super_usr; }
+	bool isSuperUsr();
 	//set superUsr
-	inline void setSuperUsr(bool status) { super_usr = status; }
+	void setSuperUsr(bool status);
 	//return logined
-	inline bool isLogined() { return logined; }			
+	bool isLogined();
 	//set logined as false
-	inline void logout() { logined = false; }										
+	void logout();
 	//return account pointer
-	inline Buyer* getLogin_accountPtr() { return logined_accountPtr; }				
+	Buyer* getLogin_accountPtr();
 	//set account pointer as nullptr
-	inline void setLogin_accountPtr(Buyer* newPtr = nullptr) { logined_accountPtr = newPtr; }
+	void setLogin_accountPtr(Buyer* newPtr = nullptr);
 	//return the level of the user
-	inline string getLogin_level() { return logined_level; }	
+	string getLogin_level();
 	//set the level of the user as ""
-	inline void setLogin_level(string newLevel = "") { logined_level = newLevel; }		
+	void setLogin_level(string newLevel = "");
 
 	//Buyers operation functions
 	//add three existing users to vector

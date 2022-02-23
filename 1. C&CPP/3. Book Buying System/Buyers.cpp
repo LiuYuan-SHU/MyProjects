@@ -17,6 +17,34 @@ unsigned int Layfork::numOfRegister = 0;
 unsigned int Number::numOfRegister = 0;
 unsigned int Honoured_guest::numOfRegister = 0;
 
+//user login arguments
+//if super_usr is true, print password when call printInfo()
+static bool super_usr = false;
+//main calls UI_basic() or UI_logined() depending on logined
+static bool logined;
+//points the account in the vector
+static Buyer* logined_accountPtr;
+//store the level of the account
+static string logined_level;
+
+//login/logout functions
+//return if superUsr
+bool   Liuyuan::isSuperUsr() { return super_usr; }
+//set superUsr
+void   Liuyuan::setSuperUsr(bool status) { super_usr = status; }
+//return logined
+bool   Liuyuan::isLogined() { return logined; }
+//set logined as false
+void   Liuyuan::logout() { logined = false; }
+//return account pointer
+Buyer* Liuyuan::getLogin_accountPtr() { return logined_accountPtr; }
+//set account pointer as nullptr
+void   Liuyuan::setLogin_accountPtr(Buyer* newPtr) { logined_accountPtr = newPtr; }
+//return the level of the user
+string Liuyuan::getLogin_level() { return logined_level; }
+//set the level of the user as ""
+void   Liuyuan::setLogin_level(string newLevel) { logined_level = newLevel; }
+
 //functor for sort()
 bool greaterID(Buyer* left, Buyer* right)
 {
@@ -28,7 +56,7 @@ void Liuyuan::initBuyers()
 	guestList.push_back(new Layfork("ZhangXiaobin", "123", "99th, Shangda Road", 200));
 	guestList.push_back(new Number("LiShichun", "123", "80th, Nanchen Road", 2, 400));
 	guestList.push_back(new Honoured_guest("WangSicheng", "123", "70th, Jinqiu Road", 0.7, 600));
-	sort(guestList.rbegin(), guestList.rend(),greaterID);
+	sort(guestList.rbegin(), guestList.rend(), greaterID);
 }
 
 void Buyer::printInfo(string userLevel, double userRate)
@@ -49,11 +77,11 @@ void Buyer::printInfo(string userLevel, double userRate)
 bool Liuyuan::Buyer::hasEnoughBalance(int unitPrice, unsigned amount) const
 {
 	//protection
-	if(unitPrice == OUT_OF_RANGE)
+	if (unitPrice == OUT_OF_RANGE)
 	{
 		return false;
 	}
-	return this->_balance >= this->calculatePay(unitPrice, amount); 
+	return this->_balance >= this->calculatePay(unitPrice, amount);
 }
 
 void Liuyuan::printGuest()
@@ -108,9 +136,9 @@ Honoured_guest::Honoured_guest(string name, string password, string address, dou
 
 Buyer* Liuyuan::findId(unsigned int id)
 {
-	for(auto i : guestList)
+	for (auto i : guestList)
 	{
-		if(i->getID() == id)
+		if (i->getID() == id)
 		{
 			return i;
 		}
@@ -122,9 +150,9 @@ Buyer* Liuyuan::findId(unsigned int id)
 int Liuyuan::login(string id, string password)
 {
 	//if password contains '/', cancel login with this account
-	for(auto i : password)
+	for (auto i : password)
 	{
-		if(i == '/')
+		if (i == '/')
 		{
 			cout << "Canceled" << endl;
 			return CANCEL;
@@ -133,9 +161,9 @@ int Liuyuan::login(string id, string password)
 
 	//transform the string into int
 	int id_int = 0;		//store the result
-	for(auto i : id)
+	for (auto i : id)
 	{
-		if(!isdigit(i))
+		if (!isdigit(i))
 		{
 			cout << "your ID is incorrect" << endl;
 			system("pause");
@@ -218,10 +246,10 @@ void Liuyuan::regist(string name)
 	cout << "/ 3. regist honoured" << endl;
 	cout << "/ 4. exit" << endl;
 	cout << "======================================" << endl;
-	
+
 	int choice = getChoice(1, 4);
 
-	if(choice == 4)
+	if (choice == 4)
 	{
 		cout << "Cancel Regist" << endl;
 		system("pause");
@@ -238,15 +266,15 @@ void Liuyuan::regist(string name)
 
 	//get password
 	cout << "input password:";
-	while(password = getData<string>(), !judgeNoSpace(password) && judgeNoSlash(password))
+	while (password = getData<string>(), !judgeNoSpace(password) && judgeNoSlash(password))
 	{
 		cout << "illegal input, input again: ";
 	}
 	Fflush();
-	
+
 	//get address
 	cout << "input address: ";
-	getline(cin,address);
+	getline(cin, address);
 	cin.clear();
 
 	//get balance
@@ -255,7 +283,7 @@ void Liuyuan::regist(string name)
 	Fflush();
 
 	//construct account depending on choice
-	switch(choice)
+	switch (choice)
 	{
 		//construct layfork
 	case 1:
@@ -266,7 +294,7 @@ void Liuyuan::regist(string name)
 	case 2:
 		cout << "=============== REGIST Number ===============" << endl;
 		cout << "input star of the guest: ";
-		while(star = getData<short>(), star < 1 || star > 5)
+		while (star = getData<short>(), star < 1 || star > 5)
 		{
 			cout << "out of range, please input an integer in [1,5]: ";
 		}
@@ -276,15 +304,15 @@ void Liuyuan::regist(string name)
 	case 3:
 		cout << "=============== REGIST Honoured ===============" << endl;
 		cout << "input rate of the guest: ";
-		while(rate = getData<double>(), rate <= 0 || rate > 1)
+		while (rate = getData<double>(), rate <= 0 || rate > 1)
 		{
 			cout << "rate out of range, please input in a legal range: ";
 		}
-		guestList.push_back(new Honoured_guest(name,password,address,rate,balance));
+		guestList.push_back(new Honoured_guest(name, password, address, rate, balance));
 		break;
 	}
 	//sort the guest list by ID
-	sort(guestList.rbegin(),guestList.rend(),greaterID);
+	sort(guestList.rbegin(), guestList.rend(), greaterID);
 }
 
 int Liuyuan::Buyer::buyBook()
@@ -317,7 +345,7 @@ int Liuyuan::Buyer::buyBook()
 		cout << "The amount of book is not enough, please check the amount in book information" << endl;
 		return NOT_ENOUGH;
 	default:
-		cout << "Book FOUND and amount is ENOUGH" << endl;		
+		cout << "Book FOUND and amount is ENOUGH" << endl;
 	}
 
 	//get unit price of the book
@@ -325,7 +353,7 @@ int Liuyuan::Buyer::buyBook()
 
 	//judge if the user has enough balance
 	//if doesn't
-	if(!logined_accountPtr->hasEnoughBalance(getBookUnitPrice(bookIndex),bookAmount))
+	if (!logined_accountPtr->hasEnoughBalance(getBookUnitPrice(bookIndex), bookAmount))
 	{
 		cout << "Your balance is not enough, please recharge" << endl;
 		return CANCEL;
@@ -337,7 +365,7 @@ int Liuyuan::Buyer::buyBook()
 		books[bookIndex]->amout -= bookAmount;
 		//decrease user balance
 		Buyer* account = getLogin_accountPtr();
-		double payment = account->calculatePay(unitPrice,bookAmount);
+		double payment = account->calculatePay(unitPrice, bookAmount);
 		account->setBalance(account->getBalance() - payment);
 		//increase user mypay
 		account->raisePayment(payment);

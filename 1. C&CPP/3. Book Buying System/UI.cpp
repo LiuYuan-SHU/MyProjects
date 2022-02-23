@@ -66,6 +66,7 @@ void Liuyuan::UI_login()
 		cout << "/         Welcome! SUPER USER          /" << endl;
 		cout << "========================================" << endl;
 		setSuperUsr(true);
+		cout << isSuperUsr();
 		system("pause");
 		return;
 	}
@@ -110,7 +111,7 @@ void Liuyuan::UI_logined()
 		break;
 	case 2:
 		cout << "========== print guests info ==========" << endl;
-		getLogin_accountPtr()->printInfo(logined_level, getLogin_accountPtr()->getRate());
+		getLogin_accountPtr()->printInfo(getLogin_level(), getLogin_accountPtr()->getRate());
 		cout << "=======================================" << endl;
 		system("pause");
 		break;
@@ -144,7 +145,7 @@ void Liuyuan::UI_logined_superUsr()
 		break;
 	case 2:
 		cout << "========== print guests info ==========" << endl;
-		getLogin_accountPtr()->printInfo(logined_level, getLogin_accountPtr()->getRate());
+		getLogin_accountPtr()->printInfo(getLogin_level(), getLogin_accountPtr()->getRate());
 		cout << "=======================================" << endl;
 		break;
 	case 3:
@@ -232,7 +233,7 @@ void Liuyuan::UI_logined_superUsr_changeKind()
 	cout << "Please input the ID of the guest: ";
 	unsigned int id = getData<unsigned int>();
 	Fflush();
-	Buyer* account = findId(id)；
+	Buyer* account = findId(id);
 	if(!account)
 	{
 		cout << "incorrect ID, change FAIL" << endl;

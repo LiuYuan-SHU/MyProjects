@@ -18,6 +18,7 @@ int main()
 	initBuyers();
 	while (true)
 	{
+		system("pause");
 		if(isSuperUsr())
 		{
 			UI_logined_superUsr();
