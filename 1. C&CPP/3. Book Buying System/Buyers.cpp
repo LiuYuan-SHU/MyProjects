@@ -1,6 +1,7 @@
 #include"Global.h"
 #include"Global.cpp"
 #include"Buyers.h"
+#include"Books.h"
 #include<iostream>
 #include<algorithm>
 #include<vector>
@@ -73,6 +74,16 @@ void Buyer::printInfo(string userLevel, double userRate)
 	cout << "/ User balance:\t\t" << this->_balance << endl;
 	cout << "/ User mypay:\t\t" << this->_mypay << endl;
 	cout << "/ User rate:\t\t" << userRate << endl;
+}
+
+bool Liuyuan::Buyer::hasEnoughBalance(int unitPrice, unsigned amount) const
+{
+	//protection
+	if(unitPrice == OUT_OF_RANGE)
+	{
+		return false;
+	}
+	return this->_balance >= this->calculatePay(unitPrice, amount); 
 }
 
 void Liuyuan::printGuest()
@@ -292,4 +303,63 @@ void Liuyuan::regist(string name)
 	}
 	//sort the guest list by ID
 	sort(guestList.rbegin(),guestList.rend(),greaterID);
+}
+
+int Liuyuan::Buyer::buyBook()
+{
+	//get book id and amount
+	cout << "Input book id: ";
+	string bookID = getData<string>();
+	Fflush();
+	cout << "input amount you want to buy: ";
+	unsigned int bookAmount = getData<unsigned int>();
+	Fflush();
+
+	int bookIndex;
+	//judge if the book exists and amount is enough
+	switch (bookIndex = book_foundAndEnough(bookID, bookAmount))
+	{
+	case FAIL:
+		cout << "log: function book_foundAndEnough quit with code FAIL" << endl;
+		cout << "Please check function" << endl;
+		cout << "------------------------------" << endl;
+		return FAIL;
+	case INCORRECT_ID:
+	case NOT_FOUND:
+		cout << "Books with your ID: " << bookID << " is not found, please check your ID" << endl;
+		return INCORRECT_ID;
+	case OUT_OF_RANGE:
+		cout << "the index of book is out of range" << endl;
+		return OUT_OF_RANGE;
+	case NOT_ENOUGH:
+		cout << "The amount of book is not enough, please check the amount in book information" << endl;
+		return NOT_ENOUGH;
+	default:
+		cout << "Book FOUND and amount is ENOUGH" << endl;		
+	}
+
+	//get unit price of the book
+	unsigned int unitPrice = getBookUnitPrice(bookIndex);
+
+	//judge if the user has enough balance
+	//if doesn't
+	if(!logined_accountPtr->hasEnoughBalance(getBookUnitPrice(bookIndex),bookAmount))
+	{
+		cout << "Your balance is not enough, please recharge" << endl;
+		return CANCEL;
+	}
+	//if does
+	else
+	{
+		//decrease book amount
+		books[bookIndex].amout -= bookAmount;
+		//decrease user balance
+		Buyer* account = getLogin_accountPtr();
+		double payment = account->calculatePay(unitPrice,bookAmount);
+		account->setBalance(account->getBalance() - payment);
+		//increase user mypay
+		account->raisePayment(payment);
+		return SUCCESS;
+	}
+	return UNEXPECTED_ERROR;
 }

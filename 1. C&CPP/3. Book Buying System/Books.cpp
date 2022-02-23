@@ -123,60 +123,54 @@ void Liuyuan::printBookInfo(int style, string key)
 	cout << "======================================" << endl;
 }
 
-int Liuyuan::getBookIndex(string value, int style)
+int Liuyuan::getBookIndex(string id)
 {
 	int index = 0;      //store the index of the book
 	//find book index with id
-	if (style == __ID)
+	for (unsigned i = 0; i < books_length; i++, index++)
 	{
-		for (unsigned i = 0; i < books_length; i++, index++)
+		if (books[i].id == id)
 		{
-			if (books[i].id == value)
-			{
-				return index;
-			}
+			return index;
 		}
 	}
-	//find book index with name
-	else if (style == NAME)
+	
+	return INCORRECT_ID;
+}
+
+int Liuyuan::getBookUnitPrice(int index)
+{
+	//protection
+	if(index < 0 || index >= books_length)
 	{
-		for (unsigned i = 0; i < books_length; i++, index++)
-		{
-			if (books[i].name == value)
-			{
-				return index;
-			}
-		}
+		cout << "illegal index, get price fail" << endl;
+		return OUT_OF_RANGE;
 	}
-	//if the style is wrong
-	else
-	{
-		cout << "---------------" << endl;
-		cout << "illegal style" << endl;
-		cout << "SEARCH FAIL" << endl;
-		cout << "---------------" << endl;
-	}
-	return FAIL;
+
+	return books[index].unit_price;
 }
 
 
-int Liuyuan::buyBook(string bookName, unsigned& param_containUnitPrice, unsigned amount, int style)
+short Liuyuan::book_foundAndEnough(string bookID, unsigned amount)
 {
-	int index = getBookIndex(bookName, style);
-	//if the amount is enough, return the price of the book, minus amout
-	//and return SUCCESS
-	if (books[index].amout - amount > 0)
+	int index = getBookIndex(bookID);
+
+	//protection
+	if(index == INCORRECT_ID)
 	{
-		param_containUnitPrice = books[index].unit_price;
-		books[index].amout -= amount;
-		return SUCCESS;
+		return INCORRECT_ID;
+	}
+
+	//if the amount is enough, return the price of the book, minus amount
+	//and return SUCCESS
+	if (books[index].amout >= amount)
+	{
+		return index;
 	}
 	//else, buy FAIL
 	else
 	{
-		cout << "amout is out of range, buy fail" << endl;
-		param_containUnitPrice = 0;
-		return FAIL;
+		return OUT_OF_RANGE;
 	}
 
 	return FAIL;

@@ -130,7 +130,7 @@ void Liuyuan::UI_buyBook()
 		break;
 	case 2:
 		cout << "buy book" << endl;
-		//buyBook();
+		getLogin_accountPtr()->buyBook();
 		break;
 	case 3:
 		return;

@@ -5,6 +5,8 @@
 #include<iostream>
 #include<string>
 
+#define MAX_AMOUNT	100
+
 #define ALL			100
 #define __ID    	101
 #define NAME    	102
@@ -49,16 +51,25 @@ namespace Liuyuan
 	//print the information of books, use `style` and `key` to search
 	void printBookInfo(int style = ALL, string key = "");
 
+	//getters and setters
+
 	//get the index of books, defaultly search with ID
 	//if success, return the index of the book
 	//else return FAIL
-	int getBookIndex(string value, int style = __ID);
+	int getBookIndex(string id);
+
+	//get the unit price of the book
+	int getBookUnitPrice(int index);
+
+	//set the amount of 
+	//WARNING: no judgement on index
+	inline void setBookAmount(unsigned int index, int amount = getChoice(0, MAX_AMOUNT)) { books[index].amout = amount; }
 
 	//buy book
 	//param_containUnitPrice need a argument to store the price
 	//amount is the amount of the books to buy, defaultly buy one book
 	//style is the way to search the book, defaultly use ID
-	int buyBook(string bookName, unsigned& param_containUnitPrice, unsigned amount = 1, int style = __ID);
+	short book_foundAndEnough(string bookID, unsigned amount = 1);
 }
 
 #endif

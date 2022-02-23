@@ -40,7 +40,7 @@ namespace Liuyuan
 		return data;
 	}
 
-	bool Liuyuan::judgeNoSpace(string judge)
+	bool judgeNoSpace(string judge)
 	{
 		for (auto i : judge)
 		{
@@ -52,7 +52,7 @@ namespace Liuyuan
 		return true;
 	}
 
-	bool Liuyuan::judgeNoSlash(string judge)
+	bool judgeNoSlash(string judge)
 	{
 		for (auto i : judge)
 		{

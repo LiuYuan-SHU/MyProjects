@@ -49,6 +49,9 @@ namespace Liuyuan
 		//getter and setter
 		int getID() { return this->_id; }
 		string getName() { return this->_name; }
+		double getBalance() { return this->_balance; } 
+		void raisePayment(unsigned int increase) { this->_mypay += increase; }
+		void setBalance(double newBalance) { this->_balance = newBalance; }
 
 		//calculate the payment for different buyers
 		virtual inline double calculatePay(unsigned unitPrice, unsigned amount) const = 0;
@@ -58,6 +61,10 @@ namespace Liuyuan
 		void printInfo(string userLevel, double userRate);
 		//judge if the password is correct
 		inline bool isPassword(string password) const { return (this->_password == password); }
+		//judge if the usr has enough balance
+		virtual bool hasEnoughBalance(int unitPrice, unsigned amount) const;
+		//buy book
+		virtual int buyBook();
 	};
 
 	//Ordinary Buyer Class
