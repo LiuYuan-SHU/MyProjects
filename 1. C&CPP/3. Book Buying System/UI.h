@@ -12,6 +12,9 @@ namespace Liuyuan
 	//UI: logined
 	void UI_logined();
 
+	//UI: super user
+	void UI_logined_superUsr();
+
 	//UI: purchase book
 	void UI_buyBook();
 

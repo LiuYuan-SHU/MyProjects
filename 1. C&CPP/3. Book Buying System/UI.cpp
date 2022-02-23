@@ -112,6 +112,11 @@ void Liuyuan::UI_logined()
 	}
 }
 
+void Liuyuan::UI_logined_superUsr()
+{	
+	
+}
+
 void Liuyuan::UI_buyBook()
 {
 	CLEAR;

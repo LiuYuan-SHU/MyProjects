@@ -32,19 +32,19 @@ namespace Liuyuan
 		int amout;			//store the amount		of book
 	} book;
 
-	static vector<book> books{
-		{"1001","BOOK_NAME","AUTHOR_NAME","CATEGORY_NAME",34,50},
-		{"1002","BOOK_NAME","AUTHOR_NAME","CATEGORY_NAME",38,20},
-		{"1003","BOOK_NAME","AUTHOR_NAME","CATEGORY_NAME",31,30},
-		{"1004","BOOK_NAME","AUTHOR_NAME","CATEGORY_NAME",40,40},
-		{"2001","BOOK_NAME","AUTHOR_NAME","CATEGORY_NAME",24,5},
-		{"2002","BOOK_NAME","AUTHOR_NAME","CATEGORY_NAME",28,35},
-		{"2003","BOOK_NAME","AUTHOR_NAME","CATEGORY_NAME",32,10},
-		{"2004","BOOK_NAME","AUTHOR_NAME","CATEGORY_NAME",36,8},
-		{"3001","BOOK_NAME","AUTHOR_NAME","CATEGORY_NAME",23,30},
-		{"3002","BOOK_NAME","AUTHOR_NAME","CATEGORY_NAME",37,2},
-		{"3003","BOOK_NAME","AUTHOR_NAME","CATEGORY_NAME",20,18},
-		{"3004","BOOK_NAME","AUTHOR_NAME","CATEGORY_NAME",30,60}
+	static vector<book*> books{
+		new book{"1001","BOOK_NAME","AUTHOR_NAME","CATEGORY_NAME",34,50},
+		new book{"1002","BOOK_NAME","AUTHOR_NAME","CATEGORY_NAME",38,20},
+		new book{"1003","BOOK_NAME","AUTHOR_NAME","CATEGORY_NAME",31,30},
+		new book{"1004","BOOK_NAME","AUTHOR_NAME","CATEGORY_NAME",40,40},
+		new book{"2001","BOOK_NAME","AUTHOR_NAME","CATEGORY_NAME",24,5},
+		new book{"2002","BOOK_NAME","AUTHOR_NAME","CATEGORY_NAME",28,35},
+		new book{"2003","BOOK_NAME","AUTHOR_NAME","CATEGORY_NAME",32,10},
+		new book{"2004","BOOK_NAME","AUTHOR_NAME","CATEGORY_NAME",36,8},
+		new book{"3001","BOOK_NAME","AUTHOR_NAME","CATEGORY_NAME",23,30},
+		new book{"3002","BOOK_NAME","AUTHOR_NAME","CATEGORY_NAME",37,2},
+		new book{"3003","BOOK_NAME","AUTHOR_NAME","CATEGORY_NAME",20,18},
+		new book{"3004","BOOK_NAME","AUTHOR_NAME","CATEGORY_NAME",30,60}
 	};
 
 	// struct to store book information
@@ -62,7 +62,7 @@ namespace Liuyuan
 		{"3003","BOOK_NAME","AUTHOR_NAME","CATEGORY_NAME",20,18},
 		{"3004","BOOK_NAME","AUTHOR_NAME","CATEGORY_NAME",30,60}
 	};*/
-	
+
 	//store the amount of books
 	unsigned static books_length = books.size();
 
@@ -81,7 +81,7 @@ namespace Liuyuan
 
 	//set the amount of 
 	//WARNING: no judgement on index
-	inline void setBookAmount(unsigned int index, int amount = getChoice(0, MAX_AMOUNT)) { books[index].amout = amount; }
+	inline void setBookAmount(unsigned int index, int amount = getChoice(0, MAX_AMOUNT)) { books[index]->amout = amount; }
 
 	//buy book
 	//param_containUnitPrice need a argument to store the price

@@ -21,12 +21,12 @@ void Liuyuan::printBookInfo(int style, string key)
 		for (unsigned i = 0; i < books_length; i++)
 		{
 			amount++;
-			cout << "/ Book ID:\t\t" << books[i].id << endl;
-			cout << "/ Book name:\t\t" << books[i].name << endl;
-			cout << "/ Book author:\t\t" << books[i].author << endl;
-			cout << "/ Book category:\t" << books[i].category << endl;
-			cout << "/ Book unit price:\t" << books[i].unit_price << endl;
-			cout << "/ Book amout:\t\t" << books[i].amout << endl;
+			cout << "/ Book ID:\t\t" << books[i]->id << endl;
+			cout << "/ Book name:\t\t" << books[i]->name << endl;
+			cout << "/ Book author:\t\t" << books[i]->author << endl;
+			cout << "/ Book category:\t" << books[i]->category << endl;
+			cout << "/ Book unit price:\t" << books[i]->unit_price << endl;
+			cout << "/ Book amout:\t\t" << books[i]->amout << endl;
 			cout << "+====================================+" << endl;
 		}
 		cout << "/ found " << amount << " record intotal" << endl;
@@ -36,16 +36,16 @@ void Liuyuan::printBookInfo(int style, string key)
 	{
 		for (unsigned i = 0; i < books_length; i++)
 		{
-			if (books[i].id == key)
+			if (books[i]->id == key)
 			{
 				printed = true;
 				amount++;
-				cout << "/ Book ID:\t\t" << books[i].id << endl;
-				cout << "/ Book name:\t\t" << books[i].name << endl;
-				cout << "/ Book author:\t\t" << books[i].author << endl;
-				cout << "/ Book category:\t" << books[i].category << endl;
-				cout << "/ Book unit price:\t" << books[i].unit_price << endl;
-				cout << "/ Book amout:\t\t" << books[i].amout << endl;
+				cout << "/ Book ID:\t\t" << books[i]->id << endl;
+				cout << "/ Book name:\t\t" << books[i]->name << endl;
+				cout << "/ Book author:\t\t" << books[i]->author << endl;
+				cout << "/ Book category:\t" << books[i]->category << endl;
+				cout << "/ Book unit price:\t" << books[i]->unit_price << endl;
+				cout << "/ Book amout:\t\t" << books[i]->amout << endl;
 				cout << "+====================================+" << endl;
 			}
 		}
@@ -57,16 +57,16 @@ void Liuyuan::printBookInfo(int style, string key)
 	{
 		for (unsigned i = 0; i < books_length; i++)
 		{
-			if (books[i].name == key)
+			if (books[i]->name == key)
 			{
 				printed = true;
 				amount++;
-				cout << "/ Book ID:\t\t" << books[i].id << endl;
-				cout << "/ Book name:\t\t" << books[i].name << endl;
-				cout << "/ Book author:\t\t" << books[i].author << endl;
-				cout << "/ Book category:\t" << books[i].category << endl;
-				cout << "/ Book unit price:\t" << books[i].unit_price << endl;
-				cout << "/ Book amout:\t\t" << books[i].amout << endl;
+				cout << "/ Book ID:\t\t" << books[i]->id << endl;
+				cout << "/ Book name:\t\t" << books[i]->name << endl;
+				cout << "/ Book author:\t\t" << books[i]->author << endl;
+				cout << "/ Book category:\t" << books[i]->category << endl;
+				cout << "/ Book unit price:\t" << books[i]->unit_price << endl;
+				cout << "/ Book amout:\t\t" << books[i]->amout << endl;
 				cout << "+====================================+" << endl;
 			}
 		}
@@ -78,16 +78,16 @@ void Liuyuan::printBookInfo(int style, string key)
 	{
 		for (unsigned i = 0; i < books_length; i++)
 		{
-			if (books[i].author == key)
+			if (books[i]->author == key)
 			{
 				printed = true;
 				amount++;
-				cout << "/ Book ID:\t\t" << books[i].id << endl;
-				cout << "/ Book name:\t\t" << books[i].name << endl;
-				cout << "/ Book author:\t\t" << books[i].author << endl;
-				cout << "/ Book category:\t" << books[i].category << endl;
-				cout << "/ Book unit price:\t" << books[i].unit_price << endl;
-				cout << "/ Book amout:\t\t" << books[i].amout << endl;
+				cout << "/ Book ID:\t\t" << books[i]->id << endl;
+				cout << "/ Book name:\t\t" << books[i]->name << endl;
+				cout << "/ Book author:\t\t" << books[i]->author << endl;
+				cout << "/ Book category:\t" << books[i]->category << endl;
+				cout << "/ Book unit price:\t" << books[i]->unit_price << endl;
+				cout << "/ Book amout:\t\t" << books[i]->amout << endl;
 				cout << "+====================================+" << endl;
 			}
 		}
@@ -99,16 +99,16 @@ void Liuyuan::printBookInfo(int style, string key)
 	{
 		for (unsigned i = 0; i < books_length; i++)
 		{
-			if (books[i].category == key)
+			if (books[i]->category == key)
 			{
 				printed = true;
 				amount++;
-				cout << "/ Book ID:\t\t" << books[i].id << endl;
-				cout << "/ Book name:\t\t" << books[i].name << endl;
-				cout << "/ Book author:\t\t" << books[i].author << endl;
-				cout << "/ Book category:\t" << books[i].category << endl;
-				cout << "/ Book unit price:\t" << books[i].unit_price << endl;
-				cout << "/ Book amout:\t\t" << books[i].amout << endl;
+				cout << "/ Book ID:\t\t" << books[i]->id << endl;
+				cout << "/ Book name:\t\t" << books[i]->name << endl;
+				cout << "/ Book author:\t\t" << books[i]->author << endl;
+				cout << "/ Book category:\t" << books[i]->category << endl;
+				cout << "/ Book unit price:\t" << books[i]->unit_price << endl;
+				cout << "/ Book amout:\t\t" << books[i]->amout << endl;
 				cout << "+====================================+" << endl;
 			}
 		}
@@ -129,7 +129,7 @@ int Liuyuan::getBookIndex(string id)
 	//find book index with id
 	for (unsigned i = 0; i < books_length; i++, index++)
 	{
-		if (books[i].id == id)
+		if (books[i]->id == id)
 		{
 			return index;
 		}
@@ -147,7 +147,7 @@ int Liuyuan::getBookUnitPrice(int index)
 		return OUT_OF_RANGE;
 	}
 
-	return books[index].unit_price;
+	return books[index]->unit_price;
 }
 
 
@@ -163,7 +163,7 @@ short Liuyuan::book_foundAndEnough(string bookID, unsigned amount)
 
 	//if the amount is enough, return the price of the book, minus amount
 	//and return SUCCESS
-	if (books[index].amout >= amount)
+	if (books[index]->amout >= amount)
 	{
 		return index;
 	}

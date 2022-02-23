@@ -352,7 +352,7 @@ int Liuyuan::Buyer::buyBook()
 	else
 	{
 		//decrease book amount
-		books[bookIndex].amout -= bookAmount;
+		books[bookIndex]->amout -= bookAmount;
 		//decrease user balance
 		Buyer* account = getLogin_accountPtr();
 		double payment = account->calculatePay(unitPrice,bookAmount);
