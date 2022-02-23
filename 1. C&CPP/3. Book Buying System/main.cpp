@@ -18,7 +18,11 @@ int main()
 	initBuyers();
 	while (true)
 	{
-		if(isLogined())
+		if(isSuperUsr())
+		{
+			UI_logined_superUsr();
+		}
+		else if(isLogined())
 		{
 			UI_logined();
 		}

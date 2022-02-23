@@ -17,36 +17,6 @@ unsigned int Layfork::numOfRegister = 0;
 unsigned int Number::numOfRegister = 0;
 unsigned int Honoured_guest::numOfRegister = 0;
 
-bool Liuyuan::isLogined()
-{
-	return logined;
-}
-
-void Liuyuan::logout()
-{
-	logined = false;
-}
-
-Buyer* Liuyuan::getLogin_accountPtr()
-{
-	return logined_accountPtr;
-}
-
-void Liuyuan::setLogin_accountPtr(Buyer* newPtr)
-{
-	logined_accountPtr = newPtr;
-}
-
-string Liuyuan::getLogin_level()
-{
-	return logined_level;
-}
-
-void Liuyuan::setLogin_level(string newLevel)
-{
-	logined_level = newLevel;
-}
-
 //functor for sort()
 bool greaterID(Buyer* left, Buyer* right)
 {
@@ -134,6 +104,18 @@ Honoured_guest::Honoured_guest(string name, string password, string address, dou
 	}
 	this->_rate = rate;
 	this->_id = 300000 + (++numOfRegister);
+}
+
+Buyer* Liuyuan::findId(unsigned int id)
+{
+	for(auto i : guestList)
+	{
+		if(i->getID() == id)
+		{
+			return i;
+		}
+	}
+	return nullptr;
 }
 
 //login the system

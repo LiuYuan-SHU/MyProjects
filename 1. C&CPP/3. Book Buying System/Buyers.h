@@ -47,11 +47,21 @@ namespace Liuyuan
 
 		//Tool function
 		//getter and setter
-		int getID() { return this->_id; }
-		string getName() { return this->_name; }
-		double getBalance() { return this->_balance; } 
-		void raisePayment(unsigned int increase) { this->_mypay += increase; }
-		void setBalance(double newBalance) { this->_balance = newBalance; }
+		inline int getID() { return this->_id; }
+		//password getter/setter
+		inline string getPassword() { return this->_password; }
+		inline void setPassword(string newPassword) { this->_password = newPassword; }
+		//name getter/setter
+		inline string getName() { return this->_name; }
+		inline void setName(string newName) { this->_name = newName; }
+		//address getter/setter
+		inline string getAddress() { return this->_address; }
+		inline void setAddress(string newAddress) { this->_address = newAddress; }
+		//balance getter/setter
+		inline double getBalance() { return this->_balance; } 
+		inline void setBalance(double newBalance) { this->_balance = newBalance; }
+		//add increase to mypay
+		inline void raisePayment(unsigned int increase) { this->_mypay += increase; }
 
 		//calculate the payment for different buyers
 		virtual inline double calculatePay(unsigned unitPrice, unsigned amount) const = 0;
@@ -147,24 +157,30 @@ namespace Liuyuan
 	static string logined_level;		
 
 	//login/logout functions
+	//return if superUsr
+	inline bool isSuperUsr() { return super_usr; }
+	//set superUsr
+	inline void setSuperUsr(bool status) { super_usr = status; }
 	//return logined
-	bool isLogined();			
+	inline bool isLogined() { return logined; }			
 	//set logined as false
-	void logout();										
+	inline void logout() { logined = false; }										
 	//return account pointer
-	Buyer* getLogin_accountPtr();				
+	inline Buyer* getLogin_accountPtr() { return logined_accountPtr; }				
 	//set account pointer as nullptr
-	void setLogin_accountPtr(Buyer* newPtr = nullptr);	
+	inline void setLogin_accountPtr(Buyer* newPtr = nullptr) { logined_accountPtr = newPtr; }
 	//return the level of the user
-	string getLogin_level();		
+	inline string getLogin_level() { return logined_level; }	
 	//set the level of the user as ""
-	void setLogin_level(string newLevel = "");			
+	inline void setLogin_level(string newLevel = "") { logined_level = newLevel; }		
 
 	//Buyers operation functions
 	//add three existing users to vector
 	void initBuyers();				
 	//print off the guest in the vector
 	void printGuest();
+	//find id
+	Buyer* findId(unsigned int id);
 	//login system
 	int login(string id, string password);		
 	//search if there has an account with same name in the vector

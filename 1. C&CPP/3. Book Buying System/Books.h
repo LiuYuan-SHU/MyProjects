@@ -79,9 +79,16 @@ namespace Liuyuan
 	//get the unit price of the book
 	int getBookUnitPrice(int index);
 
-	//set the amount of 
+	//setter
 	//WARNING: no judgement on index
-	inline void setBookAmount(unsigned int index, int amount = getChoice(0, MAX_AMOUNT)) { books[index]->amout = amount; }
+	inline void setBookID(unsigned int index, string newID) { books[index]->id = newID; }
+	inline void setBookName(unsigned int index, string newName) { books[index]->name = newName; }
+	inline void setBookAuthor(unsigned int index, string newAuthor) { books[index]->author = newAuthor; }
+	inline void setBookCategory(unsigned int index, string newCate) { books[index]->category = newCate; }
+	inline void setBookUnitPrice(unsigned int index, unsigned int newUP = getChoice(0,MAX_AMOUNT)) { books[index]->unit_price = newUP; }
+	inline void setBookAmount(unsigned int index, unsigned int amount = getChoice(0, MAX_AMOUNT)) { books[index]->amout = amount; }
+
+	
 
 	//buy book
 	//param_containUnitPrice need a argument to store the price

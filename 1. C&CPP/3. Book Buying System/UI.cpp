@@ -57,6 +57,19 @@ void Liuyuan::UI_login()
 	cout << "input your id: ";
 	cin >> name;
 	Fflush();
+
+	//super user login
+	if(name == "super")
+	{
+		CLEAR;
+		cout << "========================================" << endl;
+		cout << "/         Welcome! SUPER USER          /" << endl;
+		cout << "========================================" << endl;
+		setSuperUsr(true);
+		system("pause");
+		return;
+	}
+
 	if (isdigit(name[0]))
 	{
 		cout << "input your passport(input a '/' to cancel): \n";
@@ -114,7 +127,181 @@ void Liuyuan::UI_logined()
 
 void Liuyuan::UI_logined_superUsr()
 {	
+	CLEAR;
+	cout << "===== Book Purchase System - Super User =====" << endl;
+	cout << "/ 1. Log out                                /" << endl;
+	cout << "/ 2. Print Guest Info                       /" << endl;
+	cout << "/ 3. Edit Guests                            /" << endl;
+	cout << "/ 4. Edit Books                             /" << endl;
+	cout << "/ 5. Exit                                   /" << endl;
+	cout << "=============================================" << endl;
+
+	switch (getChoice(1,5))
+	{
+	case 1:
+		cout << "Super User logout" << endl;
+		setSuperUsr(false);
+		break;
+	case 2:
+		cout << "========== print guests info ==========" << endl;
+		getLogin_accountPtr()->printInfo(logined_level, getLogin_accountPtr()->getRate());
+		cout << "=======================================" << endl;
+		break;
+	case 3:
+		UI_logined_superUsr_setGuest();
+		break;
+	case 4:
+		UI_logined_superUsr_setBooks();
+		break;
+	case 5:
+		cout << "System shutting down, thank you for use" << endl;
+		break;
+	default:
+		break;
+	}
+	system("pause");
+}
+
+void Liuyuan::UI_logined_superUsr_setGuest()
+{
+	CLEAR;
+	cout << "===== Book Purchase System - Set Guest =====" << endl;
+	cout << "/ 1. Set Guest Kind                        /" << endl;
+	cout << "/ 2. Set Guest Name                        /" << endl;
+	cout << "/ 3. Set Guest Password                    /" << endl;
+	cout << "/ 4. Set Guest Address                     /" << endl;
+	cout << "/ 5. Set Guest Balance                     /" << endl;
+	cout << "/ 6. Cancel                                /" << endl;
+	cout << "============================================" << endl;
+
+	int choice = getChoice(1,6);
+	if(choice == 6)
+	{
+		cout << "Cancel" << endl;
+		system("pause");
+		return;
+	}
+
+	Buyer* account = getLogin_accountPtr();
+	string value;
+	double value_double;
+	cout << "input user id: ";
+	unsigned int id = getData<unsigned int>();
+	Fflush();
+	switch(choice)
+	{
+	case 1:
+		UI_logined_superUsr_changeKind();
+		break;
+	case 2:
+		cout << "input new name: ";
+		getline(cin,value);
+		cin.clear();
+		account->setName(value);
+		break;
+	case 3:
+		cout << "input new password: ";
+		while(value = getData<string>(), judgeNoSlash(value))
+		{
+			cout << "your password contains '/', please retry: ";
+		}
+		account->setPassword(value);
+		break;
+	case 4:
+		cout << "input new address: ";
+		getline(cin,value);
+		cin.clear();
+		account->setAddress(value);
+		break;
+	case 5:
+		cout << "input new balance: ";
+		while(value_double = getData<double>(), value_double < 0)
+		{
+			cout <<"illegal value, please input again: ";
+		}
+		account->setBalance(value_double);
+		break;
+	}
+	system("pause");
+}
+
+void Liuyuan::UI_logined_superUsr_changeKind()
+{
+	CLEAR;
+	cout << "========================================" << endl;
+	cout << "Please input the ID of the guest: ";
+	unsigned int id = getData<unsigned int>();
+	Fflush();
+	Buyer* account = findId(id)；
+	if(!account)
+	{
+		cout << "incorrect ID, change FAIL" << endl;
+		system("pause");
+		return;
+	}
+	else
+	{
+		cout << endl << "============ Account found =============" << endl;
+		if(Layfork* ptr = dynamic_cast<Layfork*>(account))
+		{
+			UI_logined_superUsr_changeLayfork(ptr);
+		}
+		else if(Number* ptr = dynamic_cast<Number*>(account))
+		{
+			UI_logined_superUsr_changeNumber(ptr);
+		}
+		else
+		{
+			UI_logined_superUsr_changeHonoured(dynamic_cast<Honoured_guest*>(account));
+		}
+	}
+}
+
+void Liuyuan::UI_logined_superUsr_changeLayfork(Layfork* ptr)
+{
+	CLEAR;
+	cout << "============ Change Layfork ============" << endl;
+	cout << "/ 1. Change to Number                  /" << endl;
+	cout << "/ 2. Change to Honoured                /" << endl;
+	cout << "/ 3. Cancel                            /" << endl;
+	cout << "========================================" << endl;
 	
+	int choice = getChoice(1,3);
+
+	if(choice == 3)
+	{
+		cout << "Cancle" << endl;
+		system("pause");
+		CLEAR;
+		return;
+	}
+
+	unsigned int star;
+	double rate;
+	switch(choice)
+	{
+	case 1:
+		cout <<"=========== Set to Number =============" << endl;
+		cout << "input the star of the guest: " << endl;
+		cout << "From 1 to 5, ";
+		star = getChoice(1,5);
+		break;
+	}
+}
+
+void Liuyuan::UI_logined_superUsr_changeNumber(Number* ptr)
+{
+
+}
+
+void Liuyuan::UI_logined_superUsr_changeHonoured(Honoured_guest* ptr)
+{
+
+}
+
+void Liuyuan::UI_logined_superUsr_setBooks()
+{
+
 }
 
 void Liuyuan::UI_buyBook()
