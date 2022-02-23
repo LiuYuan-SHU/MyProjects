@@ -48,7 +48,7 @@ namespace Liuyuan
 	};
 
 	// struct to store book information
-	static book books_a[] = {
+	/*static book books_a[] = {
 		{"1001","BOOK_NAME","AUTHOR_NAME","CATEGORY_NAME",34,50},
 		{"1002","BOOK_NAME","AUTHOR_NAME","CATEGORY_NAME",38,20},
 		{"1003","BOOK_NAME","AUTHOR_NAME","CATEGORY_NAME",31,30},
@@ -61,7 +61,8 @@ namespace Liuyuan
 		{"3002","BOOK_NAME","AUTHOR_NAME","CATEGORY_NAME",37,2},
 		{"3003","BOOK_NAME","AUTHOR_NAME","CATEGORY_NAME",20,18},
 		{"3004","BOOK_NAME","AUTHOR_NAME","CATEGORY_NAME",30,60}
-	};
+	};*/
+	
 	//store the amount of books
 	unsigned static books_length = books.size();
 
