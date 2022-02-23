@@ -4,6 +4,7 @@
 #include"Global.h"
 #include<iostream>
 #include<string>
+#include<vector>
 
 #define MAX_AMOUNT	100
 
@@ -13,10 +14,11 @@
 #define AUTHOR 		103
 #define CATEGORY	104
 
-using std::string;
 using std::cin;
 using std::cout;
 using std::endl;
+using std::string;
+using std::vector;
 
 namespace Liuyuan
 {
@@ -30,8 +32,7 @@ namespace Liuyuan
 		int amout;			//store the amount		of book
 	} book;
 
-	// struct to store book information
-	static book books[] = {
+	static vector<book> books{
 		{"1001","BOOK_NAME","AUTHOR_NAME","CATEGORY_NAME",34,50},
 		{"1002","BOOK_NAME","AUTHOR_NAME","CATEGORY_NAME",38,20},
 		{"1003","BOOK_NAME","AUTHOR_NAME","CATEGORY_NAME",31,30},
@@ -43,10 +44,26 @@ namespace Liuyuan
 		{"3001","BOOK_NAME","AUTHOR_NAME","CATEGORY_NAME",23,30},
 		{"3002","BOOK_NAME","AUTHOR_NAME","CATEGORY_NAME",37,2},
 		{"3003","BOOK_NAME","AUTHOR_NAME","CATEGORY_NAME",20,18},
-		{"3004","BOOK_NAME","AUTHOR_NAME","CATEGORY_NAME",30,60},
+		{"3004","BOOK_NAME","AUTHOR_NAME","CATEGORY_NAME",30,60}
+	};
+
+	// struct to store book information
+	static book books_a[] = {
+		{"1001","BOOK_NAME","AUTHOR_NAME","CATEGORY_NAME",34,50},
+		{"1002","BOOK_NAME","AUTHOR_NAME","CATEGORY_NAME",38,20},
+		{"1003","BOOK_NAME","AUTHOR_NAME","CATEGORY_NAME",31,30},
+		{"1004","BOOK_NAME","AUTHOR_NAME","CATEGORY_NAME",40,40},
+		{"2001","BOOK_NAME","AUTHOR_NAME","CATEGORY_NAME",24,5},
+		{"2002","BOOK_NAME","AUTHOR_NAME","CATEGORY_NAME",28,35},
+		{"2003","BOOK_NAME","AUTHOR_NAME","CATEGORY_NAME",32,10},
+		{"2004","BOOK_NAME","AUTHOR_NAME","CATEGORY_NAME",36,8},
+		{"3001","BOOK_NAME","AUTHOR_NAME","CATEGORY_NAME",23,30},
+		{"3002","BOOK_NAME","AUTHOR_NAME","CATEGORY_NAME",37,2},
+		{"3003","BOOK_NAME","AUTHOR_NAME","CATEGORY_NAME",20,18},
+		{"3004","BOOK_NAME","AUTHOR_NAME","CATEGORY_NAME",30,60}
 	};
 	//store the amount of books
-	unsigned constexpr static books_length = sizeof(books) / sizeof(*books);
+	unsigned static books_length = books.size();
 
 	//print the information of books, use `style` and `key` to search
 	void printBookInfo(int style = ALL, string key = "");
