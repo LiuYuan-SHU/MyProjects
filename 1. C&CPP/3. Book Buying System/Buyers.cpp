@@ -18,7 +18,7 @@ unsigned int Number::numOfRegister = 0;
 unsigned int Honoured_guest::numOfRegister = 0;
 
 //stores all the registed guests
-static vector<Buyer*> guestList;
+vector<Buyer*> guestList;
 //return guestList vector
 vector<Buyer*> *Liuyuan::getGuestListAddress() { cout << "new address: " << &guestList;return &guestList; }
 

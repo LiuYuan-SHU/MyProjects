@@ -277,7 +277,7 @@ void Liuyuan::UI_logined_superUsr_changeLayfork(Layfork* ptr)
 	}
 
 	//existing information
-	vector<Buyer*> guestList = *(getGuestListAddress());
+	vector<Buyer*>* guestList = getGuestListAddress();
 	//debug
 	cout << "new address: " << &guestList;
 	string name = ptr->getName();
@@ -302,7 +302,11 @@ void Liuyuan::UI_logined_superUsr_changeLayfork(Layfork* ptr)
 		//create new account
 		newAccount_number = new Number(name,password,address,star,balance,mypay);
 		//delete origin account
-		guestList.erase(find(guestList.begin(),guestList.end(),ptr));
+		guestList->erase(find(guestList->begin(),guestList->end(),ptr));
+		cout << "delete finished" << endl;
+		//add the new account
+		guestList->push_back(newAccount_number);
+		cout << "add finished" << endl;
 		//sort guestList
 		sortGuest();
 		
