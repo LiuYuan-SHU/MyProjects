@@ -63,9 +63,6 @@ namespace Liuyuan
 		{"3004","BOOK_NAME","AUTHOR_NAME","CATEGORY_NAME",30,60}
 	};*/
 
-	//store the amount of books
-	unsigned static books_length = books.size();
-
 	//print the information of books, use `style` and `key` to search
 	void printBookInfo(int style = ALL, string key = "");
 
@@ -101,6 +98,8 @@ namespace Liuyuan
 	book* book_findBook(string id);
 	//judge if the id exist
 	bool book_idExist(string id);
+	//sort book with id
+	void sortBook();
 }
 
 #endif
