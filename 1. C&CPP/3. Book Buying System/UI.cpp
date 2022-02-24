@@ -500,7 +500,6 @@ void Liuyuan::UI_logined_superUsr_setBooks()
 	if(choice == 6)
 	{
 		vector<book*>* bookVec = getBooksAddress();
-		cout << bookVec << endl;
 		//malloc new book
 		bookPtr = new book;
 		//set book id
@@ -533,12 +532,8 @@ void Liuyuan::UI_logined_superUsr_setBooks()
 		//add book to vector
 		bookVec->push_back(bookPtr);
 
-		//debug
-		cout << bookPtr << endl;
-		cout << bookPtr->id << endl;
-		cout << bookVec->size() << endl;
+		sortBook();
 		system("pause");
-
 		return;
 	}
 

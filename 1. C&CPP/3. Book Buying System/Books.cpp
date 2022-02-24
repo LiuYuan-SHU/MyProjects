@@ -2,13 +2,25 @@
 #include"Global.h"
 #include<iostream>
 #include<string>
+#include<algorithm>
 
 using std::string;
 using std::cin;
 using std::cout;
 using std::endl;
+using std::sort;
 
 using namespace Liuyuan;
+
+bool greaterID(book* left, book* right)
+{
+	return left->id < right->id;
+}
+
+void Liuyuan::sortBook()
+{
+	sort(books.begin(), books.end(), greaterID);
+}
 
 void Liuyuan::printBookInfo(int style, string key)
 {
@@ -20,7 +32,7 @@ void Liuyuan::printBookInfo(int style, string key)
 	//print as ALL
 	if (style == ALL)
 	{
-		for (unsigned i = 0; i < books_length; i++)
+		for (unsigned i = 0; i < books.size(); i++)
 		{
 			amount++;
 			cout << "/ Book ID:\t\t" << books[i]->id << endl;
@@ -36,7 +48,7 @@ void Liuyuan::printBookInfo(int style, string key)
 	//print with specific ID
 	else if (style == __ID)
 	{
-		for (unsigned i = 0; i < books_length; i++)
+		for (unsigned i = 0; i < books.size(); i++)
 		{
 			if (books[i]->id == key)
 			{
@@ -57,7 +69,7 @@ void Liuyuan::printBookInfo(int style, string key)
 	//print with specific name
 	else if (style == NAME)
 	{
-		for (unsigned i = 0; i < books_length; i++)
+		for (unsigned i = 0; i < books.size(); i++)
 		{
 			if (books[i]->name == key)
 			{
@@ -78,7 +90,7 @@ void Liuyuan::printBookInfo(int style, string key)
 	//print with specific author
 	else if (style == AUTHOR)
 	{
-		for (unsigned i = 0; i < books_length; i++)
+		for (unsigned i = 0; i < books.size(); i++)
 		{
 			if (books[i]->author == key)
 			{
@@ -99,7 +111,7 @@ void Liuyuan::printBookInfo(int style, string key)
 	//print with specific category
 	else if (style == CATEGORY)
 	{
-		for (unsigned i = 0; i < books_length; i++)
+		for (unsigned i = 0; i < books.size(); i++)
 		{
 			if (books[i]->category == key)
 			{
@@ -129,7 +141,7 @@ int Liuyuan::getBookIndex(string id)
 {
 	int index = 0;      //store the index of the book
 	//find book index with id
-	for (unsigned i = 0; i < books_length; i++, index++)
+	for (unsigned i = 0; i < books.size(); i++, index++)
 	{
 		if (books[i]->id == id)
 		{
@@ -143,7 +155,7 @@ int Liuyuan::getBookIndex(string id)
 int Liuyuan::getBookUnitPrice(int index)
 {
 	//protection
-	if(index < 0 || index >= books_length)
+	if(index < 0 || index >= books.size())
 	{
 		cout << "illegal index, get price fail" << endl;
 		return OUT_OF_RANGE;
@@ -202,4 +214,4 @@ bool Liuyuan::book_idExist(string id)
 	return false;
 }
 
-vector<book*>* Liuyuan::getBooksAddress() { cout << &books << endl; return &books; }
+vector<book*>* Liuyuan::getBooksAddress() { return &books; }
