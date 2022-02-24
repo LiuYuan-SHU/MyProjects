@@ -278,8 +278,6 @@ void Liuyuan::UI_logined_superUsr_changeLayfork(Layfork* ptr)
 
 	//existing information
 	vector<Buyer*>* guestList = getGuestListAddress();
-	//debug
-	cout << "new address: " << &guestList;
 	string name = ptr->getName();
 	string address = ptr->getAddress();
 	string password = ptr->getPassword();
