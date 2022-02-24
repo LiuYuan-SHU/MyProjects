@@ -181,7 +181,7 @@ namespace Liuyuan
 	//sort guestList
 	void sortGuest();
 	//return guest list
-	vector<Buyer*>& getGuestList();
+	vector<Buyer*>* getGuestListAddress();
 }
 
 

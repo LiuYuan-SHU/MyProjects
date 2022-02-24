@@ -20,7 +20,7 @@ unsigned int Honoured_guest::numOfRegister = 0;
 //stores all the registed guests
 static vector<Buyer*> guestList;
 //return guestList vector
-vector<Buyer*>& Liuyuan::getGuestList() { return guestList; }
+vector<Buyer*> *Liuyuan::getGuestListAddress() { cout << "new address: " << &guestList;return &guestList; }
 
 //user login arguments
 //if super_usr is true, print password when call printInfo()
