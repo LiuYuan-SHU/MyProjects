@@ -79,6 +79,9 @@ namespace Liuyuan
 	//get the unit price of the book
 	int getBookUnitPrice(int index);
 
+	//get the address of books vector
+	vector<book*>* getBooksAddress();
+
 	//setter
 	//WARNING: no judgement on index
 	inline void setBookID(unsigned int index, string newID) { books[index]->id = newID; }

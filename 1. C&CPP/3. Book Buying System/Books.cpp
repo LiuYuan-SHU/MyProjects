@@ -201,3 +201,5 @@ bool Liuyuan::book_idExist(string id)
 	}
 	return false;
 }
+
+vector<book*>* Liuyuan::getBooksAddress() { cout << &books << endl; return &books; }

@@ -36,6 +36,7 @@ namespace Liuyuan
 			cout << "illegal input, input again: ";
 			Fflush();
 		}
+		Fflush();
 
 		return data;
 	}
