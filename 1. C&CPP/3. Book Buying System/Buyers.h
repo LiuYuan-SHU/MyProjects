@@ -19,8 +19,6 @@ namespace Liuyuan
 	
 	//stores the rate for different star users
 	static constexpr double rate[] = { 1, 0.95, 0.9, 0.85, 0.8, 0.75 };
-	//stores all the registed guests
-	static vector<Buyer*> guestList;
 
 	//abstract class buyer
 	class Buyer
@@ -60,6 +58,9 @@ namespace Liuyuan
 		//balance getter/setter
 		inline double getBalance() { return this->_balance; } 
 		inline void setBalance(double newBalance) { this->_balance = newBalance; }
+		//mypay getter/setter
+		inline double getMypay() { return this->_mypay; }
+		inline void setMypay(double newMypay) { this->_mypay = newMypay; }
 		//add increase to mypay
 		inline void raisePayment(unsigned int increase) { this->_mypay += increase; }
 
@@ -176,7 +177,11 @@ namespace Liuyuan
 	//search if there has an account with same name in the vector
 	void searchName(string name);			
 	//regist a new account
-	void regist(string name);					
+	void regist(string name);	
+	//sort guestList
+	void sortGuest();
+	//return guest list
+	vector<Buyer*>& getGuestList();
 }
 
 

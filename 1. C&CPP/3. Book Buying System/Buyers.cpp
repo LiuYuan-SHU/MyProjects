@@ -17,6 +17,11 @@ unsigned int Layfork::numOfRegister = 0;
 unsigned int Number::numOfRegister = 0;
 unsigned int Honoured_guest::numOfRegister = 0;
 
+//stores all the registed guests
+static vector<Buyer*> guestList;
+//return guestList vector
+vector<Buyer*>& Liuyuan::getGuestList() { return guestList; }
+
 //user login arguments
 //if super_usr is true, print password when call printInfo()
 static bool super_usr = false;
@@ -48,7 +53,13 @@ void   Liuyuan::setLogin_level(string newLevel) { logined_level = newLevel; }
 //functor for sort()
 bool greaterID(Buyer* left, Buyer* right)
 {
-	return (left->getID() > right->getID());
+	return (left->getID() < right->getID());
+}
+
+//sort guestList
+void Liuyuan::sortGuest()
+{
+	sort(guestList.begin(), guestList.end(), greaterID);
 }
 
 void Liuyuan::initBuyers()
@@ -56,7 +67,7 @@ void Liuyuan::initBuyers()
 	guestList.push_back(new Layfork("ZhangXiaobin", "123", "99th, Shangda Road", 200));
 	guestList.push_back(new Number("LiShichun", "123", "80th, Nanchen Road", 2, 400));
 	guestList.push_back(new Honoured_guest("WangSicheng", "123", "70th, Jinqiu Road", 0.7, 600));
-	sort(guestList.rbegin(), guestList.rend(), greaterID);
+	sortGuest();
 }
 
 void Buyer::printInfo(string userLevel, double userRate)
@@ -311,8 +322,7 @@ void Liuyuan::regist(string name)
 		guestList.push_back(new Honoured_guest(name, password, address, rate, balance));
 		break;
 	}
-	//sort the guest list by ID
-	sort(guestList.rbegin(), guestList.rend(), greaterID);
+	sortGuest();
 }
 
 int Liuyuan::Buyer::buyBook()

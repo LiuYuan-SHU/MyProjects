@@ -5,11 +5,13 @@
 #include"Books.h"
 #include<iostream>
 #include<string>
+#include<algorithm>
 
 using std::cin;
 using std::cout;
 using std::endl;
 using std::string;
+using std::find;
 
 void Liuyuan::UI_basic()
 {
@@ -274,8 +276,19 @@ void Liuyuan::UI_logined_superUsr_changeLayfork(Layfork* ptr)
 		return;
 	}
 
-	unsigned int star;
-	double rate;
+	//existing information
+	vector<Buyer*> guestList = getGuestList();
+	string name = ptr->getName();
+	string address = ptr->getAddress();
+	string password = ptr->getPassword();
+	double balance = ptr->getBalance();
+	double mypay = ptr->getMypay();
+
+	//extennal information
+	unsigned int star = 0;
+	Number* newAccount_number = nullptr;
+	double rate = 0;
+	Honoured_guest* newAccount_honoured = nullptr;
 	switch(choice)
 	{
 	case 1:
@@ -283,6 +296,15 @@ void Liuyuan::UI_logined_superUsr_changeLayfork(Layfork* ptr)
 		cout << "input the star of the guest: " << endl;
 		cout << "From 1 to 5, ";
 		star = getChoice(1,5);
+		
+		//create new account
+		newAccount_number = new Number(name,password,address,star,balance,mypay);
+		//delete origin account
+		guestList.erase(find(guestList.begin(),guestList.end(),ptr));
+		//sort guestList
+		sortGuest();
+		
+		cout << "Finished" << endl;
 		break;
 	}
 }
