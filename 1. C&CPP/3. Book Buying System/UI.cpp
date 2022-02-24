@@ -147,6 +147,7 @@ void Liuyuan::UI_logined_superUsr()
 		break;
 	case 2:
 		printGuest();
+		system("pause");
 		break;
 	case 3:
 		UI_logined_superUsr_setGuest();
@@ -162,7 +163,6 @@ void Liuyuan::UI_logined_superUsr()
 	default:
 		break;
 	}
-	system("pause");
 }
 
 void Liuyuan::UI_logined_superUsr_setGuest()
@@ -225,7 +225,6 @@ void Liuyuan::UI_logined_superUsr_setGuest()
 		account->setBalance(value_double);
 		break;
 	}
-	system("pause");
 }
 
 void Liuyuan::UI_logined_superUsr_changeKind(unsigned int id)
@@ -301,10 +300,8 @@ void Liuyuan::UI_logined_superUsr_changeLayfork(Layfork* ptr)
 		newAccount_number = new Number(name,password,address,star,balance,mypay);
 		//delete origin account
 		guestList->erase(find(guestList->begin(),guestList->end(),ptr));
-		cout << "delete finished" << endl;
 		//add the new account
 		guestList->push_back(newAccount_number);
-		cout << "add finished" << endl;
 		//sort guestList
 		sortGuest();
 		
@@ -322,29 +319,144 @@ void Liuyuan::UI_logined_superUsr_changeLayfork(Layfork* ptr)
 		newAccount_honoured = new Honoured_guest(name,password,address,rate,balance,mypay);
 		//delete origin account
 		guestList->erase(find(guestList->begin(),guestList->end(),ptr));
-		cout << "delete finished" << endl;
 		//add the new account
 		guestList->push_back(newAccount_honoured);
-		cout << "add finished" << endl;
 		//sort guestList
 		sortGuest();
 		
 		cout << "Finished" << endl;
-		break;
-	case 3:
-		cout << "Cancel" << endl;
 		break;
 	}
 }
 
 void Liuyuan::UI_logined_superUsr_changeNumber(Number* ptr)
 {
+	CLEAR;
+	cout << "============ Change Number ============" << endl;
+	cout << "/ 1. Change to Layfork                /" << endl;
+	cout << "/ 2. Change to Honoure                /" << endl;
+	cout << "/ 3. Cancel                           /" << endl;
+	cout << "=======================================" << endl;
+	
+	int choice = getChoice(1,3);
 
+	if(choice == 3)
+	{
+		cout << "Cancle" << endl;
+		system("pause");
+		CLEAR;
+		return;
+	}
+
+	//existing information
+	vector<Buyer*>* guestList = getGuestListAddress();
+	string name = ptr->getName();
+	string address = ptr->getAddress();
+	string password = ptr->getPassword();
+	double balance = ptr->getBalance();
+	double mypay = ptr->getMypay();
+
+	//extennal information
+	Layfork* newAccount_layfork = nullptr;
+	double rate = 0;
+	Honoured_guest* newAccount_honoured = nullptr;
+	switch(choice)
+	{
+	case 1:
+		cout <<"=========== Set to Layfork =============" << endl;		
+		//create new account
+		newAccount_layfork = new Layfork(name,password,address,balance,mypay);
+		//delete origin account
+		guestList->erase(find(guestList->begin(),guestList->end(),ptr));
+		//add the new account
+		guestList->push_back(newAccount_layfork);
+		//sort guestList
+		sortGuest();
+		
+		cout << "Finished" << endl;
+		break;
+	case 2:
+		cout <<"=========== Set to Honoured =============" << endl;
+		cout << "input the rate of the guest: " << endl;
+		while (rate = getData<double>(), rate >= 1 || rate <= 0)
+		{
+			cout << "illegal rate, input again: ";
+		}
+	
+		//create new account
+		newAccount_honoured = new Honoured_guest(name,password,address,rate,balance,mypay);
+		//delete origin account
+		guestList->erase(find(guestList->begin(),guestList->end(),ptr));
+		//add the new account
+		guestList->push_back(newAccount_honoured);
+		//sort guestList
+		sortGuest();
+		
+		cout << "Finished" << endl;
+		break;
+	}
 }
 
 void Liuyuan::UI_logined_superUsr_changeHonoured(Honoured_guest* ptr)
 {
+	CLEAR;
+	cout << "============ Change Honoured ============" << endl;
+	cout << "/ 1. Change to Layfork                  /" << endl;
+	cout << "/ 2. Change to Honoure                  /" << endl;
+	cout << "/ 3. Cancel                             /" << endl;
+	cout << "=========================================" << endl;
+	
+	int choice = getChoice(1,3);
 
+	if(choice == 3)
+	{
+		cout << "Cancle" << endl;
+		system("pause");
+		CLEAR;
+		return;
+	}
+
+	//existing information
+	vector<Buyer*>* guestList = getGuestListAddress();
+	string name = ptr->getName();
+	string address = ptr->getAddress();
+	string password = ptr->getPassword();
+	double balance = ptr->getBalance();
+	double mypay = ptr->getMypay();
+
+	//extennal information
+	Layfork* newAccount_layfork = nullptr;
+	unsigned int star = 0;
+	Number* newAccount_number = nullptr;
+	switch(choice)
+	{
+	case 1:
+		cout <<"=========== Set to Layfork =============" << endl;		
+		//create new account
+		newAccount_layfork = new Layfork(name,password,address,balance,mypay);
+		//delete origin account
+		guestList->erase(find(guestList->begin(),guestList->end(),ptr));
+		//add the new account
+		guestList->push_back(newAccount_layfork);
+		//sort guestList
+		sortGuest();
+		
+		cout << "Finished" << endl;
+		break;
+	case 2:
+		cout <<"=========== Set to Layfork =============" << endl;		
+		//create new account
+		newAccount_layfork = new Layfork(name,password,address,balance,mypay);
+		//delete origin account
+		guestList->erase(find(guestList->begin(),guestList->end(),ptr));
+		//add the new account
+		guestList->push_back(newAccount_layfork);
+		//sort guestList
+		sortGuest();
+		
+		cout << "Finished" << endl;
+		break;
+	}
 }
 
 void Liuyuan::UI_logined_superUsr_setBooks()
