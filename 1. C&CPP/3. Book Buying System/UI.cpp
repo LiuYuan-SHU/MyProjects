@@ -145,7 +145,7 @@ void Liuyuan::UI_logined_superUsr()
 		break;
 	case 2:
 		cout << "========== print guests info ==========" << endl;
-		getLogin_accountPtr()->printInfo(getLogin_level(), getLogin_accountPtr()->getRate());
+		printGuest();
 		cout << "=======================================" << endl;
 		break;
 	case 3:
@@ -156,6 +156,8 @@ void Liuyuan::UI_logined_superUsr()
 		break;
 	case 5:
 		cout << "System shutting down, thank you for use" << endl;
+		system("pause");
+		exit(0);
 		break;
 	default:
 		break;
