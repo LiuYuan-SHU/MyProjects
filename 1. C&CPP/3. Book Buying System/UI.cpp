@@ -309,8 +309,30 @@ void Liuyuan::UI_logined_superUsr_changeLayfork(Layfork* ptr)
 		sortGuest();
 		
 		cout << "Finished" << endl;
-
-		printGuest();
+		break;
+	case 2:
+		cout <<"=========== Set to Honoured =============" << endl;
+		cout << "input the rate of the guest: " << endl;
+		while (rate = getData<double>(), rate >= 1 || rate <= 0)
+		{
+			cout << "illegal rate, input again: ";
+		}
+	
+		//create new account
+		newAccount_honoured = new Honoured_guest(name,password,address,rate,balance,mypay);
+		//delete origin account
+		guestList->erase(find(guestList->begin(),guestList->end(),ptr));
+		cout << "delete finished" << endl;
+		//add the new account
+		guestList->push_back(newAccount_honoured);
+		cout << "add finished" << endl;
+		//sort guestList
+		sortGuest();
+		
+		cout << "Finished" << endl;
+		break;
+	case 3:
+		cout << "Cancel" << endl;
 		break;
 	}
 }
