@@ -8,6 +8,8 @@ using std::cin;
 using std::cout;
 using std::endl;
 
+using namespace Liuyuan;
+
 void Liuyuan::printBookInfo(int style, string key)
 {
 	bool printed = false;	//store if printed information
@@ -174,4 +176,28 @@ short Liuyuan::book_foundAndEnough(string bookID, unsigned amount)
 	}
 
 	return FAIL;
+}
+
+book* Liuyuan::book_findBook(string id)
+{
+	for(auto i : books)
+	{
+		if(i->id == id)
+		{
+			return i;
+		}
+	}
+	return nullptr;
+}
+
+bool Liuyuan::book_idExist(string id)
+{
+	for(auto i : books)
+	{
+		if(i->id == id)
+		{
+			return true;
+		}
+	}
+	return false;
 }

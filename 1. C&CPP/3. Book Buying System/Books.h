@@ -22,7 +22,7 @@ using std::vector;
 
 namespace Liuyuan
 {
-	typedef struct
+	struct book
 	{
 		string id;			//store the id			of book
 		string name;		//store the name		of book
@@ -30,7 +30,7 @@ namespace Liuyuan
 		string category;	//store the category	of book
 		int unit_price;		//store the unit price	of book
 		int amout;			//store the amount		of book
-	} book;
+	};
 
 	static vector<book*> books{
 		new book{"1001","BOOK_NAME","AUTHOR_NAME","CATEGORY_NAME",34,50},
@@ -88,13 +88,16 @@ namespace Liuyuan
 	inline void setBookUnitPrice(unsigned int index, unsigned int newUP = getChoice(0,MAX_AMOUNT)) { books[index]->unit_price = newUP; }
 	inline void setBookAmount(unsigned int index, unsigned int amount = getChoice(0, MAX_AMOUNT)) { books[index]->amout = amount; }
 
-	
-
 	//buy book
 	//param_containUnitPrice need a argument to store the price
 	//amount is the amount of the books to buy, defaultly buy one book
 	//style is the way to search the book, defaultly use ID
 	short book_foundAndEnough(string bookID, unsigned amount = 1);
+
+	//find the book with id, return pointer
+	book* book_findBook(string id);
+	//judge if the id exist
+	bool book_idExist(string id);
 }
 
 #endif

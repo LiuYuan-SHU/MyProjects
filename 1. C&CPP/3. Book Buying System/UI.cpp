@@ -461,7 +461,112 @@ void Liuyuan::UI_logined_superUsr_changeHonoured(Honoured_guest* ptr)
 
 void Liuyuan::UI_logined_superUsr_setBooks()
 {
+	CLEAR;
+	cout << "===== Book Purchase System - Edit Book =====" << endl;
+	cout << "/ 1. Print book info                       /" << endl;
+	cout << "/ 2. Set Book ID                           /" << endl;
+	cout << "/ 3. Set Book Name                         /" << endl;
+	cout << "/ 4. Set Book Author                       /" << endl;
+	cout << "/ 5. Set Book Unit Price                   /" << endl;
+	cout << "/ 6. Set Book Amount                       /" << endl;
+	cout << "/ 7. Add New Book                          /" << endl;
+	cout << "/ 8. Cancel                                /" << endl;
+	cout << "/ 9. Exit                                  /" << endl;
+	cout << "============================================" << endl;
 
+	int choice = getChoice(1,9);
+
+	switch(choice)
+	{
+	case 1:
+		printBookInfo();
+		break;
+	case 8:
+		cout << "Cancel" << endl;
+		return;
+	case 9:
+		cout << "System shutting down, thank you for use" << endl;
+		exit(0);
+	default:
+		break;
+	}
+
+	book* bookPtr = nullptr;
+	string bookID = "";
+	string newValue = "";
+	double newValue_double = 0;
+	cout << "Input book ID: ";
+	while(bookID = getData<string>(),bookPtr = book_findBook(bookID))
+	{
+		cout << "Book not exist, input again: ";
+	}
+
+	switch(choice)
+	{
+	case 2:
+		cout << "Input new ID: ";
+		while(newValue = getData<string>(),book_idExist(newValue))
+		{
+			cout << "id exits, input again: ";
+		}
+		bookPtr->id = newValue;
+		break;
+	case 3:
+		cout << "Input new Name: ";
+		getline(cin,newValue);
+		Fflush();
+		bookPtr->name = newValue;
+		break;
+	case 4:
+		cout << "Input new Author: ";
+		getline(cin,newValue);
+		Fflush();
+		bookPtr->author = newValue;
+		break;
+	case 5:
+		cout << "Input new Unit Price: ";
+		newValue_double = getData<double>();
+		bookPtr->unit_price = newValue_double;
+		break;
+	case 6:
+		cout << "Input new Amount: ";
+		newValue_double = getData<double>();
+		bookPtr->amout = newValue_double;
+		break;
+	case 7:
+		//malloc new book
+		bookPtr = new book;
+		//set book id
+		cout << "Input book id: ";
+		newValue = getData<string>();
+		bookPtr->id = newValue;
+		//set book name
+		cout << "input book name: ";
+		getline(cin,newValue);
+		Fflush();
+		bookPtr->name = newValue;
+		//set book author
+		cout << "Input book author: ";
+		getline(cin,newValue);
+		Fflush();
+		bookPtr->author = newValue;
+		//set book category
+		cout << "Input book category: ";
+		getline(cin,newValue);
+		Fflush();
+		bookPtr->category = newValue;
+		//set book unit price
+		cout << "Input book Unit Price: ";
+		newValue_double = getData<double>();
+		bookPtr->unit_price = newValue_double;
+		//set book amount
+		cout << "Input book Amount: ";
+		newValue_double = getData<double>();
+		bookPtr->amout = newValue_double;
+		//add book to vector
+		books.push_back(bookPtr);
+		break;
+	}
 }
 
 void Liuyuan::UI_buyBook()
