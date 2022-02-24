@@ -144,9 +144,7 @@ void Liuyuan::UI_logined_superUsr()
 		setSuperUsr(false);
 		break;
 	case 2:
-		cout << "========== print guests info ==========" << endl;
 		printGuest();
-		cout << "=======================================" << endl;
 		break;
 	case 3:
 		UI_logined_superUsr_setGuest();
@@ -194,7 +192,7 @@ void Liuyuan::UI_logined_superUsr_setGuest()
 	switch(choice)
 	{
 	case 1:
-		UI_logined_superUsr_changeKind();
+		UI_logined_superUsr_changeKind(id);
 		break;
 	case 2:
 		cout << "input new name: ";
@@ -228,13 +226,10 @@ void Liuyuan::UI_logined_superUsr_setGuest()
 	system("pause");
 }
 
-void Liuyuan::UI_logined_superUsr_changeKind()
+void Liuyuan::UI_logined_superUsr_changeKind(unsigned int id)
 {
 	CLEAR;
 	cout << "========================================" << endl;
-	cout << "Please input the ID of the guest: ";
-	unsigned int id = getData<unsigned int>();
-	Fflush();
 	Buyer* account = findId(id);
 	if(!account)
 	{

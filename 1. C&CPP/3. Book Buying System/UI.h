@@ -21,7 +21,7 @@ namespace Liuyuan
 	void UI_logined_superUsr_setGuest();
 
 	//UI: super user change guest kind
-	void UI_logined_superUsr_changeKind();
+	void UI_logined_superUsr_changeKind(unsigned int id);
 
 	//UI: super user change layfork
 	void UI_logined_superUsr_changeLayfork(Layfork* ptr);
