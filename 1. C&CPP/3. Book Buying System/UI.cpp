@@ -143,7 +143,7 @@ void Liuyuan::UI_logined_superUsr()
 	cout << "/ 6. Exit                                   /" << endl;
 	cout << "=============================================" << endl;
 
-	switch (getChoice(1,5))
+	switch (getChoice(1,6))
 	{
 	case 1:
 		cout << "Super User logout" << endl;
