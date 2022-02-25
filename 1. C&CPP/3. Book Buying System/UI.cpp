@@ -57,8 +57,9 @@ void Liuyuan::UI_login()
 	cout << "==============================================================================================" << endl;
 
 	cout << "input your id: ";
-	cin >> name;
-	Fflush();
+	name = getData<string>();
+	// cin >> name;
+	//Fflush();
 
 	//super user login
 	if(name == "super")
@@ -76,14 +77,16 @@ void Liuyuan::UI_login()
 	if (isdigit(name[0]))
 	{
 		cout << "input your passport(input a '/' to cancel): \n";
-		cin >> password;
-		Fflush();
+		password = getData<string>();
+		// cin >> password;
+		// Fflush();
 		int result = login(name, password);
 		while (result == FAIL)
 		{
 			cout << "your passport is wrong, please retry(input a '/' to cancel): ";
-			cin >> password;
-			Fflush();
+			password = getData<string>();
+			// cin >> password;
+			// Fflush();
 			result = login(name, password);
 		}
 	}

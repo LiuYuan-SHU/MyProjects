@@ -4,6 +4,7 @@
 #include"Books.h"
 #include<iostream>
 #include<algorithm>
+#include <stdlib.h>
 #include<vector>
 
 using std::cin;
@@ -194,6 +195,7 @@ int Liuyuan::login(string id, string password)
 			{
 				//print info
 				cout << "Logined" << endl;
+				system("pause");
 
 				//set login status
 				logined = true;
