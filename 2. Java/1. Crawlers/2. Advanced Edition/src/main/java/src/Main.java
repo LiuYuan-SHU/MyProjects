@@ -3,6 +3,9 @@ package src;
 import src.crawler.CS;
 
 import java.io.IOException;
+import java.sql.SQLException;
+
+import static src.other.ChangeInfo.change_collegeInfo_to_schoolID;
 
 /**
  * @author Liu Yuan
@@ -11,7 +14,7 @@ import java.io.IOException;
  */
 public class Main
 {
-    public static void main(String[] args) throws IOException
+    public static void main(String[] args) throws IOException, SQLException
     {
 //        new getSchoolID().readID();                           //获取学校的基本信息：学校名称和id
 //        src.crawler.getTeacherInfo.getTeacher();              //获取学校的教师信息
@@ -22,6 +25,8 @@ public class Main
 //        src.crawler.CS.getCSInfo();
 //        src.crawler.CS.fileRead();
 //        CS.writeInformation();
-        CS.setSchoolID();
+//        CS.setSchoolID();
+        change_collegeInfo_to_schoolID();
+
     }
 }
