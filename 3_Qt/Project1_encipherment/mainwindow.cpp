@@ -233,19 +233,71 @@ void MainWindow::onDES_encode()
         return;
     }
     QString text_plain = text_split[0];
-    QString text_secret = text_split[1];
-    bitset<64> plain = charToBitset(G2U(text_plain.toUtf8().data()));
-    bitset<64> cipher = encrypt(plain);
-    //DES加密
-    this->_page_password->insertPlainText("After encoding, the result is: " + 
-                                          bitsetToQString(cipher)  +
-                                          //QString::fromStdString(cipher.to_string()) +
-                                          '\n');
-    //DES解密
-    this->_page_password->insertPlainText("After decoding, the result is: " +
-                                          bitsetToQString(decrypt(cipher)) +
-                                          //QString::fromStdString(decrypt(cipher).to_string()) +
-                                          '\n');
+    QString text_secret = text_split[1]; 
+    
+    size_t length_temp = 0;
+    bitset<64> cipher[1024];
+    size_t length_cipher = 0;
+    
+    this->_page_password->insertPlainText("After encoding, the result is:\n");
+    while(length_temp < text_plain.size())
+    {
+        QString temp;
+        for(int i = 0; i < 8 && length_temp < text_plain.size(); i++)
+        {
+            //qDebug() << length_temp;
+            temp.push_back(text_plain[length_temp++]);
+        }
+        bitset<64> plain = charToBitset(G2U(temp.toUtf8().data()));
+        cipher[length_cipher] = encrypt(plain);
+        this->_page_password->insertPlainText(bitsetToQString(cipher[length_cipher]));
+        length_cipher++;
+    }
+    this->_page_password->insertPlainText("\n");
+    
+    this->_page_password->insertPlainText("After decoding, the result is:\n");
+    const size_t length_outputCountMax = text_plain.size() * 8;
+    size_t length_outputCount = 0;
+    for(int i = 0; i < length_cipher; i++)
+    {            
+        qDebug() << "length_outputCount: " << length_outputCount;
+        qDebug() << "length_outputCountMax: " << length_outputCountMax;
+        if(length_outputCount + 64 > length_outputCountMax)
+        {
+            QString temp = bitsetToQString(decrypt(cipher[i]));
+            qDebug() << "temp: " << temp << Qt::endl;
+            //qDebug() << length_outputCount;
+            //qDebug() << length_outputCountMax;
+            qDebug() << "length_outputCount + 8 - length_outputCountMax: " << ((length_outputCountMax - length_outputCount) / 8);
+            qDebug() << "count: " << (length_outputCount + 8 - length_outputCountMax);
+            for(int j = 0; j < (length_outputCountMax - length_outputCount) / 8; j++)
+            {
+                this->_page_password->insertPlainText(temp[j]);
+            }
+        }
+        else
+        {
+            this->_page_password->insertPlainText(bitsetToQString(decrypt(cipher[i])));
+            length_outputCount += 64;
+        }
+    }
+    qDebug() << "------------------------" << Qt::endl << Qt::endl;
+    this->_page_password->insertPlainText("\n");
+    
+    //old version, only handle 8 chars
+    /************************************************************/
+    //bitset<64> plain = charToBitset(G2U(text_plain.toUtf8().data()));
+    //bitset<64> cipher = encrypt(plain);
+    ////DES加密
+    //this->_page_password->insertPlainText("After encoding, the result is: " + 
+    //                                      bitsetToQString(cipher)  +
+    //                                      //QString::fromStdString(cipher.to_string()) +
+    //                                      '\n');
+    ////DES解密
+    //this->_page_password->insertPlainText("After decoding, the result is: " +
+    //                                      bitsetToQString(decrypt(cipher)) +
+    //                                      //QString::fromStdString(decrypt(cipher).to_string()) +
+    //                                      '\n');
     //打印结束虚线
     this->slotEnd();
 }
@@ -335,9 +387,9 @@ QString MainWindow::bitsetToQString(bitset<N> bits)
     for(int i = temp.size() - 1; i >= 0 ; i--)
     {
         toReturn.push_back(temp[i]);
-        qDebug() << temp[i];
+        //qDebug() << temp[i];
     }
-    qDebug() << toReturn;
+    //qDebug() << toReturn;
     return toReturn;
 }
 
