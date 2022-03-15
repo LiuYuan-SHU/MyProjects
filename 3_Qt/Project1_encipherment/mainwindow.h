@@ -14,8 +14,9 @@ namespace Liuyuan
         Q_OBJECT
         
     private:
-        QTextEdit* _page_text;  
-        QTextEdit* _page_password;
+        //三个文字窗口定义
+        QTextEdit* _page_text;      //用户输入
+        QTextEdit* _page_password;  //程序运行结果展示
         QTextEdit* _page_log;
         
         QPushButton* _button_MD5;
@@ -34,6 +35,7 @@ namespace Liuyuan
         
         //tool functions
         void slotEnd();
+        //将bitset转换为QString
         template<size_t N>
         QString bitsetToQString(std::bitset<N> input);
         

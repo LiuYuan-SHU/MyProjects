@@ -18,7 +18,7 @@ bool MainWindow::isEmpty(QString &text)
 {
     if (text.isEmpty())
     {
-        this->_page_log->insertHtml(
+        this->_page_password->insertHtml(
                     "<center>"
                         "<b>"
                             "<font face=\"JetBrains Mono\" size=\"4\" color=\"red\">"
@@ -36,16 +36,16 @@ bool MainWindow::isEmpty(QString &text)
 MainWindow::MainWindow(QWidget *parent)
     : QDialog(parent)
 { 
-    //init main window
+    //初始化主窗口
     this->resize(800,600);
     this->setWindowTitle("Encipherment");
     
-    //init text windows
+    //初始化文本窗口
     this->_page_text = new QTextEdit();
     this->_page_password = new QTextEdit();
     this->_page_log = new QTextEdit();
     
-    //init buttons
+    //初始化按钮
     //_button_MD5
     this->_button_MD5 = new QPushButton("MD5", this);
     this->_button_MD5->setFont(QFont("JetBrains Mono", 18, QFont::Black, true));
@@ -62,8 +62,8 @@ MainWindow::MainWindow(QWidget *parent)
     //this->_button_AES = new QPushButton("AES", this);
     //this->_button_AES->setFont(QFont("JetBrains Mono", 18, QFont::Black, true));
     //_button_RSA
-    this->_button_RSA = new QPushButton("RSA", this);
-    this->_button_RSA->setFont(QFont("JetBrains Mono", 18, QFont::Black, true));
+    //this->_button_RSA = new QPushButton("RSA", this);
+    //this->_button_RSA->setFont(QFont("JetBrains Mono", 18, QFont::Black, true));
     //_button_close
     this->_button_close = new QPushButton("Close", this);
     this->_button_close->setFont(QFont("JetBrains Mono", 18, QFont::Black, true));
@@ -74,8 +74,9 @@ MainWindow::MainWindow(QWidget *parent)
     topButtonLayout->addWidget(this->_button_SHA);
     topButtonLayout->addWidget(this->_button_DES_encode);
     //topButtonLayout->addWidget(this->_button_AES);
-    topButtonLayout->addWidget(this->_button_RSA);
+    //topButtonLayout->addWidget(this->_button_RSA);
     
+    //增加第二行按钮
     //QHBoxLayout *topButtonLayout2 = new QHBoxLayout();
     //topButtonLayout2->addWidget(this->_button_DES_encode);
     //topButtonLayout2->addWidget(this->_button_DES_decode);
@@ -109,21 +110,21 @@ MainWindow::MainWindow(QWidget *parent)
     mainLayout->addWidget(this->_page_log);
     setLayout(mainLayout);
     
-    //page init
+    //文本窗口初始化，设置占位符
     this->_page_text->setPlaceholderText("输入明文");
     this->_page_password->setPlaceholderText("打印密码");
-    this->_page_password->setReadOnly(true);
+    this->_page_password->setReadOnly(true);            //设置输出窗口为只读
     this->_page_log->setPlaceholderText("程序log");
-    this->_page_log->setReadOnly(true);
+    this->_page_log->setReadOnly(true);                 //设置log窗口为只读
     
-    //connect
+    //连接信号与槽
     //close the program
     connect(this->_button_MD5, QPushButton::clicked, this, this->onMD5);
     connect(this->_button_SHA, QPushButton::clicked, this, this->onSHA);
     connect(this->_button_DES_encode, QPushButton::clicked, this, this->onDES_encode);
     //connect(this->_button_DES_decode, QPushButton::clicked, this, this->onDES_decode);
     //connect(this->_button_AES, QPushButton::clicked, this, this->onAES);
-    connect(this->_button_RSA, QPushButton::clicked, this, this->onRSA);
+    //connect(this->_button_RSA, QPushButton::clicked, this, this->onRSA);
     //move the cursor to the end of text
     connect(this->_page_log, SIGNAL(textChanged()),this, SLOT(onLogTextChanged()));
     //connect close
@@ -141,24 +142,51 @@ void MainWindow::onMD5()
                 "<center>"
                     "<b>"
                         "<font face=\"JetBrains Mono\" size=\"4\" color=\"blue\">"
-                            "<br>---------- SLOT onMD5 ----------<br>"
+                            "<br>---------- SLOT onMD5 ----------"
                         "</font>"
                     "</b>"
                 "</center>"
                 );
     QString text = this->_page_text->toPlainText();
-    if(MainWindow::isEmpty(text)) { return; }
+    //protection:防止在没有任何输入的情况下点击按钮
+    if(MainWindow::isEmpty(text)) 
+    {
+        this->_page_log->insertHtml(
+                    "<center>"
+                        "<b>"
+                            "<font face=\"JetBrains Mono\" size=\"4\" color=\"red\">"
+                                "<br>NO INPUT"
+                            "</font>"
+                        "</b>"
+                    "</center>"
+                    );
+        slotEnd();
+        return; 
+    }
     
     static ZhouPengfei::my_md5 m;
     //将text从QString转换为char*,传给接口函数
     m.MD5(text.toLocal8Bit());
     this->_page_log->setTextColor(QColorConstants::Black);
-    this->_page_log->insertPlainText(QString("Your digest: "));
+    //输出结果
+    this->_page_password->insertHtml(
+                    "<b>"
+                        "<font face=\"JetBrains Mono\" size=\"4\" color=\"black\">"
+                            "Your digest:"
+                        "</font>"
+                    "</b>"
+                );
+    this->_page_password->insertHtml(
+                        "<font face=\"JetBrains Mono\" size=\"4\" color=\"black\">"
+                            "<br>"
+                        "</font>"
+                );
     for(int i = 0; i <= 3; i++)
     {
-        this->_page_log->insertPlainText(QString::number(m.get_lGroup()[i],16).toUpper());
+        this->_page_password->insertPlainText(QString::number(m.get_lGroup()[i],16).toUpper());
     }
     this->_page_log->insertPlainText("\n");
+    this->_page_log->insertPlainText("onMD5 return");
     this->slotEnd();
 }
 
@@ -175,11 +203,25 @@ void MainWindow::onSHA()
                 "</center>"
                 );
     
+    //protection
     QString text = this->_page_text->toPlainText();
-    if(MainWindow::isEmpty(text)) { return; }
-    if(text.length() >= 1000) 
+    if(MainWindow::isEmpty(text)) 
     {
         this->_page_log->insertHtml(
+                    "<center>"
+                        "<b>"
+                            "<font face=\"JetBrains Mono\" size=\"4\" color=\"red\">"
+                                "NO INPUT"
+                            "</font>"
+                        "</b>"
+                    "</center>"
+                    );
+        slotEnd();
+        return; 
+    }
+    if(text.length() >= 1000) 
+    {
+        this->_page_password->insertHtml(
                     "<center>"
                         "<b>"
                             "<font face=\"JetBrains Mono\" size=\"4\" color=\"red\">"
@@ -188,14 +230,37 @@ void MainWindow::onSHA()
                         "</b>"
                     "</center>"
                     );
+        this->_page_log->insertHtml(
+                    "<center>"
+                        "<b>"
+                            "<font face=\"JetBrains Mono\" size=\"4\" color=\"black\">"
+                                "Input is too long, return<br>"
+                            "</font>"
+                        "</b>"
+                    "</center>"
+                    );
+        slotEnd();
         return;
     }
     
     XvJianchao::PAD((unsigned char*)text.toLocal8Bit().toUpper().data());
     XvJianchao::M_D = XvJianchao::sha256.DEAL(XvJianchao::M);
+    this->_page_password->setTextColor(QColorConstants::Black);
+    this->_page_password->insertHtml(
+                    "<b>"
+                        "<font face=\"JetBrains Mono\" size=\"4\" color=\"black\">"
+                            "Your digest:"
+                        "</font>"
+                    "</b>"
+                );
+    this->_page_password->insertHtml(
+                        "<font face=\"JetBrains Mono\" size=\"4\" color=\"black\">"
+                            "<br>"
+                        "</font>"
+                );
+    for(int i = 0; i < 8; i++) { this->_page_password->insertPlainText(QString::number(XvJianchao::M_D.H[i]).toUpper()); }
     this->_page_log->setTextColor(QColorConstants::Black);
-    this->_page_log->insertPlainText("Your Digest:");
-    for(int i = 0; i < 8; i++) { this->_page_log->insertPlainText(QString::number(XvJianchao::M_D.H[i]).toUpper()); }
+    this->_page_log->insertPlainText("onSHA return");
     this->slotEnd();
 }
 
@@ -210,16 +275,32 @@ void MainWindow::onDES_encode()
                             "<br>---------- SLOT onDES ----------<br>"
                         "</font>"
                         "<font face=\"JetBrains Mono\" size=\"4\" color=\"black\">"
-                            "Input your plaintext and secret key in two lines<br>"
+                            "Input your plaintext and secret key in two lines"
                         "</font>"
                     "</b>"
                 "</center>"
                 );
+    //protection
     QString text = this->_page_text->toPlainText();
-    if(MainWindow::isEmpty(text)) { return; }
+    if(MainWindow::isEmpty(text)) 
+    {
+        this->_page_log->insertHtml(
+                    "<center>"
+                        "<b>"
+                            "<font face=\"JetBrains Mono\" size=\"4\" color=\"red\">"
+                                "<br>NO INPUT"
+                            "</font>"
+                        "</b>"
+                    "</center>"
+                    );
+        slotEnd();
+        return; 
+    }
     
+    //获取文本框中的内容
     QStringList text_split = text.split('\n');
-    if(text_split.length() < 2 || text_split.length() > 2)
+    //protection: 输入内容不足两行或超过两行
+    if(text_split.length() != 2)
     {
         this->_page_password->insertHtml(
                     "<center>"
@@ -232,36 +313,47 @@ void MainWindow::onDES_encode()
                     );
         return;
     }
+    //字符串分割，将第一行保存为明文，第二行保存为密钥
     QString text_plain = text_split[0];
     QString text_secret = text_split[1]; 
     
-    size_t length_temp = 0;
-    bitset<64> cipher[1024];
-    size_t length_cipher = 0;
+    size_t length_temp = 0;                 //遍历text_plain
+    bitset<64> cipher[1024];                //存储密文，每个元素只存储64bit
+    size_t length_cipher = 0;               //记录密文元素个数
     
+    //打印加密结果
     this->_page_password->insertPlainText("After encoding, the result is:\n");
     while(length_temp < text_plain.size())
     {
         QString temp;
+        //保存8个字符到temp中
         for(int i = 0; i < 8 && length_temp < text_plain.size(); i++)
         {
             //qDebug() << length_temp;
             temp.push_back(text_plain[length_temp++]);
         }
+        //将temp转换为bitset，然后保存给plain
         bitset<64> plain = charToBitset(G2U(temp.toUtf8().data()));
+        //加密plain，保存到cipher中
         cipher[length_cipher] = encrypt(plain);
+        //输入这个元素
         this->_page_password->insertPlainText(bitsetToQString(cipher[length_cipher]));
+        //cipher元素个数+1
         length_cipher++;
     }
     this->_page_password->insertPlainText("\n");
     
+    //打印解密结果
     this->_page_password->insertPlainText("After decoding, the result is:\n");
+    //为了防止最后一个字符串不满8个字符而输出额外的字符，计算所有字符个数
     const size_t length_outputCountMax = text_plain.size() * 8;
+    //计算当前输入的字符个数
     size_t length_outputCount = 0;
     for(int i = 0; i < length_cipher; i++)
     {            
         qDebug() << "length_outputCount: " << length_outputCount;
         qDebug() << "length_outputCountMax: " << length_outputCountMax;
+        //如果到了最后一个字符串，并且字符串的原始长度不足8个字符
         if(length_outputCount + 64 > length_outputCountMax)
         {
             QString temp = bitsetToQString(decrypt(cipher[i]));
@@ -275,6 +367,7 @@ void MainWindow::onDES_encode()
                 this->_page_password->insertPlainText(temp[j]);
             }
         }
+        //正常打印
         else
         {
             this->_page_password->insertPlainText(bitsetToQString(decrypt(cipher[i])));
@@ -285,7 +378,7 @@ void MainWindow::onDES_encode()
     this->_page_password->insertPlainText("\n");
     
     //old version, only handle 8 chars
-    /************************************************************/
+    /*
     //bitset<64> plain = charToBitset(G2U(text_plain.toUtf8().data()));
     //bitset<64> cipher = encrypt(plain);
     ////DES加密
@@ -298,10 +391,12 @@ void MainWindow::onDES_encode()
     //                                      bitsetToQString(decrypt(cipher)) +
     //                                      //QString::fromStdString(decrypt(cipher).to_string()) +
     //                                      '\n');
+    */
     //打印结束虚线
     this->slotEnd();
 }
 
+//void MainWindow::onDES_decode()
 /*
 void MainWindow::onDES_decode()
 {
@@ -359,7 +454,7 @@ void MainWindow::slotEnd()
                 "<center>"
                     "<b>"
                         "<font face=\"JetBrains Mono\" size=\"4\" color=\"blue\">"
-                            "--------------------------------<br>"
+                            "<br>--------------------------------<br>"
                         "</font>"
                     "</b>"
                 "</center>"
@@ -369,6 +464,7 @@ void MainWindow::slotEnd()
 template<size_t N>
 QString MainWindow::bitsetToQString(bitset<N> bits) 
 {
+    //保护
     static_assert(N % CHAR_BIT == 0, L"bitset size must be multiple of char");
     string temp;
     for (size_t j = 0; j < N / CHAR_BIT; ++j)
@@ -383,6 +479,7 @@ QString MainWindow::bitsetToQString(bitset<N> bits)
          }
         temp.push_back(next);
     }
+    //结果为倒序，因此再次颠倒 
     QString toReturn;
     for(int i = temp.size() - 1; i >= 0 ; i--)
     {

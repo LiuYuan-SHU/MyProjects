@@ -1,6 +1,8 @@
 #ifndef _SHA_256_H
 #define _SHA_256_H
-#include<iostream>
+
+#include <iostream>
+
 using namespace std;
 typedef unsigned int UInt32;
 //Áù¸öÂß¼­º¯Êý
@@ -16,7 +18,7 @@ struct Message_Digest {
 };
 //SHA256Àà
 class SHA256
-{
+{    
 public:
     SHA256() { INIT(); };
     ~SHA256() {};

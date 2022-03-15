@@ -7,7 +7,7 @@
 using namespace std;
 using Qt::endl;
 
-#define cout qDebug()
+//#define cout qDebug()
 
 namespace XvJianchao
 {
