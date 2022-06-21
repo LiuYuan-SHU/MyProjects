@@ -1,4 +1,4 @@
-package src.crawler;
+package src.utils;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -26,7 +26,7 @@ public class Utils
             try
             {
                 //pro.load(new FileReader("E:\\刘元\\学校\\大学\\大二\\冬季学期\\JavaSE\\项目\\src\\main\\java\\src\\jdbc.properties"));
-                pro.load(new FileReader("E:\\刘元\\GitHub Repositories\\MyProjects\\2. Java\\1. Crawlers\\2. Advanced Edition\\src\\main\\java\\src\\jdbc1.properties"));
+                pro.load(new FileReader("../jdbc,properties"));
             } catch (IOException e)
             {
                 e.printStackTrace();
