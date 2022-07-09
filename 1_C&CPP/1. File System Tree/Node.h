@@ -1,6 +1,7 @@
 #ifndef _NODE_H_
 #define _NODE_H_
 
+#include "tools.h"
 #include <string>
 #include <memory>
 
@@ -42,6 +43,9 @@ public:
 	// name
 	inline void set_name(const string& name) { this->mStr_nodeName = name; }
 	inline string get_name() { return this->mStr_nodeName; }
+	// type
+	inline void set_type(const char& newType) { this->mCh_nodeType = make_cap(newType); }
+	inline char get_type() { return this->mCh_nodeType; }
 	// parent
 	inline void set_parent(const weak_ptr<Node> newParent) { this->mPtr_parent = newParent; }
 	inline weak_ptr<Node>& get_parent() { return this->mPtr_parent; }

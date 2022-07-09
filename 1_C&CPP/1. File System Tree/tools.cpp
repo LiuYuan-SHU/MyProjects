@@ -5,10 +5,18 @@
 using std::sscanf;
 using namespace liuyuan;
 
-pair<string, string> liuyuan::splitCmd(const string &cmd)
+char liuyuan::make_cap(const char& ch)
 {
-	char command[1024], pathname[1024];
-	sscanf(cmd.c_str(), "%s %s", command, pathname);
-
-	return std::make_pair(string(command), string(pathname));
+	if ('a' <= ch && ch <= 'z')
+	{
+		return ch + ('a' - 'A');
+	}
+	else if ('A' <= ch && ch <= 'Z')
+	{
+		return ch;
+	}
+	else
+	{
+		return 0;
+	}
 }

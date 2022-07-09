@@ -9,8 +9,7 @@ using std::string;
 
 namespace liuyuan
 {
-	// 命令分割
-	pair<string, string> splitCmd(const string& cmd);
+	char make_cap(const char& ch);
 }
 
 #endif
