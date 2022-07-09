@@ -3,7 +3,7 @@
 
 #include "command.h"
 #include "directory.h"
-#include "node.h"
+#include "Node.h"
 #include <memory>
 #include <string>
 

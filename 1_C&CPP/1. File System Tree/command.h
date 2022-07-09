@@ -33,6 +33,8 @@ struct Command
 
 	// Command& operator=(const Command&& tmp) { mStr_command = tmp.mStr_command; mStr_pathname = tmp.mStr_pathname; return *this; };
 
+	virtual ~Command() = default;
+
 	static pair<string, string> splitCmd(const string& cmd);
 
 	virtual void execute() {};
@@ -44,10 +46,10 @@ struct Clear : public Command
 
 	void execute() 
 	{
-#if defined(__linux__)
+#if defined(_WIN32_)
 		system("clear"); 
 #else
-		system("cls");
+		system("clear");
 #endif
 	}	
 };
