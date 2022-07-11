@@ -25,7 +25,7 @@ public:
 	// 程序运行逻辑函数
 	void printUI();
 	void getCmd();
-	inline void executeCmd() { mCmd_cmd->execute(); }
+	inline void executeCmd() { mCmd_cmd->execute(this->mDir_dir); }
 
 	inline string basename() { return mDir_dir.basename(mPtr_pwd); }
 	inline string dirname() { return mDir_dir.dirname(mPtr_pwd); }
@@ -38,6 +38,10 @@ public:
 	inline string get_dirname() { return dirname(); }
 	// basename
 	inline string get_basename() { return basename(); }
+
+	// 将pwd转到mDir_dir中的路径节点
+	// 并且根据布尔值from_root决定是否从root开始查找
+	void switch_to_node(bool from_root);
 };
 }
 

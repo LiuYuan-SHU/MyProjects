@@ -48,13 +48,14 @@ public:
 	inline char get_type() { return this->mCh_nodeType; }
 	// parent
 	inline void set_parent(const weak_ptr<Node> newParent) { this->mPtr_parent = newParent; }
-	inline weak_ptr<Node>& get_parent() { return this->mPtr_parent; }
+	inline weak_ptr<Node> get_parent() { return this->mPtr_parent; }
 	// sibling
 	inline void add_sibling(shared_ptr<Node>& newSib);
-	inline bool has_sibling(shared_ptr<Node>& sibName);
+	inline bool has_sibling(const string& sibName);
 	// child
 	inline void set_child(const shared_ptr<Node>& newChild) { this->mPtr_child = newChild; }
-	inline shared_ptr<Node>& get_child() { return this->mPtr_child; }
+	inline shared_ptr<Node> get_child(const string& childName = "");
+	inline bool has_child(const string& childName);
 };
 }
 

@@ -8,11 +8,11 @@
 using namespace liuyuan;
 using std::make_pair;
 using std::pair;
+using std::shared_ptr;
 
-std::shared_ptr<Command> liuyuan::CommandFactory::create_command(const string &line)
+shared_ptr<Command> CommandFactory::create_command(const pair<string, string>& p)
 {
-	pair<string, string> p = Command::splitCmd(line);
-	string cmd = p.first, pathname = p.second;
+	const string& cmd = p.first;
 
 	if (cmd == "clear")
 	{
@@ -28,6 +28,13 @@ std::shared_ptr<Command> liuyuan::CommandFactory::create_command(const string &l
 	}
 }
 
+shared_ptr<Command> liuyuan::CommandFactory::create_command(const string &line)
+{
+	pair<string, string> p = Command::splitCmd(line);
+
+	return create_command(p);
+}
+
 pair<string, string> liuyuan::Command::splitCmd(const string &cmd)
 {
 	char command[1024], pathname[1024];
@@ -41,4 +48,9 @@ pair<string, string> liuyuan::Command::splitCmd(const string &cmd)
 	}
 
 	return make_pair(string(command), string(pathname));
+}
+
+void liuyuan::Mkdir::execute(const Directory& dir, const shared_ptr<Node> root, shared_ptr<Node> pwd)
+{
+						
 }

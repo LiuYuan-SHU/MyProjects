@@ -15,6 +15,7 @@ struct Directory
 	string mStr_dirName, mStr_baseName;
 
 	Directory() = default;
+	Directory(const string& path);
 	Directory(const string& dirName, const string& baseName) : mStr_dirName(dirName), mStr_baseName(baseName) {} 
 
 	static string basename(shared_ptr<Node> currentNode);

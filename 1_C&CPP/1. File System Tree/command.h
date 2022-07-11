@@ -1,6 +1,8 @@
 #ifndef _COMMAND_H_
 #define _COMMAND_H_
 
+#include "Node.h"
+#include "directory.h"
 #include <cstdlib>
 #include <string>
 #include <utility>
@@ -19,6 +21,7 @@ struct Command;
 struct CommandFactory
 {
 	static shared_ptr<Command> create_command(const string& line);
+	static shared_ptr<Command> create_command(const pair<string, string>& p);
 };
 
 struct Command
@@ -37,17 +40,17 @@ struct Command
 
 	static pair<string, string> splitCmd(const string& cmd);
 
-	virtual void execute() {};
+	virtual void execute(const Directory& dir, const shared_ptr<Node> root, shared_ptr<Node> pwd) {};
 };
 
 struct Clear : public Command
 {
 	Clear(const pair<string, string>& p) : Command(p) {}
 
-	void execute() 
+	void execute(const Directory& dir, const shared_ptr<Node> root, shared_ptr<Node> pwd) 
 	{
 #if defined(_WIN32_)
-		system("clear"); 
+		system("cls"); 
 #else
 		system("clear");
 #endif
@@ -58,7 +61,14 @@ struct Exit : public Command
 {
 	Exit(const pair<string, string>& p) : Command(p) {}
 
-	void execute() { exit(0); }
+	void execute(const Directory& dir, const shared_ptr<Node> root, shared_ptr<Node> pwd) { exit(0); }
+};
+
+struct Mkdir : public Command
+{
+	Mkdir(const pair<string, string>& p) : Command(p) {}	
+
+	void execute(const Directory& dir, const shared_ptr<Node> root, shared_ptr<Node> pwd);
 };
 
 }
