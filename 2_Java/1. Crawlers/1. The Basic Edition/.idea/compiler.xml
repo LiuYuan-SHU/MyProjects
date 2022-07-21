@@ -11,6 +11,7 @@
         <module name="CrawlerForPoemsTest1" />
         <module name="CrawlerForNetMusicComments" />
         <module name="项目" />
+        <module name="1. The Basic Edition" />
       </profile>
     </annotationProcessing>
   </component>
